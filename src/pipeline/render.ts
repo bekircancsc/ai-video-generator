@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import { bundle } from "@remotion/bundler";
 import { renderMedia, selectComposition } from "@remotion/renderer";
 import { defaultProvider, generateScript, loadPayloadFile } from "../services/script-provider";
+import { attachVoiceover } from "./voiceover";
 import type { VideoPayload } from "../types/video";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -17,8 +18,13 @@ function slugify(value: string) {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80) || "video";
 }
 
-export async function renderVideo(topic: string, payloadOverride?: VideoPayload) {
-  const payload = payloadOverride ?? (await generateScript(topic));
+export async function renderVideo(
+  topic: string,
+  payloadOverride?: VideoPayload,
+  options: { audio?: boolean } = {},
+) {
+  const script = payloadOverride ?? (await generateScript(topic));
+  const payload = options.audio === false ? script : await attachVoiceover(script);
 
   const entryPoint = path.join(rootDir, "src", "Root.tsx");
   const bundleDir = path.join(rootDir, ".cache", "remotion");
@@ -77,24 +83,25 @@ export function parseArgs(argv: string[]) {
 
   const payloadFile = flagValue("--payload");
   const topicFlag = flagValue("--topic");
-  const consumed = new Set([topicFlag, payloadFile, "--topic", "--payload", "--"]);
+  const consumed = new Set([topicFlag, payloadFile, "--topic", "--payload", "--no-audio", "--"]);
   const positional = argv.filter((arg) => !consumed.has(arg)).join(" ").trim();
 
   return {
     payloadFile,
     topic: topicFlag ?? positional,
+    audio: !argv.includes("--no-audio"),
   };
 }
 
 if (isDirectRun) {
   const run = async () => {
-    const { topic, payloadFile } = parseArgs(process.argv.slice(2));
+    const { topic, payloadFile, audio } = parseArgs(process.argv.slice(2));
 
     if (payloadFile) {
       const payload = await loadPayloadFile(payloadFile);
       const name = topic || payload.title;
       console.log(`Rendering payload from ${payloadFile}`);
-      const result = await renderVideo(name, payload);
+      const result = await renderVideo(name, payload, { audio });
       console.log(`Render complete: ${result.outputLocation}`);
       return;
     }
@@ -105,7 +112,7 @@ if (isDirectRun) {
 
     const provider = process.env.SCRIPT_PROVIDER || defaultProvider;
     console.log(`Generating video for topic: ${topic} (provider: ${provider})`);
-    const result = await renderVideo(topic);
+    const result = await renderVideo(topic, undefined, { audio });
     console.log(`Render complete: ${result.outputLocation}`);
   };
 
