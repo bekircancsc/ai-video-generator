@@ -7,6 +7,7 @@
       "id": "scene-1",
       "text": "AI just changed the rules",
       "subtext": "What took a studio a week now takes one prompt.",
+      "narration": "Artificial intelligence just rewrote the rules. What took a studio a week now takes one prompt.",
       "durationInFrames": 100,
       "themeColor": "#7c3aed",
       "keywords": ["AI", "speed", "creation"]
@@ -15,6 +16,7 @@
       "id": "scene-2",
       "text": "The gap is closing fast",
       "subtext": "Tools that were research demos last year now ship daily.",
+      "narration": "The gap is closing fast. Tools that were research demos last year are shipping every single day.",
       "durationInFrames": 100,
       "themeColor": "#22c55e",
       "keywords": ["tools", "shipping", "pace"]
@@ -23,6 +25,7 @@
       "id": "scene-3",
       "text": "Start before it is obvious",
       "subtext": "The advantage goes to whoever builds first.",
+      "narration": "Start before it is obvious. The advantage goes to whoever builds first.",
       "durationInFrames": 100,
       "themeColor": "#38bdf8",
       "keywords": ["build", "advantage", "now"]

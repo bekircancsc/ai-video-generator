@@ -9,6 +9,7 @@ const mockPayload = {
       id: "scene-1",
       text: "Static render check",
       subtext: "Validating scene timing and output generation.",
+      narration: "This is the first scene of the offline render smoke test.",
       durationInFrames: 60,
       themeColor: "#7c3aed",
       keywords: ["render", "validation", "AI"],
@@ -17,6 +18,7 @@ const mockPayload = {
       id: "scene-2",
       text: "Everything is in sync",
       subtext: "Frame cadence and transitions are working as expected.",
+      narration: "Frame cadence and transitions are being checked here.",
       durationInFrames: 60,
       themeColor: "#22c55e",
       keywords: ["sync", "frame", "check"],
@@ -25,6 +27,7 @@ const mockPayload = {
       id: "scene-3",
       text: "Output ready",
       subtext: "The final video asset is prepared for review.",
+      narration: "The final asset is ready for review.",
       durationInFrames: 60,
       themeColor: "#38bdf8",
       keywords: ["output", "review", "ready"],
@@ -34,7 +37,7 @@ const mockPayload = {
 
 const run = async () => {
   console.log("Running offline render smoke test...");
-  const result = await renderVideo("Smoke test", mockPayload);
+  const result = await renderVideo("Smoke test", mockPayload, { audio: false });
   console.log(`Smoke test complete: ${result.outputLocation}`);
 };
 

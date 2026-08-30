@@ -1,6 +1,7 @@
 import React from "react";
-import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Audio, Sequence, interpolate, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { AnimatedText } from "./AnimatedText";
+import { LEAD_IN_SECONDS } from "../services/timing";
 import type { VideoScene } from "../types/video";
 
 type SceneProps = {
@@ -10,6 +11,8 @@ type SceneProps = {
 export const Scene: React.FC<SceneProps> = ({ scene }) => {
   const frame = useCurrentFrame();
   const bgGlow = interpolate(frame, [0, scene.durationInFrames], [0.2, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const { fps } = useVideoConfig();
+  const leadInFrames = Math.round(LEAD_IN_SECONDS * fps);
 
   return (
     <AbsoluteFill
@@ -18,6 +21,12 @@ export const Scene: React.FC<SceneProps> = ({ scene }) => {
         overflow: "hidden",
       }}
     >
+      {scene.audioSrc ? (
+        <Sequence from={leadInFrames}>
+          <Audio src={staticFile(scene.audioSrc)} />
+        </Sequence>
+      ) : null}
+
       <div
         style={{
           position: "absolute",
