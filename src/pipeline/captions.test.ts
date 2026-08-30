@@ -1,11 +1,23 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { transcriptPathFor } from "./captions";
+import { parseCachedTranscript } from "./captions";
 
-test("a transcript sits beside its clip", () => {
-  assert.equal(transcriptPathFor("audio/3f2a1b0c.wav"), "audio/3f2a1b0c.json");
+test("accepts a valid non-empty array of caption words", () => {
+  const words = [{ word: "hello", start: 0, end: 0.3 }];
+  assert.deepEqual(parseCachedTranscript(words), words);
 });
 
-test("the extension match is case insensitive", () => {
-  assert.equal(transcriptPathFor("audio/3f2a1b0c.WAV"), "audio/3f2a1b0c.json");
+test("rejects an empty array as a cache miss, not empty captions", () => {
+  assert.equal(parseCachedTranscript([]), undefined);
+});
+
+test("rejects a non-array payload", () => {
+  assert.equal(parseCachedTranscript({}), undefined);
+  assert.equal(parseCachedTranscript("not an array"), undefined);
+  assert.equal(parseCachedTranscript(null), undefined);
+});
+
+test("rejects an array containing a malformed entry", () => {
+  assert.equal(parseCachedTranscript([{ foo: 1 }]), undefined);
+  assert.equal(parseCachedTranscript([{ word: "hi", start: 0, end: 0.2 }, { word: "there" }]), undefined);
 });

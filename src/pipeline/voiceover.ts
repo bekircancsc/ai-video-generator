@@ -1,20 +1,19 @@
-import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { getWavDurationSeconds } from "../services/audio-duration";
+import { clipPathFor, narrationCacheKey } from "../services/clip-paths";
 import { computeSceneFrames } from "../services/timing";
 import { resolveTtsConfig, synthesizeSpeech } from "../services/tts";
 import type { VideoPayload } from "../types/video";
 
+// Re-exported for callers (and existing tests) that import the cache-key
+// helper from here; the convention itself now lives in services/clip-paths.
+export { narrationCacheKey };
+
 const __filename = fileURLToPath(import.meta.url);
 const rootDir = path.resolve(path.dirname(__filename), "..", "..");
-const audioDir = path.join(rootDir, "public", "audio");
-
-/** Identifies a clip by its content, so unchanged narration is never re-synthesized. */
-export function narrationCacheKey(narration: string, voice: string, model: string): string {
-  return crypto.createHash("sha256").update(`${narration} ${voice} ${model}`).digest("hex").slice(0, 16);
-}
+const publicDir = path.join(rootDir, "public");
 
 async function readCached(file: string) {
   try {
@@ -30,7 +29,7 @@ async function readCached(file: string) {
  */
 export async function attachVoiceover(payload: VideoPayload): Promise<VideoPayload> {
   const { voice, model } = resolveTtsConfig();
-  await fs.mkdir(audioDir, { recursive: true });
+  await fs.mkdir(path.join(publicDir, "audio"), { recursive: true });
 
   const scenes = [];
 
@@ -44,7 +43,8 @@ export async function attachVoiceover(payload: VideoPayload): Promise<VideoPaylo
     }
 
     const key = narrationCacheKey(narration, voice, model);
-    const file = path.join(audioDir, `${key}.wav`);
+    const relPath = clipPathFor(key);
+    const file = path.join(publicDir, relPath);
 
     const cached = await readCached(file);
     let audio: Buffer;
@@ -67,7 +67,7 @@ export async function attachVoiceover(payload: VideoPayload): Promise<VideoPaylo
       ...scene,
       durationInFrames,
       // staticFile() resolves against public/, so that prefix is dropped here.
-      audioSrc: `audio/${key}.wav`,
+      audioSrc: relPath,
     });
   }
 

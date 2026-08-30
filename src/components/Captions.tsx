@@ -22,6 +22,8 @@ export const Captions: React.FC<CaptionsProps> = ({ words, themeColor }) => {
   // words never blank the caption out.
   const activeIndex = groups.findIndex((group, index) => {
     const next = groups[index + 1];
+    // The last group has no upper bound here by design: it holds the screen
+    // until the parent <Sequence durationInFrames> in VideoRoot.tsx clips it.
     return frame >= toFrame(group.start) && (!next || frame < toFrame(next.start));
   });
 

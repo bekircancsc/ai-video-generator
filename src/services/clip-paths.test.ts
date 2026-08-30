@@ -1,0 +1,41 @@
+import assert from "node:assert/strict";
+import { test } from "node:test";
+import { clipPathFor, narrationCacheKey, transcriptPathFor } from "./clip-paths";
+
+test("cache key is stable for identical input", () => {
+  const first = narrationCacheKey("hello there", "daniel", "orpheus");
+  const second = narrationCacheKey("hello there", "daniel", "orpheus");
+  assert.equal(first, second);
+  assert.match(first, /^[0-9a-f]{16}$/);
+});
+
+test("clip path sits under audio/ with a .wav extension", () => {
+  assert.equal(clipPathFor("3f2a1b0c9d8e7f60"), "audio/3f2a1b0c9d8e7f60.wav");
+});
+
+test("a transcript sits beside its clip", () => {
+  assert.equal(transcriptPathFor("audio/3f2a1b0c.wav", "whisper-large-v3-turbo"), "audio/3f2a1b0c.whisper-large-v3-turbo.json");
+});
+
+test("the extension match is case insensitive", () => {
+  assert.equal(transcriptPathFor("audio/3f2a1b0c.WAV", "whisper-large-v3-turbo"), "audio/3f2a1b0c.whisper-large-v3-turbo.json");
+});
+
+test("a slash in the model id is sanitised out of the filename", () => {
+  const result = transcriptPathFor("audio/3f2a1b0c.wav", "openai/whisper-1");
+  assert.equal(result, "audio/3f2a1b0c.openai-whisper-1.json");
+  assert.doesNotMatch(result.split("/").slice(1).join("/"), /\//);
+});
+
+test("two different transcription models produce two different transcript paths for the same clip", () => {
+  const a = transcriptPathFor("audio/3f2a1b0c.wav", "whisper-large-v3-turbo");
+  const b = transcriptPathFor("audio/3f2a1b0c.wav", "whisper-large-v3");
+  assert.notEqual(a, b);
+});
+
+test("refuses a path that would collide with the audio clip", () => {
+  // A clip path that doesn't end in .wav can't be turned into a distinct
+  // transcript path by the .wav -> .json replacement, so this must throw
+  // rather than silently return the same path (which would overwrite audio).
+  assert.throws(() => transcriptPathFor("audio/3f2a1b0c.raw", "whisper-large-v3-turbo"), /same path/);
+});
