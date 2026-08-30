@@ -92,10 +92,14 @@ iteration fast and stays off the quota. `public/audio/` is gitignored.
   video; producing one is an explicit choice via `--no-audio`.
 - An empty `narration` leaves that scene silent and keeps the model's own
   `durationInFrames`.
+- `--no-audio` skips synthesis entirely: no network calls, no `audioSrc`, and
+  every scene keeps the `durationInFrames` the model produced.
 
 ## Schema changes
 
-`VideoScene` gains `narration: string` and `audioSrc?: string`. The prompt gains
+`VideoScene` gains `narration: string` and `audioSrc?: string`. `audioSrc` holds
+a path relative to `public/` (for example `audio/3f2a....wav`) because that is
+what `staticFile()` expects. The prompt gains
 an instruction to write on-screen text for the eye and narration for the ear.
 `scripts/example-payload.json` and `src/pipeline/test-render.ts` are updated to
 carry narration.
