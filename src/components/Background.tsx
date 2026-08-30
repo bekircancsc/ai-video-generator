@@ -42,11 +42,11 @@ export const Background: React.FC<BackgroundProps> = ({ themeColor, sceneId, dur
   return (
     <AbsoluteFill style={{ backgroundColor: BASE_COLOR, overflow: "hidden" }}>
       {HUE_OFFSETS.map((offset, index) => {
-        const startX = 20 + seededUnit(seed, index * 4) * 60;
-        const startY = 15 + seededUnit(seed, index * 4 + 1) * 70;
+        const startX = 8 + seededUnit(seed, index * 4) * 84;
+        const startY = 8 + seededUnit(seed, index * 4 + 1) * 84;
         const driftX = (seededUnit(seed, index * 4 + 2) - 0.5) * 34;
         const driftY = (seededUnit(seed, index * 4 + 3) - 0.5) * 34;
-        const size = Math.max(width, height) * (0.85 + index * 0.14);
+        const size = Math.max(width, height) * (0.36 + index * 0.05);
 
         return (
           <div
@@ -62,8 +62,8 @@ export const Background: React.FC<BackgroundProps> = ({ themeColor, sceneId, dur
               borderRadius: "50%",
               // The gradient's own falloff is what makes the cloud soft. A CSS
               // blur would look the same and cost far more per frame.
-              background: `radial-gradient(circle, ${rotateHue(themeColor, offset)} 0%, rgba(3, 7, 18, 0) 70%)`,
-              opacity: 0.6 - index * 0.1,
+              background: `radial-gradient(circle, ${rotateHue(themeColor, offset)} 0%, rgba(3, 7, 18, 0) 52%)`,
+              opacity: 0.44 - index * 0.07,
               transform: `scale(${1 + progress * 0.16})`,
             }}
           />
