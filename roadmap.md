@@ -100,3 +100,14 @@ _Superseded by Phase 7: Gemini is now one provider among several and no longer t
 - [x] Vary the clouds per scene from a hash of the scene id, with no `Math.random`.
 - [x] Normalise the drift to scene duration so short and long scenes feel alike.
 - [x] Keep the grain and vignette that hold text legible.
+
+---
+
+### Phase 11: Niche Briefs and Variable Scene Count
+- [x] Replace the bare topic string with a `ScriptBrief` across the generation seam.
+- [x] Add `--niche`, alone (the model picks the topic) or alongside `--topic` (audience and tone).
+- [x] Add `--scenes <n>`, validated to 3-8 before any model call.
+- [x] Turn the fixed three-scene JSON schema into a builder that pins an exact count or spans 3-8.
+- [x] Enforce the count again after validation so the repair retry can correct a miscount.
+- [x] Keep hand-written `--payload` files exempt from the range.
+- [x] Extract `parseArgs` into `src/services/cli-args.ts` and cover it with tests.
