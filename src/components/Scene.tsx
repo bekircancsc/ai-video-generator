@@ -1,7 +1,8 @@
 import React from "react";
-import { AbsoluteFill, Audio, Sequence, interpolate, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Audio, Sequence, staticFile, useVideoConfig } from "remotion";
 import { AnimatedText } from "./AnimatedText";
 import { Captions } from "./Captions";
+import { Background } from "./Background";
 import { LEAD_IN_SECONDS } from "../services/timing";
 import type { VideoScene } from "../types/video";
 
@@ -10,34 +11,22 @@ type SceneProps = {
 };
 
 export const Scene: React.FC<SceneProps> = ({ scene }) => {
-  const frame = useCurrentFrame();
-  const bgGlow = interpolate(frame, [0, scene.durationInFrames], [0.2, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const { fps } = useVideoConfig();
   const leadInFrames = Math.round(LEAD_IN_SECONDS * fps);
   const hasCaptions = Boolean(scene.captions && scene.captions.length > 0);
 
   return (
-    <AbsoluteFill
-      style={{
-        background: `radial-gradient(circle at center, ${scene.themeColor} 0%, #0a0d1a 48%, #030712 100%)`,
-        overflow: "hidden",
-      }}
-    >
+    <AbsoluteFill style={{ backgroundColor: "#030712", overflow: "hidden" }}>
+      <Background
+        themeColor={scene.themeColor}
+        sceneId={scene.id}
+        durationInFrames={scene.durationInFrames}
+      />
       {scene.audioSrc ? (
         <Sequence from={leadInFrames}>
           <Audio src={staticFile(scene.audioSrc)} />
         </Sequence>
       ) : null}
-
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: `radial-gradient(circle at center, ${scene.themeColor}${Math.round(bgGlow * 255)
-            .toString(16)
-            .padStart(2, "0")} 0%, rgba(7, 10, 18, 0.0) 52%, rgba(2, 4, 9, 0.8) 100%)`,
-        }}
-      />
 
       <div
         style={{
