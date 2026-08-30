@@ -65,3 +65,13 @@ Build an autonomous Node.js/TypeScript pipeline that takes a user topic, transfo
 - [x] Add a repair retry that feeds schema validation errors back to the model.
 - [x] Default Groq to `openai/gpt-oss-120b`; the previous `llama-3.3-70b-versatile` was retired from the catalogue.
 - [x] Verify output video specifications (resolution, frame rate, asset sync, render duration) for the offline smoke render.
+
+---
+
+### Phase 8: Voiceover Audio
+- [x] Add `narration` to the scene schema and the generation prompt.
+- [x] Synthesize per-scene speech through Groq, reusing `LLM_API_KEY`.
+- [x] Measure each clip from its WAV header with no added dependency.
+- [x] Rewrite `durationInFrames` from measured speech length.
+- [x] Cache clips by content hash so unchanged narration is never re-synthesized.
+- [x] Support `--no-audio` for offline, network-free renders.
