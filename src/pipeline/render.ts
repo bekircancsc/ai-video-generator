@@ -9,6 +9,7 @@ import { parseArgs } from "../services/cli-args";
 import { attachVoiceover } from "./voiceover";
 import { attachCaptions } from "./captions";
 import type { VideoPayload } from "../types/video";
+import type { ScriptBrief } from "../services/script-schema";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,11 +22,11 @@ function slugify(value: string) {
 }
 
 export async function renderVideo(
-  topic: string,
+  brief: ScriptBrief,
   payloadOverride?: VideoPayload,
   options: { audio?: boolean } = {},
 ) {
-  const script = payloadOverride ?? (await generateScript(topic));
+  const script = payloadOverride ?? (await generateScript(brief));
   const payload =
     options.audio === false ? script : await attachCaptions(await attachVoiceover(script));
 
@@ -46,7 +47,7 @@ export async function renderVideo(
     inputProps: { video: payload },
   });
 
-  const outputLocation = path.join(outDir, `${slugify(topic)}.mp4`);
+  const outputLocation = path.join(outDir, `${slugify(brief.topic || payload.title)}.mp4`);
 
   await renderMedia({
     serveUrl,
@@ -68,24 +69,29 @@ export async function renderVideo(
 
 if (isDirectRun) {
   const run = async () => {
-    const { topic, payloadFile, audio } = parseArgs(process.argv.slice(2));
+    const { topic, niche, sceneCount, payloadFile, audio } = parseArgs(process.argv.slice(2));
+    const brief: ScriptBrief = { topic, niche, sceneCount };
 
     if (payloadFile) {
       const payload = await loadPayloadFile(payloadFile);
-      const name = topic || payload.title;
       console.log(`Rendering payload from ${payloadFile}`);
-      const result = await renderVideo(name, payload, { audio });
+      const result = await renderVideo({ ...brief, topic: topic || payload.title }, payload, { audio });
       console.log(`Render complete: ${result.outputLocation}`);
       return;
     }
 
-    if (!topic) {
-      throw new Error("A topic must be provided via --topic, or a script via --payload <file.json>");
+    if (!topic && !niche) {
+      throw new Error(
+        "A topic or a niche must be provided via --topic or --niche, or a script via --payload <file.json>",
+      );
     }
 
     const provider = process.env.SCRIPT_PROVIDER || defaultProvider;
-    console.log(`Generating video for topic: ${topic} (provider: ${provider})`);
-    const result = await renderVideo(topic, undefined, { audio });
+    const subject = topic ? `topic: ${topic}` : `niche: ${niche}`;
+    const scenes = sceneCount ? `, ${sceneCount} scenes` : "";
+    console.log(`Generating video for ${subject} (provider: ${provider}${scenes})`);
+
+    const result = await renderVideo(brief, undefined, { audio });
     console.log(`Render complete: ${result.outputLocation}`);
   };
 

@@ -37,7 +37,7 @@ const mockPayload = {
 
 const run = async () => {
   console.log("Running offline render smoke test...");
-  const result = await renderVideo("Smoke test", mockPayload, { audio: false });
+  const result = await renderVideo({ topic: "Smoke test" }, mockPayload, { audio: false });
   console.log(`Smoke test complete: ${result.outputLocation}`);
 };
 
