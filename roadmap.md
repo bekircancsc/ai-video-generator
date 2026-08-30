@@ -75,3 +75,12 @@ Build an autonomous Node.js/TypeScript pipeline that takes a user topic, transfo
 - [x] Rewrite `durationInFrames` from measured speech length.
 - [x] Cache clips by content hash so unchanged narration is never re-synthesized.
 - [x] Support `--no-audio` for offline, network-free renders.
+
+---
+
+### Phase 9: Spoken-Word Captions
+- [x] Transcribe each narration clip through Groq Whisper, reusing `LLM_API_KEY`.
+- [x] Store word timings on the scene, relative to its audio clip.
+- [x] Group words into readable chunks and highlight the spoken word.
+- [x] Cache transcripts beside their clips so a rerun makes no network call.
+- [x] Hide the model-written subtitle when captions are present.

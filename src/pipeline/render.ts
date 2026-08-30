@@ -6,6 +6,7 @@ import { bundle } from "@remotion/bundler";
 import { renderMedia, selectComposition } from "@remotion/renderer";
 import { defaultProvider, generateScript, loadPayloadFile } from "../services/script-provider";
 import { attachVoiceover } from "./voiceover";
+import { attachCaptions } from "./captions";
 import type { VideoPayload } from "../types/video";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -24,7 +25,8 @@ export async function renderVideo(
   options: { audio?: boolean } = {},
 ) {
   const script = payloadOverride ?? (await generateScript(topic));
-  const payload = options.audio === false ? script : await attachVoiceover(script);
+  const payload =
+    options.audio === false ? script : await attachCaptions(await attachVoiceover(script));
 
   const entryPoint = path.join(rootDir, "src", "Root.tsx");
   const bundleDir = path.join(rootDir, ".cache", "remotion");
