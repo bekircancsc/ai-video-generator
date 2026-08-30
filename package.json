@@ -1,0 +1,38 @@
+{
+  "name": "ai-video-generator",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "remotion preview src/Root.tsx",
+    "build": "tsc --noEmit",
+    "render": "node --import tsx src/pipeline/render.ts",
+    "test:render": "node --import tsx src/pipeline/test-render.ts",
+    "start": "node run.mjs"
+  },
+  "keywords": [
+    "remotion",
+    "video",
+    "gemini",
+    "ai"
+  ],
+  "author": "",
+  "license": "ISC",
+  "description": "AI-powered video generation pipeline using Gemini and Remotion",
+  "dependencies": {
+    "@google/genai": "^2.19.0",
+    "@remotion/bundler": "^4.0.518",
+    "@remotion/cli": "^4.0.518",
+    "@remotion/renderer": "^4.0.518",
+    "@types/node": "^26.4.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.5",
+    "dotenv": "^17.4.2",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "remotion": "^4.0.518",
+    "tsx": "^4.23.13",
+    "typescript": "^7.0.2",
+    "zod": "^4.5.4"
+  }
+}

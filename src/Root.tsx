@@ -1,0 +1,86 @@
+import React from "react";
+import { Composition, registerRoot } from "remotion";
+import { VideoRoot } from "./VideoRoot";
+import type { VideoPayload } from "./types/video";
+
+const defaultVideo: VideoPayload = {
+  title: "The Future of AI",
+  fps: 30,
+  aspectRatio: "9:16",
+  scenes: [
+    {
+      id: "scene-1",
+      text: "The Future of AI",
+      subtext: "Smarter systems, bigger ideas, faster change.",
+      durationInFrames: 90,
+      themeColor: "#7c3aed",
+      keywords: ["AI", "automation", "future"],
+    },
+    {
+      id: "scene-2",
+      text: "Ideas become tools",
+      subtext: "Creative workflows are moving from imagination to execution.",
+      durationInFrames: 90,
+      themeColor: "#22c55e",
+      keywords: ["idea", "creative", "execution"],
+    },
+    {
+      id: "scene-3",
+      text: "Human + AI",
+      subtext: "Together, we build what no single mind can do alone.",
+      durationInFrames: 90,
+      themeColor: "#38bdf8",
+      keywords: ["human", "AI", "collaboration"],
+    },
+  ],
+};
+
+const getDurationInFrames = (video: VideoPayload) => {
+  return video.scenes.reduce((total, scene) => total + scene.durationInFrames, 0);
+};
+
+const getDimensions = (aspectRatio: string) => {
+  const [widthRatio, heightRatio] = aspectRatio.split(":").map(Number);
+
+  if (!widthRatio || !heightRatio) {
+    return { width: 1080, height: 1920 };
+  }
+
+  const baseHeight = 1920;
+  const width = Math.round((baseHeight * widthRatio) / heightRatio);
+
+  return {
+    width,
+    height: baseHeight,
+  };
+};
+
+export const RemotionRoot: React.FC = () => {
+  return (
+    <>
+      <Composition
+        id="AI-Video"
+        component={VideoRoot}
+        durationInFrames={getDurationInFrames(defaultVideo)}
+        fps={defaultVideo.fps}
+        width={getDimensions(defaultVideo.aspectRatio).width}
+        height={getDimensions(defaultVideo.aspectRatio).height}
+        defaultProps={{ video: defaultVideo }}
+        calculateMetadata={({ props }) => {
+          const dimensions = getDimensions(props.video.aspectRatio);
+
+          return {
+            durationInFrames: getDurationInFrames(props.video),
+            fps: props.video.fps,
+            width: dimensions.width,
+            height: dimensions.height,
+          };
+        }}
+      />
+    </>
+  );
+};
+
+registerRoot(RemotionRoot);
+
+export default RemotionRoot;

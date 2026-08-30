@@ -1,0 +1,31 @@
+{
+  "title": "The Future of AI",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "scene-1",
+      "text": "AI just changed the rules",
+      "subtext": "What took a studio a week now takes one prompt.",
+      "durationInFrames": 100,
+      "themeColor": "#7c3aed",
+      "keywords": ["AI", "speed", "creation"]
+    },
+    {
+      "id": "scene-2",
+      "text": "The gap is closing fast",
+      "subtext": "Tools that were research demos last year now ship daily.",
+      "durationInFrames": 100,
+      "themeColor": "#22c55e",
+      "keywords": ["tools", "shipping", "pace"]
+    },
+    {
+      "id": "scene-3",
+      "text": "Start before it is obvious",
+      "subtext": "The advantage goes to whoever builds first.",
+      "durationInFrames": 100,
+      "themeColor": "#38bdf8",
+      "keywords": ["build", "advantage", "now"]
+    }
+  ]
+}
