@@ -4,7 +4,7 @@ import { AnimatedText } from "./AnimatedText";
 import { Captions } from "./Captions";
 import { Background } from "./Background";
 import { LEAD_IN_SECONDS } from "../services/timing";
-import { BASE_COLOR } from "../services/palette";
+import { BASE_COLOR, withAlpha } from "../services/palette";
 import type { VideoScene } from "../types/video";
 
 type SceneProps = {
@@ -37,7 +37,7 @@ export const Scene: React.FC<SceneProps> = ({ scene }) => {
           position: "absolute",
           left: 60,
           top: 60,
-          border: `1px solid ${scene.themeColor}99`,
+          border: `1px solid ${withAlpha(scene.themeColor, 0.6)}`,
           borderRadius: 999,
           padding: "10px 16px",
           color: "white",

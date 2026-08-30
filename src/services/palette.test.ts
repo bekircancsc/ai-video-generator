@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { BASE_COLOR, HUE_OFFSETS, hexToHsl, hslToHex, rotateHue, toTransparentRgba } from "./palette";
+import { BASE_COLOR, HUE_OFFSETS, hexToHsl, hslToHex, rotateHue, toTransparentRgba, withAlpha } from "./palette";
 
 test("the base colour is the pipeline's near-black", () => {
   assert.equal(BASE_COLOR, "#030712");
@@ -51,4 +51,33 @@ test("hue rotation wraps around the colour wheel", () => {
 test("rejects a colour it cannot parse", () => {
   assert.throws(() => hexToHsl("not a colour"), /Invalid hex colour/);
   assert.throws(() => hexToHsl("#12345"), /Invalid hex colour/);
+});
+
+test("withAlpha keeps a six-digit colour byte-for-byte and appends the alpha", () => {
+  assert.equal(withAlpha("#7c3aed", 0.6), "#7c3aed99");
+  assert.equal(withAlpha("#7c3aed", 0.4), "#7c3aed66");
+});
+
+/**
+ * The scene schema permits three-digit hex. Appending an alpha pair to it
+ * directly yields a five-digit colour, which CSS rejects outright and silently
+ * drops the whole declaration.
+ */
+test("withAlpha expands three-digit hex instead of producing five digits", () => {
+  assert.equal(withAlpha("#abc", 0.6), "#aabbcc99");
+  assert.equal(withAlpha("#abc", 0.6).length - 1, 8);
+});
+
+test("withAlpha covers both ends of the alpha range", () => {
+  assert.equal(withAlpha("#7c3aed", 0), "#7c3aed00");
+  assert.equal(withAlpha("#7c3aed", 1), "#7c3aedff");
+});
+
+test("withAlpha rejects an alpha outside the unit interval", () => {
+  assert.throws(() => withAlpha("#7c3aed", 1.5), /between 0 and 1/);
+  assert.throws(() => withAlpha("#7c3aed", -0.1), /between 0 and 1/);
+});
+
+test("withAlpha rejects a colour it cannot parse", () => {
+  assert.throws(() => withAlpha("nope", 0.5), /Invalid hex colour/);
 });

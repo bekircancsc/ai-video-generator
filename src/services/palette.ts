@@ -113,3 +113,24 @@ export function toTransparentRgba(hex: string): string {
 
   return `rgba(${r}, ${g}, ${b}, 0)`;
 }
+
+/**
+ * Appends an alpha channel to a colour, as #rrggbbaa.
+ *
+ * The scene schema permits three-digit hex, so a colour cannot simply have two
+ * alpha characters concatenated onto it: "#abc" + "99" is five digits, which
+ * CSS rejects, silently dropping whatever declaration used it. Expanding the
+ * colour first is what makes the result valid for every colour the schema
+ * allows.
+ */
+export function withAlpha(hex: string, alpha: number): string {
+  if (!(alpha >= 0 && alpha <= 1)) {
+    throw new Error(`Alpha must be between 0 and 1, received ${alpha}.`);
+  }
+
+  const channel = Math.round(alpha * 255)
+    .toString(16)
+    .padStart(2, "0");
+
+  return `${normaliseHex(hex)}${channel}`;
+}
