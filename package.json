@@ -9,7 +9,7 @@
     "render": "node --import tsx src/pipeline/render.ts",
     "test:render": "node --import tsx src/pipeline/test-render.ts",
     "start": "node run.mjs",
-    "test": "node --import tsx --test src/services/audio-duration.test.ts"
+    "test": "node --import tsx --test src/services/audio-duration.test.ts src/services/timing.test.ts"
   },
   "keywords": [
     "remotion",
