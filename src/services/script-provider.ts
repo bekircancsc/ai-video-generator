@@ -2,7 +2,7 @@ import "dotenv/config";
 import fs from "node:fs/promises";
 import path from "node:path";
 import type { VideoPayload } from "../types/video";
-import { parseScriptJson } from "./script-schema";
+import { parseScriptJson, type ScriptBrief } from "./script-schema";
 import { generateWithOpenAICompatible, presets } from "./openai-compatible";
 
 export const defaultProvider = "groq";
@@ -29,7 +29,7 @@ export async function loadPayloadFile(filePath: string): Promise<VideoPayload> {
 }
 
 /** Generates a payload using whichever provider SCRIPT_PROVIDER selects. */
-export async function generateScript(topic: string): Promise<VideoPayload> {
+export async function generateScript(brief: ScriptBrief): Promise<VideoPayload> {
   const provider = (process.env.SCRIPT_PROVIDER || defaultProvider).toLowerCase();
 
   if (provider === "manual") {
@@ -40,11 +40,11 @@ export async function generateScript(topic: string): Promise<VideoPayload> {
 
   if (provider === "gemini") {
     const { generateVideoPayload } = await import("./gemini");
-    return generateVideoPayload(topic);
+    return generateVideoPayload(brief);
   }
 
   if (provider in presets) {
-    return generateWithOpenAICompatible(topic, provider);
+    return generateWithOpenAICompatible(brief, provider);
   }
 
   throw new Error(
