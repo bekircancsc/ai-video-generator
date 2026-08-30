@@ -1,5 +1,12 @@
 import { z } from "zod";
 
+export const captionWordSchema = z.object({
+  word: z.string(),
+  // Seconds, relative to the start of the scene's own audio clip.
+  start: z.number(),
+  end: z.number(),
+});
+
 export const videoSceneSchema = z.object({
   id: z.string(),
   text: z.string(),
@@ -10,6 +17,8 @@ export const videoSceneSchema = z.object({
   keywords: z.array(z.string()).default([]),
   // Written by the voiceover stage. Relative to public/, e.g. audio/3f2a.wav
   audioSrc: z.string().optional(),
+  // Written by the captions stage, timed against audioSrc.
+  captions: z.array(captionWordSchema).optional(),
 });
 
 export const videoPayloadSchema = z.object({
@@ -21,6 +30,7 @@ export const videoPayloadSchema = z.object({
 
 export type VideoScene = z.infer<typeof videoSceneSchema>;
 export type VideoPayload = z.infer<typeof videoPayloadSchema>;
+export type CaptionWord = z.infer<typeof captionWordSchema>;
 
 export type inputProps = {
   video: VideoPayload;
