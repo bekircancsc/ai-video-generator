@@ -23,3 +23,39 @@ test("a flag with no value is an error", () => {
   assert.throws(() => parseArgs(["--topic"]), /--topic requires a value/);
   assert.throws(() => parseArgs(["--topic", "--no-audio"]), /--topic requires a value/);
 });
+
+test("reads --niche", () => {
+  assert.equal(parseArgs(["--niche", "stoic philosophy"]).niche, "stoic philosophy");
+});
+
+test("niche and topic combine", () => {
+  const args = parseArgs(["--niche", "stoic philosophy", "--topic", "Amor fati"]);
+  assert.equal(args.niche, "stoic philosophy");
+  assert.equal(args.topic, "Amor fati");
+});
+
+test("a niche does not leak into the positional topic", () => {
+  assert.equal(parseArgs(["--niche", "stoic philosophy"]).topic, "");
+});
+
+test("reads --scenes as a number", () => {
+  assert.equal(parseArgs(["--topic", "x", "--scenes", "6"]).sceneCount, 6);
+});
+
+test("scene count is undefined when the flag is absent", () => {
+  assert.equal(parseArgs(["--topic", "x"]).sceneCount, undefined);
+});
+
+test("--scenes rejects anything outside 3 to 8", () => {
+  assert.throws(() => parseArgs(["--topic", "x", "--scenes", "2"]), /between 3 and 8/);
+  assert.throws(() => parseArgs(["--topic", "x", "--scenes", "9"]), /between 3 and 8/);
+});
+
+test("--scenes rejects a non-integer", () => {
+  assert.throws(() => parseArgs(["--topic", "x", "--scenes", "abc"]), /between 3 and 8/);
+  assert.throws(() => parseArgs(["--topic", "x", "--scenes", "4.5"]), /between 3 and 8/);
+});
+
+test("--scenes with no value is an error", () => {
+  assert.throws(() => parseArgs(["--topic", "x", "--scenes"]), /--scenes requires a value/);
+});
