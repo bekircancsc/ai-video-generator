@@ -56,6 +56,10 @@ export const scriptSystemPrompt =
 
 /** The opening sentences, which differ by what the brief actually names. */
 function briefLines({ topic, niche }: ScriptBrief) {
+  if (!topic && !niche) {
+    throw new Error("A script brief needs a topic or a niche");
+  }
+
   if (topic && niche) {
     return [
       `Generate a high-engagement social media video script for the topic: "${topic}".`,

@@ -24,6 +24,10 @@ function payloadJson(count: number) {
   return JSON.stringify({ title: "A Title", fps: 30, aspectRatio: "9:16", scenes });
 }
 
+test("an empty brief throws", () => {
+  assert.throws(() => buildScriptPrompt({}), /topic or a niche/);
+});
+
 test("a topic-only brief names the topic", () => {
   const prompt = buildScriptPrompt({ topic: "Amor fati" });
   assert.match(prompt, /Amor fati/);
