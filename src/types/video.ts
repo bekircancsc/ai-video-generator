@@ -4,9 +4,12 @@ export const videoSceneSchema = z.object({
   id: z.string(),
   text: z.string(),
   subtext: z.string().default(""),
+  narration: z.string().default(""),
   durationInFrames: z.number().int().positive(),
   themeColor: z.string().regex(/^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/).default("#6d5df6"),
   keywords: z.array(z.string()).default([]),
+  // Written by the voiceover stage. Relative to public/, e.g. audio/3f2a.wav
+  audioSrc: z.string().optional(),
 });
 
 export const videoPayloadSchema = z.object({
