@@ -4,6 +4,7 @@ import { AnimatedText } from "./AnimatedText";
 import { Captions } from "./Captions";
 import { Background } from "./Background";
 import { LEAD_IN_SECONDS } from "../services/timing";
+import { BASE_COLOR } from "../services/palette";
 import type { VideoScene } from "../types/video";
 
 type SceneProps = {
@@ -16,7 +17,10 @@ export const Scene: React.FC<SceneProps> = ({ scene }) => {
   const hasCaptions = Boolean(scene.captions && scene.captions.length > 0);
 
   return (
-    <AbsoluteFill style={{ backgroundColor: "#030712", overflow: "hidden" }}>
+    // Safety-net ground colour in case Background ever fails to cover the
+    // frame; AbsoluteFill already sets overflow: hidden, so that is not
+    // repeated here.
+    <AbsoluteFill style={{ backgroundColor: BASE_COLOR }}>
       <Background
         themeColor={scene.themeColor}
         sceneId={scene.id}

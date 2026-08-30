@@ -1,6 +1,23 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { hexToHsl, hslToHex, rotateHue } from "./palette";
+import { BASE_COLOR, HUE_OFFSETS, hexToHsl, hslToHex, rotateHue, toTransparentRgba } from "./palette";
+
+test("the base colour is the pipeline's near-black", () => {
+  assert.equal(BASE_COLOR, "#030712");
+});
+
+test("the hue offsets give an analogous palette from one colour", () => {
+  assert.deepEqual(HUE_OFFSETS, [0, 32, -28]);
+});
+
+test("toTransparentRgba renders a hex colour as a zero-alpha rgba string", () => {
+  assert.equal(toTransparentRgba(BASE_COLOR), "rgba(3, 7, 18, 0)");
+  assert.equal(toTransparentRgba("#fff"), "rgba(255, 255, 255, 0)");
+});
+
+test("toTransparentRgba rejects a colour it cannot parse", () => {
+  assert.throws(() => toTransparentRgba("not a colour"), /Invalid hex colour/);
+});
 
 test("round-trips a colour through HSL without drift", () => {
   for (const hex of ["#ff0000", "#00ff00", "#0000ff", "#7c3aed", "#22c55e", "#f59e0b", "#000000", "#ffffff"]) {

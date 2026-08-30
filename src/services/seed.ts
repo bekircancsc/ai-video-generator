@@ -31,7 +31,7 @@ export function seedFromId(id: string): number {
  * make all three scenes of a video look alike.
  */
 export function seededUnit(seed: number, index: number): number {
-  let x = Math.imul(seed ^ ((index + 1) * 0x9e3779b1), 0x85ebca6b) >>> 0;
+  let x = Math.imul(seed ^ Math.imul(index + 1, 0x9e3779b1), 0x85ebca6b) >>> 0;
   x ^= x >>> 13;
   x = Math.imul(x, 0xc2b2ae35);
   x ^= x >>> 16;

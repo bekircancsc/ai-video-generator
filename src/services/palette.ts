@@ -8,6 +8,16 @@
 
 export type Hsl = { h: number; s: number; l: number };
 
+/**
+ * The near-black ground the whole pipeline is built on. Single source of
+ * truth: every place that needs this exact colour (or a transparent version
+ * of it) imports it from here instead of repeating the literal.
+ */
+export const BASE_COLOR = "#030712";
+
+/** Hue offsets for the three clouds, giving an analogous palette from one colour. */
+export const HUE_OFFSETS = [0, 32, -28];
+
 /** Expands #rgb to #rrggbb and rejects anything that is not a hex colour. */
 function normaliseHex(hex: string): string {
   const match = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.exec(hex.trim());
@@ -88,4 +98,18 @@ export function hslToHex(h: number, s: number, l: number): string {
 export function rotateHue(hex: string, degrees: number): string {
   const { h, s, l } = hexToHsl(hex);
   return hslToHex(h + degrees, s, l);
+}
+
+/**
+ * Renders a hex colour as `rgba(r, g, b, 0)` so a gradient's transparent stop
+ * can fade to the exact same colour as its opaque background instead of a
+ * hand-copied literal that can drift out of sync with it.
+ */
+export function toTransparentRgba(hex: string): string {
+  const full = normaliseHex(hex);
+  const r = parseInt(full.slice(1, 3), 16);
+  const g = parseInt(full.slice(3, 5), 16);
+  const b = parseInt(full.slice(5, 7), 16);
+
+  return `rgba(${r}, ${g}, ${b}, 0)`;
 }
