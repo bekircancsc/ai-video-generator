@@ -54,17 +54,19 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ text, subtext, theme
         {text}
       </div>
 
-      <div
-        style={{
-          fontSize: 30,
-          fontWeight: 500,
-          color: "rgba(255,255,255,0.8)",
-          maxWidth: 700,
-          lineHeight: 1.2,
-        }}
-      >
-        {subtext}
-      </div>
+      {subtext ? (
+        <div
+          style={{
+            fontSize: 30,
+            fontWeight: 500,
+            color: "rgba(255,255,255,0.8)",
+            maxWidth: 700,
+            lineHeight: 1.2,
+          }}
+        >
+          {subtext}
+        </div>
+      ) : null}
     </div>
   );
 };
