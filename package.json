@@ -9,7 +9,7 @@
     "render": "node --import tsx src/pipeline/render.ts",
     "test:render": "node --import tsx src/pipeline/test-render.ts",
     "start": "node run.mjs",
-    "test": "node --import tsx --test src/services/audio-duration.test.ts src/services/timing.test.ts src/services/tts.test.ts src/pipeline/voiceover.test.ts src/services/caption-groups.test.ts src/services/transcribe.test.ts src/services/clip-paths.test.ts src/pipeline/captions.test.ts src/services/palette.test.ts"
+    "test": "node --import tsx --test src/services/audio-duration.test.ts src/services/timing.test.ts src/services/tts.test.ts src/pipeline/voiceover.test.ts src/services/caption-groups.test.ts src/services/transcribe.test.ts src/services/clip-paths.test.ts src/pipeline/captions.test.ts src/services/palette.test.ts src/services/seed.test.ts"
   },
   "keywords": [
     "remotion",
