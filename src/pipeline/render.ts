@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import { bundle } from "@remotion/bundler";
 import { renderMedia, selectComposition } from "@remotion/renderer";
 import { defaultProvider, generateScript, loadPayloadFile } from "../services/script-provider";
+import { parseArgs } from "../services/cli-args";
 import { attachVoiceover } from "./voiceover";
 import { attachCaptions } from "./captions";
 import type { VideoPayload } from "../types/video";
@@ -62,36 +63,6 @@ export async function renderVideo(
   return {
     outputLocation,
     payload,
-  };
-}
-
-/** Reads `--topic <value>` and `--payload <file>`, tolerating bare positional topics. */
-export function parseArgs(argv: string[]) {
-  const flagValue = (flag: string) => {
-    const index = argv.indexOf(flag);
-
-    if (index === -1) {
-      return undefined;
-    }
-
-    const value = argv[index + 1];
-
-    if (!value || value.startsWith("--")) {
-      throw new Error(`${flag} requires a value`);
-    }
-
-    return value;
-  };
-
-  const payloadFile = flagValue("--payload");
-  const topicFlag = flagValue("--topic");
-  const consumed = new Set([topicFlag, payloadFile, "--topic", "--payload", "--no-audio", "--"]);
-  const positional = argv.filter((arg) => !consumed.has(arg)).join(" ").trim();
-
-  return {
-    payloadFile,
-    topic: topicFlag ?? positional,
-    audio: !argv.includes("--no-audio"),
   };
 }
 
