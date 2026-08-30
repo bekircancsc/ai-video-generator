@@ -1,8 +1,10 @@
 import React from "react";
-import { AbsoluteFill, Audio, Sequence, interpolate, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Audio, Sequence, staticFile, useVideoConfig } from "remotion";
 import { AnimatedText } from "./AnimatedText";
 import { Captions } from "./Captions";
+import { Background } from "./Background";
 import { LEAD_IN_SECONDS } from "../services/timing";
+import { BASE_COLOR, withAlpha } from "../services/palette";
 import type { VideoScene } from "../types/video";
 
 type SceneProps = {
@@ -10,19 +12,20 @@ type SceneProps = {
 };
 
 export const Scene: React.FC<SceneProps> = ({ scene }) => {
-  const frame = useCurrentFrame();
-  const bgGlow = interpolate(frame, [0, scene.durationInFrames], [0.2, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const { fps } = useVideoConfig();
   const leadInFrames = Math.round(LEAD_IN_SECONDS * fps);
   const hasCaptions = Boolean(scene.captions && scene.captions.length > 0);
 
   return (
-    <AbsoluteFill
-      style={{
-        background: `radial-gradient(circle at center, ${scene.themeColor} 0%, #0a0d1a 48%, #030712 100%)`,
-        overflow: "hidden",
-      }}
-    >
+    // Safety-net ground colour in case Background ever fails to cover the
+    // frame; AbsoluteFill already sets overflow: hidden, so that is not
+    // repeated here.
+    <AbsoluteFill style={{ backgroundColor: BASE_COLOR }}>
+      <Background
+        themeColor={scene.themeColor}
+        sceneId={scene.id}
+        durationInFrames={scene.durationInFrames}
+      />
       {scene.audioSrc ? (
         <Sequence from={leadInFrames}>
           <Audio src={staticFile(scene.audioSrc)} />
@@ -32,19 +35,9 @@ export const Scene: React.FC<SceneProps> = ({ scene }) => {
       <div
         style={{
           position: "absolute",
-          inset: 0,
-          background: `radial-gradient(circle at center, ${scene.themeColor}${Math.round(bgGlow * 255)
-            .toString(16)
-            .padStart(2, "0")} 0%, rgba(7, 10, 18, 0.0) 52%, rgba(2, 4, 9, 0.8) 100%)`,
-        }}
-      />
-
-      <div
-        style={{
-          position: "absolute",
           left: 60,
           top: 60,
-          border: `1px solid ${scene.themeColor}99`,
+          border: `1px solid ${withAlpha(scene.themeColor, 0.6)}`,
           borderRadius: 999,
           padding: "10px 16px",
           color: "white",

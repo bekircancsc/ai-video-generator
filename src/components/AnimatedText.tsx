@@ -1,5 +1,6 @@
 import React from "react";
 import { spring, useCurrentFrame } from "remotion";
+import { withAlpha } from "../services/palette";
 
 type AnimatedTextProps = {
   text: string;
@@ -45,7 +46,7 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ text, subtext, theme
           fontWeight: 700,
           letterSpacing: "-0.04em",
           color: accent,
-          textShadow: `0 0 18px ${themeColor}66`,
+          textShadow: `0 0 18px ${withAlpha(themeColor, 0.4)}`,
           marginBottom: 18,
           maxWidth: 760,
           lineHeight: 1.05,

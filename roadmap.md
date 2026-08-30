@@ -91,3 +91,12 @@ _Superseded by Phase 7: Gemini is now one provider among several and no longer t
 - [x] Group words into readable chunks and highlight the spoken word.
 - [x] Cache transcripts beside their clips so a rerun makes no network call.
 - [x] Hide the model-written subtitle when captions are present.
+
+---
+
+### Phase 10: Aurora Background
+- [x] Draw the scene background in code: three drifting colour clouds over a near-black base.
+- [x] Derive the palette from the scene's own `themeColor` by rotating hue.
+- [x] Vary the clouds per scene from a hash of the scene id, with no `Math.random`.
+- [x] Normalise the drift to scene duration so short and long scenes feel alike.
+- [x] Keep the grain and vignette that hold text legible.
