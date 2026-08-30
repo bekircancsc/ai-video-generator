@@ -14,7 +14,7 @@ type Preset = {
 export const presets: Record<string, Preset> = {
   groq: {
     baseUrl: "https://api.groq.com/openai/v1",
-    model: "llama-3.3-70b-versatile",
+    model: "openai/gpt-oss-120b",
     keyHint: "Create a free key at https://console.groq.com/keys",
   },
   openrouter: {

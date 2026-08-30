@@ -53,7 +53,7 @@ Build an autonomous Node.js/TypeScript pipeline that takes a user topic, transfo
 ### Phase 6: Testing & Validation
 - [x] Execute an offline rendering smoke test with static mock JSON: `npm run test:render`.
 - [x] Execute the full end-to-end flow with a payload file (no API key required): `node run.mjs --payload scripts/example-payload.json`.
-- [ ] Execute the full end-to-end flow against a live provider: set `LLM_API_KEY` for Groq, then `node run.mjs --topic "The Future of AI"` (needs a valid key; the original Gemini key returned 401).
+- [x] Execute the full end-to-end flow against a live provider: `node run.mjs --topic "The Future of AI"` with `SCRIPT_PROVIDER=groq`. Verified output: 1080x1920, 30fps, h264, 10s.
 
 ---
 
@@ -63,4 +63,5 @@ Build an autonomous Node.js/TypeScript pipeline that takes a user topic, transfo
 - [x] Add `src/services/script-provider.ts` to dispatch on `SCRIPT_PROVIDER` and to load hand-authored payload files.
 - [x] Support `--payload <file.json>` in the CLI so videos can be rendered with no LLM API at all.
 - [x] Add a repair retry that feeds schema validation errors back to the model.
+- [x] Default Groq to `openai/gpt-oss-120b`; the previous `llama-3.3-70b-versatile` was retired from the catalogue.
 - [x] Verify output video specifications (resolution, frame rate, asset sync, render duration) for the offline smoke render.
