@@ -8,7 +8,8 @@
     "build": "tsc --noEmit",
     "render": "node --import tsx src/pipeline/render.ts",
     "test:render": "node --import tsx src/pipeline/test-render.ts",
-    "start": "node run.mjs"
+    "start": "node run.mjs",
+    "test": "node --import tsx --test src/services/audio-duration.test.ts"
   },
   "keywords": [
     "remotion",
