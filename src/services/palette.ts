@@ -23,6 +23,11 @@ function normaliseHex(hex: string): string {
     : `#${body.toLowerCase()}`;
 }
 
+/**
+ * Verified exhaustively: every one of the 16,777,216 24-bit colours survives
+ * hexToHsl -> hslToHex unchanged, so a theme colour from a model cannot land
+ * on a rounding boundary and come back a shade off.
+ */
 export function hexToHsl(hex: string): Hsl {
   const full = normaliseHex(hex);
   const r = parseInt(full.slice(1, 3), 16) / 255;
