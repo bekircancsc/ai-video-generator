@@ -147,3 +147,12 @@ _Superseded by Phase 7: Gemini is now one provider among several and no longer t
 - [x] Draw a static cover: headline, accent rule and kicker over the first scene's picture.
 - [x] Render it with `renderStill` from the same bundle, straight after the video.
 - [x] Write it to `out/<slug>.jpg`, add `--no-cover`, and catch every failure.
+
+---
+
+### Phase 16: Embedded Typography
+- [x] Vendor two Inter variable subsets (latin, latin-ext) under `public/fonts/`, split by `unicode-range` as Google's own CSS splits them.
+- [x] Load them with `FontFace` and `delayRender` — no `@remotion/google-fonts`, no dependency, no network at render time.
+- [x] Continue the render handle on the failure path too, so a font can never hang a render.
+- [x] Set the family once per composition root; the text components inherit it.
+- [x] Re-measure the cover's headline size ladder against the new metrics: the steps held, only two stale figures in the comments needed correcting.

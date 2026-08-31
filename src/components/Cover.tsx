@@ -1,5 +1,6 @@
 import React from "react";
 import { AbsoluteFill, Img, staticFile } from "remotion";
+import { FONT_FAMILY } from "../fonts";
 import { coverHeadlineSize, coverPlan } from "../services/cover";
 import { BASE_COLOR, HUE_OFFSETS, rotateHue, toTransparentRgba, withAlpha } from "../services/palette";
 import type { VideoPayload } from "../types/video";
@@ -25,7 +26,7 @@ export const Cover: React.FC<CoverProps> = ({ video }) => {
   const { imageSrc, themeColor, headline, kicker } = coverPlan(video);
 
   return (
-    <AbsoluteFill style={{ backgroundColor: BASE_COLOR, overflow: "hidden" }}>
+    <AbsoluteFill style={{ backgroundColor: BASE_COLOR, overflow: "hidden", fontFamily: FONT_FAMILY }}>
       {imageSrc ? (
         <Img
           src={staticFile(imageSrc)}

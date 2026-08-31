@@ -13,7 +13,7 @@ export const COVER_HEADLINE_MAX = 132;
 
 /**
  * Headline size for a long one. The bottom step is unbounded, so a very long
- * title simply takes more lines: at 84px the column holds roughly 23
+ * title simply takes more lines: at 84px the column holds roughly 21
  * characters, and the block only runs out of frame somewhere past 400.
  */
 export const COVER_HEADLINE_MIN = 84;
@@ -29,12 +29,14 @@ export type CoverPlan = {
 /**
  * Steps the headline down as the title lengthens.
  *
- * Character count is a proxy for width, and a coarse one: "Dopamine Detox" and
- * "Stoic Mornings" are both fourteen characters but differ by ninety pixels at
- * 132px. The steps are therefore sized so that a wide title in a bucket wraps
- * to one more line rather than overflowing — wrapping is the intended
- * behaviour, not the failure. The component wraps inside a word too, so a
- * single unbreakable word cannot be clipped either.
+ * Character count is a proxy for width, and a coarse one: two titles of the
+ * same length can differ by a wide margin, because a `W` and an `i` count the
+ * same here and do not measure the same. The steps are therefore sized so that
+ * a wide title in a bucket wraps to one more line rather than overflowing —
+ * wrapping is the intended behaviour, not the failure. At the top step even a
+ * fourteen-character title can take two lines, which is the design working.
+ * The component wraps inside a word too, so a single unbreakable word cannot
+ * be clipped either.
  */
 export function coverHeadlineSize(headline: string): number {
   const length = headline.trim().length;
