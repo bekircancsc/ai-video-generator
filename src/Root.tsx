@@ -1,6 +1,7 @@
 import React from "react";
 import { Composition, registerRoot } from "remotion";
 import { VideoRoot } from "./VideoRoot";
+import { timelineFrames, transitionFrames } from "./services/timing";
 import type { VideoPayload } from "./types/video";
 
 const defaultVideo: VideoPayload = {
@@ -42,7 +43,10 @@ const defaultVideo: VideoPayload = {
 };
 
 const getDurationInFrames = (video: VideoPayload) => {
-  return video.scenes.reduce((total, scene) => total + scene.durationInFrames, 0);
+  return timelineFrames(
+    video.scenes.map((scene) => scene.durationInFrames),
+    transitionFrames(video.fps),
+  );
 };
 
 const getDimensions = (aspectRatio: string) => {
