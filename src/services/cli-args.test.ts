@@ -72,3 +72,12 @@ test("images are on by default and off with --no-images", () => {
 test("--no-images is not swallowed into the topic", () => {
   assert.equal(parseArgs(["The", "Future", "--no-images"]).topic, "The Future");
 });
+
+test("music is on unless it is turned off", () => {
+  assert.equal(parseArgs(["--topic", "Rome"]).music, true);
+  assert.equal(parseArgs(["--topic", "Rome", "--no-music"]).music, false);
+});
+
+test("--no-music is not read as a topic", () => {
+  assert.equal(parseArgs(["Rome", "--no-music"]).topic, "Rome");
+});

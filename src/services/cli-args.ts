@@ -43,7 +43,7 @@ export function parseArgs(argv: string[]) {
 
   const positional = argv
     .filter(
-      (arg, i) => !consumedIndices.has(i) && arg !== "--no-audio" && arg !== "--no-images" && arg !== "--",
+      (arg, i) => !consumedIndices.has(i) && arg !== "--no-audio" && arg !== "--no-images" && arg !== "--no-music" && arg !== "--",
     )
     .join(" ")
     .trim();
@@ -55,5 +55,6 @@ export function parseArgs(argv: string[]) {
     sceneCount,
     audio: !argv.includes("--no-audio"),
     images: !argv.includes("--no-images"),
+    music: !argv.includes("--no-music"),
   };
 }
