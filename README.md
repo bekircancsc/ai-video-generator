@@ -50,7 +50,7 @@ npm run start -- --payload scripts/example-payload.json --no-audio
 ## How it works
 
 ```
-topic ─▶ script ─▶ voiceover ─▶ captions ─▶ render ─▶ out/*.mp4
+topic ─▶ script ─▶ voiceover ─▶ captions ─▶ imagery ─▶ render ─▶ out/*.mp4
 ```
 
 | Stage | Module | What it produces |
@@ -58,6 +58,7 @@ topic ─▶ script ─▶ voiceover ─▶ captions ─▶ render ─▶ out/*.
 | Script | `src/services/script-provider.ts` | A validated `VideoPayload`: three to eight scenes, each with on-screen text and a `narration` line written for the ear. |
 | Voiceover | `src/pipeline/voiceover.ts` | One WAV per scene in `public/audio/`. Measures each clip from its RIFF header and rewrites `durationInFrames` to fit the speech. |
 | Captions | `src/pipeline/captions.ts` | Word-level timings from Groq Whisper, cached beside the clip and stamped onto the scene. Never changes scene length. |
+| Imagery | `src/pipeline/imagery.ts` | One generated still per scene in `public/images/`, drawn full-frame under a darkening scrim with a slow zoom. A scene without one falls back to the drawn aurora background. |
 | Render | `src/pipeline/render.ts` | Bundles the Remotion composition and writes the MP4 to `out/`. |
 
 Two rules hold the design together:
@@ -74,7 +75,7 @@ data first; components only draw what they are handed.
 ## CLI
 
 ```bash
-npm run start -- [--topic <topic>] [--niche <niche>] [--scenes <n>] [--payload <file.json>] [--no-audio]
+npm run start -- [--topic <topic>] [--niche <niche>] [--scenes <n>] [--payload <file.json>] [--no-audio] [--no-images]
 ```
 
 | Flag | Effect |
@@ -84,6 +85,7 @@ npm run start -- [--topic <topic>] [--niche <niche>] [--scenes <n>] [--payload <
 | `--scenes <n>` | Exact number of scenes, 3 to 8. Left off, the model picks a number to suit the topic. |
 | `--payload <file>` | Render a hand-written script instead of calling an LLM. See `scripts/example-payload.json`. |
 | `--no-audio` | Skip voiceover and captions entirely. No network calls; scenes keep the durations in the payload. |
+| `--no-images` | Skip image generation. Every scene renders the drawn aurora background instead. |
 
 | Script | Purpose |
 |---|---|
@@ -107,13 +109,17 @@ All settings live in `.env`. Only `LLM_API_KEY` is required.
 | `TTS_VOICE` | `daniel` | One of `autumn`, `diana`, `hannah`, `austin`, `daniel`, `troy`. |
 | `TTS_MODEL` | `canopylabs/orpheus-v1-english` | Groq speech model. |
 | `TRANSCRIBE_MODEL` | `whisper-large-v3-turbo` | Groq transcription model. |
+| `IMAGE_PROVIDER` | `pollinations` | `pollinations` (needs no key), `together`, or `none` to keep the drawn background. |
+| `IMAGE_API_KEY` | — | Only when `IMAGE_PROVIDER=together`. |
+| `IMAGE_MODEL` | provider default | `flux` on pollinations, `black-forest-labs/FLUX.1-schnell-Free` on together. |
 
 Any OpenAI-compatible endpoint works through the same adapter. Pointing
 `SCRIPT_PROVIDER=ollama` at a local model needs no key at all.
 
 ## Caching
 
-Generated audio and transcripts live in `public/audio/`, which is gitignored.
+Generated audio and transcripts live in `public/audio/`, and generated images in
+`public/images/`. Both are gitignored.
 Nothing there is precious — deleting the directory only costs you the time to
 regenerate it.
 
@@ -123,10 +129,14 @@ Its transcript sits beside it, named with the transcription model as well.
 Change any of those inputs and the affected stage re-runs; change nothing and a
 second render makes no network calls.
 
+An image is named after a hash of its prompt, provider, model and frame size,
+so two scenes asking for the same picture share one file, and switching
+provider or model regenerates rather than reusing.
+
 Superseded files are never cleaned up automatically. To reclaim the space:
 
 ```bash
-rm -rf public/audio
+rm -rf public/audio public/images
 ```
 
 ## Failure behaviour
@@ -136,6 +146,11 @@ that silently ships without its voiceover or captions is worse than no video.
 Errors carry the next step: a rejected model name lists the real catalogue, a
 rejected voice lists the valid voices, and an unaccepted speech model links to
 the console page that accepts it.
+
+Imagery is the one exception. A picture that cannot be generated — a provider
+error, a timeout, a missing key — logs one line and leaves that scene on the
+drawn aurora background. The render still succeeds, because a video that looks
+like last month's is better than no video at all.
 
 ## Development
 
