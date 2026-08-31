@@ -121,3 +121,12 @@ _Superseded by Phase 7: Gemini is now one provider among several and no longer t
 - [x] Draw the still full-frame under a darkening scrim with a slow zoom, keeping the grain and vignette.
 - [x] Fall back to the aurora background on any failure, so imagery never fails a render.
 - [x] Support `--no-images` for renders with no image calls.
+
+---
+
+### Phase 13: Scene Transitions
+- [x] Overlap consecutive scenes by 0.3s and fade the incoming scene in across it.
+- [x] Keep the arithmetic in two pure functions in `src/services/timing.ts`, with tests.
+- [x] Size the composition from the overlapped timeline rather than the plain sum.
+- [x] Add no dependency: no `@remotion/transitions`.
+- [x] Leave audio and captions untouched — the overlap fits inside the existing tail silence.
