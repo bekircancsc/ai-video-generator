@@ -50,7 +50,7 @@ npm run start -- --payload scripts/example-payload.json --no-audio
 ## How it works
 
 ```
-topic ─▶ script ─▶ voiceover ─▶ captions ─▶ imagery ─▶ render ─▶ out/*.mp4
+topic ─▶ script ─▶ voiceover ─▶ captions ─▶ imagery ─▶ music ─▶ render ─▶ out/*.mp4
 ```
 
 | Stage | Module | What it produces |
@@ -59,6 +59,7 @@ topic ─▶ script ─▶ voiceover ─▶ captions ─▶ imagery ─▶ rende
 | Voiceover | `src/pipeline/voiceover.ts` | One WAV per scene in `public/audio/`. Measures each clip from its RIFF header and rewrites `durationInFrames` to fit the speech. |
 | Captions | `src/pipeline/captions.ts` | Word-level timings from Groq Whisper, cached beside the clip and stamped onto the scene. Never changes scene length. |
 | Imagery | `src/pipeline/imagery.ts` | One generated still per scene in `public/images/`, drawn full-frame under a darkening scrim with a slow zoom. A scene without one falls back to the drawn aurora background. |
+| Music | `src/pipeline/music.ts` | One synthesized ambient bed for the whole video in `public/music/`, stamped onto the payload as `musicSrc`. |
 | Render | `src/pipeline/render.ts` | Bundles the Remotion composition and writes the MP4 to `out/`. |
 
 Two rules hold the design together:
@@ -73,6 +74,18 @@ the sum of its scene durations. The overlap fits inside the 0.5s tail silence
 every clip already carries, so no speech is lost. `src/services/timing.ts` is
 the one place that arithmetic lives.
 
+**The bed sits under everything.** The music ducks from `MUSIC_BASE_GAIN` to
+`MUSIC_DUCKED_GAIN` under narration, over a `DUCK_RAMP_SECONDS` ramp that
+starts before the first word so the duck has already arrived by the time
+someone speaks. Speech is read from the caption word timings where they exist,
+so a real pause inside a scene opens the bed; gaps shorter than
+`MIN_OPEN_SECONDS` are swallowed, since a lift briefer than a ramp out and back
+in is heard as a wobble. The ramp is deliberately short: the gap at a scene
+join is the tail plus the lead-in minus the dissolve, 0.45 seconds, and a
+slower ramp would never finish, leaving the bed ducked for the whole video. It
+fades in and out over a second at each end. The music is synthesized rather
+than sourced: no track to license, no key to hold.
+
 **The React side stays declarative.** Everything under `src/components/` is
 bundled for the browser by Remotion, so nothing there may import a module that
 touches `node:fs`, `node:crypto` or `dotenv`. Pipeline stages resolve all the
@@ -81,7 +94,7 @@ data first; components only draw what they are handed.
 ## CLI
 
 ```bash
-npm run start -- [--topic <topic>] [--niche <niche>] [--scenes <n>] [--payload <file.json>] [--no-audio] [--no-images]
+npm run start -- [--topic <topic>] [--niche <niche>] [--scenes <n>] [--payload <file.json>] [--no-audio] [--no-images] [--no-music]
 ```
 
 | Flag | Effect |
@@ -92,6 +105,7 @@ npm run start -- [--topic <topic>] [--niche <niche>] [--scenes <n>] [--payload <
 | `--payload <file>` | Render a hand-written script instead of calling an LLM. See `scripts/example-payload.json`. |
 | `--no-audio` | Skip voiceover and captions entirely. No network calls; scenes keep the durations in the payload. |
 | `--no-images` | Skip image generation. Every scene renders the drawn aurora background instead. |
+| `--no-music` | Skip the music bed. The video plays with speech alone. |
 
 | Script | Purpose |
 |---|---|
@@ -124,8 +138,8 @@ Any OpenAI-compatible endpoint works through the same adapter. Pointing
 
 ## Caching
 
-Generated audio and transcripts live in `public/audio/`, and generated images in
-`public/images/`. Both are gitignored.
+Generated audio and transcripts live in `public/audio/`, generated images in
+`public/images/`, and music beds in `public/music/`. All three are gitignored.
 Nothing there is precious — deleting the directory only costs you the time to
 regenerate it.
 
@@ -139,10 +153,14 @@ An image is named after a hash of its prompt, provider, model and frame size,
 so two scenes asking for the same picture share one file, and switching
 provider or model regenerates rather than reusing.
 
+A music bed is named after a hash of the payload title's seed, the length of
+the overlapped timeline, the frame rate and `MUSIC_FORMAT_VERSION`, so a re-cut
+video writes a new bed instead of playing one that ends in the wrong place.
+
 Superseded files are never cleaned up automatically. To reclaim the space:
 
 ```bash
-rm -rf public/audio public/images
+rm -rf public/audio public/images public/music
 ```
 
 ## Failure behaviour
@@ -153,10 +171,13 @@ Errors carry the next step: a rejected model name lists the real catalogue, a
 rejected voice lists the valid voices, and an unaccepted speech model links to
 the console page that accepts it.
 
-Imagery is the one exception. A picture that cannot be generated — a provider
+Imagery and music are the exceptions. A picture that cannot be generated — a provider
 error, a timeout, a missing key — logs one line and leaves that scene on the
 drawn aurora background. The render still succeeds, because a video that looks
 like last month's is better than no video at all.
+
+Music behaves the same way. A bed that cannot be synthesized or written logs
+`[music] falling back (...)` and the video renders with speech alone.
 
 ## Development
 

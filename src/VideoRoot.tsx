@@ -1,7 +1,9 @@
 import React from "react";
 import { AbsoluteFill, interpolate, Sequence, useCurrentFrame, useVideoConfig } from "remotion";
+import { MusicBed } from "./components/MusicBed";
 import { Scene } from "./components/Scene";
-import { sceneStartFrames, transitionFrames } from "./services/timing";
+import { sceneStartFrames, timelineFrames, transitionFrames } from "./services/timing";
+import { speechSpans } from "./services/music";
 import type { VideoPayload, VideoScene } from "./types/video";
 
 type VideoRootProps = {
@@ -39,13 +41,16 @@ const DissolvingScene: React.FC<{ scene: VideoScene; fadeInFrames: number }> = (
 export const VideoRoot: React.FC<VideoRootProps> = ({ video }) => {
   const { fps } = useVideoConfig();
   const overlap = transitionFrames(fps);
-  const starts = sceneStartFrames(
-    video.scenes.map((scene) => scene.durationInFrames),
-    overlap,
-  );
+  const durations = video.scenes.map((scene) => scene.durationInFrames);
+  const starts = sceneStartFrames(durations, overlap);
+  const totalFrames = timelineFrames(durations, overlap);
+  const spans = speechSpans(video.scenes, starts, fps);
 
   return (
     <>
+      {video.musicSrc ? (
+        <MusicBed src={video.musicSrc} spans={spans} totalFrames={totalFrames} />
+      ) : null}
       {video.scenes.map((scene, index) => (
         <Sequence key={scene.id} from={starts[index]} durationInFrames={scene.durationInFrames}>
           {/* The opening scene has nothing to dissolve from, so it starts opaque. */}

@@ -32,6 +32,8 @@ export const videoPayloadSchema = z.object({
   fps: z.number().int().positive().default(30),
   scenes: z.array(videoSceneSchema).min(1),
   aspectRatio: z.string().regex(/^\d+:\d+$/).default("9:16"),
+  // Written by the music stage. Relative to public/, e.g. music/9f2a1c.wav
+  musicSrc: z.string().optional(),
 });
 
 export type VideoScene = z.infer<typeof videoSceneSchema>;

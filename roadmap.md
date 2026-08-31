@@ -130,3 +130,11 @@ _Superseded by Phase 7: Gemini is now one provider among several and no longer t
 - [x] Size the composition from the overlapped timeline rather than the plain sum.
 - [x] Add no dependency: no `@remotion/transitions`.
 - [x] Leave audio and captions untouched — the overlap fits inside the existing tail silence.
+
+---
+
+### Phase 14: Music Bed
+- [x] Synthesize an ambient bed from the payload seed — no download, no dependency, no licence.
+- [x] Cache it in `public/music/`, keyed by seed, length, fps and format version.
+- [x] Duck it under narration and fade it in and out at the ends.
+- [x] Add `--no-music`, and make every failure path a silent fallback.
