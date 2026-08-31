@@ -2,8 +2,13 @@ import React from "react";
 import { Composition, registerRoot } from "remotion";
 import { VideoRoot } from "./VideoRoot";
 import { Cover } from "./components/Cover";
+import { loadFonts } from "./fonts";
 import { timelineFrames, transitionFrames } from "./services/timing";
 import type { VideoPayload } from "./types/video";
+
+// Both compositions are registered here, so this is the one place that runs
+// for either of them — and for the Studio preview.
+loadFonts();
 
 const defaultVideo: VideoPayload = {
   title: "The Future of AI",
