@@ -25,6 +25,7 @@ export const Scene: React.FC<SceneProps> = ({ scene }) => {
         themeColor={scene.themeColor}
         sceneId={scene.id}
         durationInFrames={scene.durationInFrames}
+        imageSrc={scene.imageSrc}
       />
       {scene.audioSrc ? (
         <Sequence from={leadInFrames}>

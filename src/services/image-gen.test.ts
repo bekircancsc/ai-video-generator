@@ -88,6 +88,22 @@ test("together posts and decodes the base64 image", async () => {
   );
 });
 
+test("an unsigned 32-bit seed is folded into the range providers accept", async () => {
+  let seen = "";
+
+  await withFetch(
+    (async (input: any) => {
+      seen = String(input);
+      return new Response(new Uint8Array([1]), { status: 200 });
+    }) as typeof globalThis.fetch,
+    async () => {
+      await generateImage("x", 4294967295, resolveImageConfig({}));
+      const seed = Number(new URL(seen).searchParams.get("seed"));
+      assert.ok(seed >= 0 && seed <= 2147483647, `seed ${seed} is out of range`);
+    }
+  );
+});
+
 test("a failed request throws a provider-specific error", async () => {
   await withFetch(
     (async () => new Response("boom", { status: 500 })) as typeof globalThis.fetch,

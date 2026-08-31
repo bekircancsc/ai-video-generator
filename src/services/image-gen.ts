@@ -11,6 +11,13 @@ import "dotenv/config";
 const POLLINATIONS_URL = "https://image.pollinations.ai/prompt";
 const TOGETHER_URL = "https://api.together.xyz/v1/images/generations";
 
+/**
+ * Providers take a seed as a signed 32-bit integer and reject anything larger
+ * with an opaque validation error, while `seedFromId` returns an unsigned
+ * 32-bit hash. Every seed is folded into range before it is sent.
+ */
+const MAX_SEED = 2_147_483_647;
+
 /** A minute is long for one image and short enough not to stall a render. */
 const REQUEST_TIMEOUT_MS = 60_000;
 
@@ -153,10 +160,12 @@ export async function generateImage(
     throw new Error('Image generation was called while IMAGE_PROVIDER is "none"');
   }
 
+  const safeSeed = Math.abs(Math.trunc(seed)) % MAX_SEED;
+
   const bytes =
     config.provider === "pollinations"
-      ? await generateWithPollinations(prompt, seed, config)
-      : await generateWithTogether(prompt, seed, config);
+      ? await generateWithPollinations(prompt, safeSeed, config)
+      : await generateWithTogether(prompt, safeSeed, config);
 
   if (bytes.byteLength === 0) {
     throw new Error(`Image generation returned an empty body from ${config.provider}`);
