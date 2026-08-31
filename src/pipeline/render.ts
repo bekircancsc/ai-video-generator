@@ -8,6 +8,7 @@ import { defaultProvider, generateScript, loadPayloadFile } from "../services/sc
 import { parseArgs } from "../services/cli-args";
 import { attachVoiceover } from "./voiceover";
 import { attachCaptions } from "./captions";
+import { attachImagery } from "./imagery";
 import type { VideoPayload } from "../types/video";
 import type { ScriptBrief } from "../services/script-schema";
 
@@ -24,11 +25,12 @@ function slugify(value: string) {
 export async function renderVideo(
   brief: ScriptBrief,
   payloadOverride?: VideoPayload,
-  options: { audio?: boolean } = {},
+  options: { audio?: boolean; images?: boolean } = {},
 ) {
   const script = payloadOverride ?? (await generateScript(brief));
-  const payload =
+  const spoken =
     options.audio === false ? script : await attachCaptions(await attachVoiceover(script));
+  const payload = options.images === false ? spoken : await attachImagery(spoken);
 
   const entryPoint = path.join(rootDir, "src", "Root.tsx");
   const bundleDir = path.join(rootDir, ".cache", "remotion");
@@ -69,13 +71,13 @@ export async function renderVideo(
 
 if (isDirectRun) {
   const run = async () => {
-    const { topic, niche, sceneCount, payloadFile, audio } = parseArgs(process.argv.slice(2));
+    const { topic, niche, sceneCount, payloadFile, audio, images } = parseArgs(process.argv.slice(2));
     const brief: ScriptBrief = { topic, niche, sceneCount };
 
     if (payloadFile) {
       const payload = await loadPayloadFile(payloadFile);
       console.log(`Rendering payload from ${payloadFile}`);
-      const result = await renderVideo(brief, payload, { audio });
+      const result = await renderVideo(brief, payload, { audio, images });
       console.log(`Render complete: ${result.outputLocation}`);
       return;
     }
@@ -91,7 +93,7 @@ if (isDirectRun) {
     const scenes = sceneCount ? `, ${sceneCount} scenes` : "";
     console.log(`Generating video for ${subject} (provider: ${provider}${scenes})`);
 
-    const result = await renderVideo(brief, undefined, { audio });
+    const result = await renderVideo(brief, undefined, { audio, images });
     console.log(`Render complete: ${result.outputLocation}`);
   };
 
