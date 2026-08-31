@@ -70,7 +70,7 @@ buildImagePrompt(scene: VideoScene): string
 
 `IMAGE_MODEL` overrides the selected provider's default model (`flux` for pollinations, `black-forest-labs/FLUX.1-schnell-Free` for together).
 
-Every provider returns `{ bytes: Buffer, contentType: string }`. Failures throw
+Every provider returns the raw image bytes as a `Buffer`. Failures throw
 a message that names the provider and what to do next, following the shape of
 `describeTtsError`.
 
