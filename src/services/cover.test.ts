@@ -67,6 +67,10 @@ test("a single-scene payload still produces a cover", () => {
   assert.equal(plan.imageSrc, "images/only.jpg");
 });
 
+test("a payload with no scenes is refused rather than drawn blank", () => {
+  assert.throws(() => coverPlan(payload([])), /at least one scene/);
+});
+
 test("the headline shrinks as the title lengthens and never leaves its bounds", () => {
   const sizes = [0, 10, 20, 30, 40, 60, 120].map((length) => coverHeadlineSize("t".repeat(length)));
 
@@ -82,6 +86,21 @@ test("the headline shrinks as the title lengthens and never leaves its bounds", 
   assert.equal(sizes[sizes.length - 1], COVER_HEADLINE_MIN);
 });
 
+test("every step of the headline size is where it claims to be", () => {
+  // Pinned at the boundaries, not sampled around them: sampling passes just as
+  // happily when a step in the middle has been dropped altogether.
+  assert.equal(coverHeadlineSize("t".repeat(14)), 132);
+  assert.equal(coverHeadlineSize("t".repeat(15)), 116);
+  assert.equal(coverHeadlineSize("t".repeat(24)), 116);
+  assert.equal(coverHeadlineSize("t".repeat(25)), 100);
+  assert.equal(coverHeadlineSize("t".repeat(36)), 100);
+  assert.equal(coverHeadlineSize("t".repeat(37)), 84);
+});
+
 test("surrounding whitespace does not shrink the headline", () => {
-  assert.equal(coverHeadlineSize("   short   "), coverHeadlineSize("short"));
+  // Long enough to change bucket if the padding were counted, which is the
+  // only way this test can fail at all.
+  const padded = `   ${"t".repeat(14)}   `;
+
+  assert.equal(coverHeadlineSize(padded), COVER_HEADLINE_MAX);
 });

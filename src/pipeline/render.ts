@@ -10,7 +10,7 @@ import { attachVoiceover } from "./voiceover";
 import { attachCaptions } from "./captions";
 import { attachImagery } from "./imagery";
 import { attachMusic } from "./music";
-import { renderCover } from "./cover";
+import { removeCover, renderCover } from "./cover";
 import type { VideoPayload } from "../types/video";
 import type { ScriptBrief } from "../services/script-schema";
 
@@ -69,10 +69,16 @@ export async function renderVideo(
     },
   });
 
-  const coverLocation =
-    options.cover === false
-      ? undefined
-      : await renderCover({ serveUrl, payload, videoLocation: outputLocation });
+  let coverLocation: string | undefined;
+
+  if (options.cover === false) {
+    // Output names come from the topic, so this render may have just replaced
+    // a video that had a cover. Leaving it would pair this video with the
+    // previous one's thumbnail.
+    await removeCover(outputLocation);
+  } else {
+    coverLocation = await renderCover({ serveUrl, payload, videoLocation: outputLocation });
+  }
 
   return {
     outputLocation,

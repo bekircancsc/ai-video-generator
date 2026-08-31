@@ -88,8 +88,8 @@ than sourced: no track to license, no key to hold.
 
 **Every render also writes a cover.** Beside `out/<slug>.mp4` goes
 `out/<slug>.jpg`, a purpose-built thumbnail rather than a frame lifted from the
-video: the first scene's generated picture under a heavier scrim, with the
-title and one supporting line. It is drawn by the `AI-Cover` composition and
+video: the first scene that has a generated picture, under a heavier scrim,
+with the title and one supporting line. It is drawn by the `AI-Cover` composition and
 rendered with `renderStill` from the same bundle the video came from.
 
 **The React side stays declarative.** Everything under `src/components/` is

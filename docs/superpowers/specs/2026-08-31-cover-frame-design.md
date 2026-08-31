@@ -53,8 +53,10 @@ render and no second bundle.
 - **The kicker:** the `subtext` of that same scene, falling back to its `text`,
   falling back to its keywords joined with ` • `, falling back to nothing.
 - **The headline size:** `coverHeadlineSize(text)`, stepping down from 132px to
-  84px as the title lengthens, so a long title wraps to at most three lines
-  instead of overflowing the frame.
+  84px as the title lengthens. Character count is a coarse proxy for width, so
+  the steps are sized to make a wide title take one more line rather than to
+  pin a line count; the component wraps inside a word as well, so no title can
+  be clipped by the frame.
 
 ### How it is drawn
 

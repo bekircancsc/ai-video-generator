@@ -1,7 +1,7 @@
 import React from "react";
 import { AbsoluteFill, Img, staticFile } from "remotion";
 import { coverHeadlineSize, coverPlan } from "../services/cover";
-import { BASE_COLOR, rotateHue, toTransparentRgba, withAlpha } from "../services/palette";
+import { BASE_COLOR, HUE_OFFSETS, rotateHue, toTransparentRgba, withAlpha } from "../services/palette";
 import type { VideoPayload } from "../types/video";
 
 /**
@@ -39,8 +39,8 @@ export const Cover: React.FC<CoverProps> = ({ video }) => {
             position: "absolute",
             inset: 0,
             background:
-              `radial-gradient(circle at 30% 24%, ${rotateHue(themeColor, 0)} 0%, ${toTransparentRgba(BASE_COLOR)} 56%), ` +
-              `radial-gradient(circle at 74% 66%, ${rotateHue(themeColor, 32)} 0%, ${toTransparentRgba(BASE_COLOR)} 58%)`,
+              `radial-gradient(circle at 30% 24%, ${rotateHue(themeColor, HUE_OFFSETS[0])} 0%, ${toTransparentRgba(BASE_COLOR)} 56%), ` +
+              `radial-gradient(circle at 74% 66%, ${rotateHue(themeColor, HUE_OFFSETS[1])} 0%, ${toTransparentRgba(BASE_COLOR)} 58%)`,
           }}
         />
       )}
@@ -56,6 +56,11 @@ export const Cover: React.FC<CoverProps> = ({ video }) => {
             lineHeight: 1.02,
             color: "#f8fafc",
             textShadow: "0 10px 44px rgba(2, 4, 9, 0.9)",
+            // The model writes the title, and a language that compounds its
+            // nouns can hand back one unbreakable word wider than the column.
+            // Without this the frame's overflow: hidden slices it; with it the
+            // word wraps and every character survives.
+            overflowWrap: "anywhere",
           }}
         >
           {headline}
@@ -79,7 +84,7 @@ export const Cover: React.FC<CoverProps> = ({ video }) => {
               fontWeight: 500,
               lineHeight: 1.25,
               color: "rgba(248, 250, 252, 0.82)",
-              maxWidth: 820,
+              overflowWrap: "anywhere",
             }}
           >
             {kicker}
