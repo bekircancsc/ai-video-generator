@@ -44,8 +44,12 @@ worth keeping:
 
 | File | Range | Size | Carries |
 |---|---|---|---|
-| `public/fonts/inter-latin.woff2` | basic Latin + `U+00C0-00FF` | ~28KB | English, German `äöüß` |
-| `public/fonts/inter-latin-ext.woff2` | Latin Extended-A/B | ~35KB | Turkish `ı ğ ş İ` |
+| `public/fonts/inter-latin.woff2` | `U+0000-00FF`, `U+0131`, ... | 48KB | English, German `äöüß`, Turkish `ı` |
+| `public/fonts/inter-latin-ext.woff2` | `U+0100-02BA`, `U+1E00-1E9F`, ... | 85KB | Turkish `ğ ş İ`, the rest of Latin Extended |
+
+Measured, not estimated — 133KB for the pair. Note that dotless `ı` (U+0131)
+sits in the *latin* subset while `ğ ş İ` sit in *latin-ext*: Turkish needs both
+files, which is the case that makes the split worth getting right.
 
 Two `@font-face` rules, **one** `font-family`, split by `unicode-range` —
 mechanically identical to what Google serves. The alternative is the unsubset
@@ -58,14 +62,20 @@ already in use cost no extra download.
 
 One new browser-side module, `src/fonts.ts`, and two lines of application.
 
-`src/fonts.ts` exports:
+`src/fonts.ts` exports two things and runs nothing on import:
 
 - `FONT_FAMILY` — the family stack, `"Inter", system-ui, sans-serif`.
-- a module-scope side effect that loads both faces.
+- `loadFonts()` — registers both faces.
 
 Loading is hand-rolled on `FontFace` and `delayRender`/`continueRender`, with
-no added dependency — the same choice Phases 13 and 14 made. It runs once per
-bundle evaluation; both compositions import the module and share the one load.
+no added dependency — the same choice Phases 13 and 14 made.
+
+`loadFonts()` is **called once**, at module scope in `src/Root.tsx`, the
+browser-only entry both compositions pass through. It is deliberately not a
+module-scope side effect of `fonts.ts` itself: `FontFace` does not exist in
+Node, so a self-loading module could not be imported by a `node:test` file at
+all. Keeping the call in the browser entry is what leaves `FONT_FAMILY`
+testable.
 
 `fontFamily` is set **once per composition**, on the root of `VideoRoot.tsx`
 and the root of `Cover.tsx`. `AnimatedText`, `Captions` and the cover's
