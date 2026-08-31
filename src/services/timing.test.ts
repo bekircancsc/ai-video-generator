@@ -1,6 +1,14 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { LEAD_IN_SECONDS, MIN_SCENE_FRAMES, TAIL_SECONDS, computeSceneFrames } from "./timing";
+import {
+  LEAD_IN_SECONDS,
+  MIN_SCENE_FRAMES,
+  TAIL_SECONDS,
+  TRANSITION_FRAMES,
+  computeSceneFrames,
+  sceneStartFrames,
+  timelineFrames,
+} from "./timing";
 
 test("pads speech with a lead-in and a tail", () => {
   assert.equal(computeSceneFrames(6, 30), Math.ceil((6 + LEAD_IN_SECONDS + TAIL_SECONDS) * 30));
@@ -17,4 +25,45 @@ test("applies a floor so a very short line still holds the screen", () => {
 
 test("respects a non-default frame rate", () => {
   assert.equal(computeSceneFrames(2, 60), 165);
+});
+
+test("scenes step forward by their duration minus the overlap", () => {
+  assert.deepEqual(sceneStartFrames([90, 90, 90], 9), [0, 81, 162]);
+});
+
+test("the first scene always starts at frame zero", () => {
+  assert.equal(sceneStartFrames([90, 90], 9)[0], 0);
+  assert.equal(sceneStartFrames([90], 9)[0], 0);
+});
+
+test("the timeline is shorter than the sum by one overlap per join", () => {
+  assert.equal(timelineFrames([90, 90, 90], 9), 270 - 2 * 9);
+  assert.equal(timelineFrames([60, 120], 9), 180 - 9);
+});
+
+test("a single scene is its own length and starts at zero", () => {
+  assert.deepEqual(sceneStartFrames([120], 9), [0]);
+  assert.equal(timelineFrames([120], 9), 120);
+});
+
+test("an empty timeline is empty", () => {
+  assert.deepEqual(sceneStartFrames([], 9), []);
+  assert.equal(timelineFrames([], 9), 0);
+});
+
+test("an overlap of zero reproduces back-to-back scenes", () => {
+  assert.deepEqual(sceneStartFrames([90, 60, 30], 0), [0, 90, 150]);
+  assert.equal(timelineFrames([90, 60, 30], 0), 180);
+});
+
+test("a scene shorter than the overlap never starts before the one before it", () => {
+  const starts = sceneStartFrames([90, 5, 90], 9);
+  assert.ok(starts[1] > starts[0], `${starts[1]} should follow ${starts[0]}`);
+  assert.ok(starts[2] > starts[1], `${starts[2]} should follow ${starts[1]}`);
+  assert.ok(timelineFrames([90, 5, 90], 9) > 0);
+});
+
+test("the default overlap is the transition length", () => {
+  assert.deepEqual(sceneStartFrames([90, 90]), sceneStartFrames([90, 90], TRANSITION_FRAMES));
+  assert.equal(timelineFrames([90, 90]), timelineFrames([90, 90], TRANSITION_FRAMES));
 });
