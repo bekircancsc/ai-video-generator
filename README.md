@@ -86,6 +86,12 @@ slower ramp would never finish, leaving the bed ducked for the whole video. It
 fades in and out over a second at each end. The music is synthesized rather
 than sourced: no track to license, no key to hold.
 
+**Every render also writes a cover.** Beside `out/<slug>.mp4` goes
+`out/<slug>.jpg`, a purpose-built thumbnail rather than a frame lifted from the
+video: the first scene that has a generated picture, under a heavier scrim,
+with the title and one supporting line. It is drawn by the `AI-Cover` composition and
+rendered with `renderStill` from the same bundle the video came from.
+
 **The React side stays declarative.** Everything under `src/components/` is
 bundled for the browser by Remotion, so nothing there may import a module that
 touches `node:fs`, `node:crypto` or `dotenv`. Pipeline stages resolve all the
@@ -94,7 +100,7 @@ data first; components only draw what they are handed.
 ## CLI
 
 ```bash
-npm run start -- [--topic <topic>] [--niche <niche>] [--scenes <n>] [--payload <file.json>] [--no-audio] [--no-images] [--no-music]
+npm run start -- [--topic <topic>] [--niche <niche>] [--scenes <n>] [--payload <file.json>] [--no-audio] [--no-images] [--no-music] [--no-cover]
 ```
 
 | Flag | Effect |
@@ -106,6 +112,7 @@ npm run start -- [--topic <topic>] [--niche <niche>] [--scenes <n>] [--payload <
 | `--no-audio` | Skip voiceover and captions entirely. No network calls; scenes keep the durations in the payload. |
 | `--no-images` | Skip image generation. Every scene renders the drawn aurora background instead. |
 | `--no-music` | Skip the music bed. The video plays with speech alone. |
+| `--no-cover` | Skip the cover frame. Only the MP4 is written. |
 
 | Script | Purpose |
 |---|---|
@@ -178,6 +185,10 @@ like last month's is better than no video at all.
 
 Music behaves the same way. A bed that cannot be synthesized or written logs
 `[music] falling back (...)` and the video renders with speech alone.
+
+The cover is rendered after the video is written and every error is caught, so
+it can never fail a render: a failed cover logs `[cover] falling back (...)` and
+leaves the finished MP4 alone.
 
 ## Development
 

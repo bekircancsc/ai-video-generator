@@ -81,3 +81,14 @@ test("music is on unless it is turned off", () => {
 test("--no-music is not read as a topic", () => {
   assert.equal(parseArgs(["Rome", "--no-music"]).topic, "Rome");
 });
+
+test("--no-cover turns the cover off and is not read as a topic", () => {
+  const args = parseArgs(["--topic", "Stoicism", "--no-cover"]);
+
+  assert.equal(args.cover, false);
+  assert.equal(args.topic, "Stoicism");
+});
+
+test("the cover is on by default", () => {
+  assert.equal(parseArgs(["--topic", "Stoicism"]).cover, true);
+});

@@ -9,7 +9,7 @@
     "render": "node --import tsx src/pipeline/render.ts",
     "test:render": "node --import tsx src/pipeline/test-render.ts",
     "start": "node run.mjs",
-    "test": "node --import tsx --test src/services/audio-duration.test.ts src/services/timing.test.ts src/services/tts.test.ts src/pipeline/voiceover.test.ts src/services/caption-groups.test.ts src/services/transcribe.test.ts src/services/clip-paths.test.ts src/pipeline/captions.test.ts src/services/palette.test.ts src/services/seed.test.ts src/services/cli-args.test.ts src/services/script-schema.test.ts src/services/image-prompt.test.ts src/services/image-gen.test.ts src/pipeline/imagery.test.ts src/services/music.test.ts src/services/music-gen.test.ts src/pipeline/music.test.ts"
+    "test": "node --import tsx --test src/services/audio-duration.test.ts src/services/timing.test.ts src/services/tts.test.ts src/pipeline/voiceover.test.ts src/services/caption-groups.test.ts src/services/transcribe.test.ts src/services/clip-paths.test.ts src/pipeline/captions.test.ts src/services/palette.test.ts src/services/seed.test.ts src/services/cli-args.test.ts src/services/script-schema.test.ts src/services/image-prompt.test.ts src/services/image-gen.test.ts src/pipeline/imagery.test.ts src/services/music.test.ts src/services/music-gen.test.ts src/pipeline/music.test.ts src/services/cover.test.ts src/pipeline/cover.test.ts"
   },
   "keywords": [
     "remotion",

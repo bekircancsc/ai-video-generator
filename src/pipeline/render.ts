@@ -10,6 +10,7 @@ import { attachVoiceover } from "./voiceover";
 import { attachCaptions } from "./captions";
 import { attachImagery } from "./imagery";
 import { attachMusic } from "./music";
+import { removeCover, renderCover } from "./cover";
 import type { VideoPayload } from "../types/video";
 import type { ScriptBrief } from "../services/script-schema";
 
@@ -26,7 +27,7 @@ function slugify(value: string) {
 export async function renderVideo(
   brief: ScriptBrief,
   payloadOverride?: VideoPayload,
-  options: { audio?: boolean; images?: boolean; music?: boolean } = {},
+  options: { audio?: boolean; images?: boolean; music?: boolean; cover?: boolean } = {},
 ) {
   const script = payloadOverride ?? (await generateScript(brief));
   const spoken =
@@ -68,22 +69,39 @@ export async function renderVideo(
     },
   });
 
+  let coverLocation: string | undefined;
+
+  if (options.cover === false) {
+    // Output names come from the topic, so this render may have just replaced
+    // a video that had a cover. Leaving it would pair this video with the
+    // previous one's thumbnail.
+    await removeCover(outputLocation);
+  } else {
+    coverLocation = await renderCover({ serveUrl, payload, videoLocation: outputLocation });
+  }
+
   return {
     outputLocation,
+    coverLocation,
     payload,
   };
 }
 
 if (isDirectRun) {
   const run = async () => {
-    const { topic, niche, sceneCount, payloadFile, audio, images, music } = parseArgs(process.argv.slice(2));
+    const { topic, niche, sceneCount, payloadFile, audio, images, music, cover } = parseArgs(process.argv.slice(2));
     const brief: ScriptBrief = { topic, niche, sceneCount };
 
     if (payloadFile) {
       const payload = await loadPayloadFile(payloadFile);
       console.log(`Rendering payload from ${payloadFile}`);
-      const result = await renderVideo(brief, payload, { audio, images, music });
+      const result = await renderVideo(brief, payload, { audio, images, music, cover });
       console.log(`Render complete: ${result.outputLocation}`);
+
+      if (result.coverLocation) {
+        console.log(`Cover: ${result.coverLocation}`);
+      }
+
       return;
     }
 
@@ -98,8 +116,12 @@ if (isDirectRun) {
     const scenes = sceneCount ? `, ${sceneCount} scenes` : "";
     console.log(`Generating video for ${subject} (provider: ${provider}${scenes})`);
 
-    const result = await renderVideo(brief, undefined, { audio, images, music });
+    const result = await renderVideo(brief, undefined, { audio, images, music, cover });
     console.log(`Render complete: ${result.outputLocation}`);
+
+    if (result.coverLocation) {
+      console.log(`Cover: ${result.coverLocation}`);
+    }
   };
 
   run().catch((error) => {

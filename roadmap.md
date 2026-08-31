@@ -138,3 +138,12 @@ _Superseded by Phase 7: Gemini is now one provider among several and no longer t
 - [x] Cache it in `public/music/`, keyed by seed, length, fps and format version.
 - [x] Duck it under narration and fade it in and out at the ends.
 - [x] Add `--no-music`, and make every failure path a silent fallback.
+
+---
+
+### Phase 15: Cover Frame
+- [x] Register a second composition, `AI-Cover`, one frame long at the video's size.
+- [x] Choose the picture, colour and lines in a pure, tested `coverPlan`.
+- [x] Draw a static cover: headline, accent rule and kicker over the first scene's picture.
+- [x] Render it with `renderStill` from the same bundle, straight after the video.
+- [x] Write it to `out/<slug>.jpg`, add `--no-cover`, and catch every failure.

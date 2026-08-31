@@ -1,6 +1,7 @@
 import React from "react";
 import { Composition, registerRoot } from "remotion";
 import { VideoRoot } from "./VideoRoot";
+import { Cover } from "./components/Cover";
 import { timelineFrames, transitionFrames } from "./services/timing";
 import type { VideoPayload } from "./types/video";
 
@@ -81,6 +82,27 @@ export const RemotionRoot: React.FC = () => {
 
           return {
             durationInFrames: getDurationInFrames(props.video),
+            fps: props.video.fps,
+            width: dimensions.width,
+            height: dimensions.height,
+          };
+        }}
+      />
+
+      <Composition
+        id="AI-Cover"
+        component={Cover}
+        durationInFrames={1}
+        fps={defaultVideo.fps}
+        width={getDimensions(defaultVideo.aspectRatio).width}
+        height={getDimensions(defaultVideo.aspectRatio).height}
+        defaultProps={{ video: defaultVideo }}
+        calculateMetadata={({ props }) => {
+          const dimensions = getDimensions(props.video.aspectRatio);
+
+          return {
+            // A still: one frame, and the fps only has to be legal.
+            durationInFrames: 1,
             fps: props.video.fps,
             width: dimensions.width,
             height: dimensions.height,
