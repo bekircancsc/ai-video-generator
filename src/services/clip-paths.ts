@@ -44,3 +44,27 @@ export function transcriptPathFor(audioSrc: string, transcribeModel: string): st
 
   return transcriptPath;
 }
+
+/**
+ * Identifies a generated image by everything that determines what it looks
+ * like, so changing the provider, the model or the frame size produces a new
+ * file instead of silently reusing the old one.
+ */
+export function imageCacheKey(
+  prompt: string,
+  provider: string,
+  model: string,
+  width: number,
+  height: number
+): string {
+  return crypto
+    .createHash("sha256")
+    .update(`${prompt} ${provider} ${model} ${width}x${height}`)
+    .digest("hex")
+    .slice(0, 16);
+}
+
+/** Image path (relative to public/) for a given cache key, e.g. images/3f2a1b0c....jpg */
+export function imagePathFor(key: string): string {
+  return `images/${key}.jpg`;
+}

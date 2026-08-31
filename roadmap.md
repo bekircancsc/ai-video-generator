@@ -111,3 +111,13 @@ _Superseded by Phase 7: Gemini is now one provider among several and no longer t
 - [x] Enforce the count again after validation so the repair retry can correct a miscount.
 - [x] Keep hand-written `--payload` files exempt from the range.
 - [x] Extract `parseArgs` into `src/services/cli-args.ts` and cover it with tests.
+
+---
+
+### Phase 12: Generated Scene Imagery
+- [x] Ask the script model for a per-scene `imagePrompt`, falling back to `keywords`.
+- [x] Generate one still per scene through a free provider seam: `pollinations` (keyless default), `together`, `none`.
+- [x] Cache images by prompt, provider, model and size under `public/images/`.
+- [x] Draw the still full-frame under a darkening scrim with a slow zoom, keeping the grain and vignette.
+- [x] Fall back to the aurora background on any failure, so imagery never fails a render.
+- [x] Support `--no-images` for renders with no image calls.

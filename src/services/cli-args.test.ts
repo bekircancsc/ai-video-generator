@@ -63,3 +63,12 @@ test("--scenes with no value is an error", () => {
 test("a positional topic keeps a word that matches a flag value", () => {
   assert.equal(parseArgs(["5", "stoic", "habits", "--scenes", "5"]).topic, "5 stoic habits");
 });
+
+test("images are on by default and off with --no-images", () => {
+  assert.equal(parseArgs(["--topic", "x"]).images, true);
+  assert.equal(parseArgs(["--topic", "x", "--no-images"]).images, false);
+});
+
+test("--no-images is not swallowed into the topic", () => {
+  assert.equal(parseArgs(["The", "Future", "--no-images"]).topic, "The Future");
+});

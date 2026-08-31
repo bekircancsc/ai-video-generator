@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { clipPathFor, narrationCacheKey, transcriptPathFor } from "./clip-paths";
+import { clipPathFor, imageCacheKey, imagePathFor, narrationCacheKey, transcriptPathFor } from "./clip-paths";
 
 test("cache key is stable for identical input", () => {
   const first = narrationCacheKey("hello there", "daniel", "orpheus");
@@ -38,4 +38,24 @@ test("refuses a path that would collide with the audio clip", () => {
   // transcript path by the .wav -> .json replacement, so this must throw
   // rather than silently return the same path (which would overwrite audio).
   assert.throws(() => transcriptPathFor("audio/3f2a1b0c.raw", "whisper-large-v3-turbo"), /same path/);
+});
+
+test("image cache key is stable and 16 hex characters", () => {
+  const first = imageCacheKey("a cold bridge", "pollinations", "flux", 1080, 1920);
+  const second = imageCacheKey("a cold bridge", "pollinations", "flux", 1080, 1920);
+  assert.equal(first, second);
+  assert.match(first, /^[0-9a-f]{16}$/);
+});
+
+test("image cache key changes with prompt, provider, model or size", () => {
+  const base = imageCacheKey("a cold bridge", "pollinations", "flux", 1080, 1920);
+  assert.notEqual(base, imageCacheKey("a warm bridge", "pollinations", "flux", 1080, 1920));
+  assert.notEqual(base, imageCacheKey("a cold bridge", "together", "flux", 1080, 1920));
+  assert.notEqual(base, imageCacheKey("a cold bridge", "pollinations", "other", 1080, 1920));
+  assert.notEqual(base, imageCacheKey("a cold bridge", "pollinations", "flux", 768, 1344));
+});
+
+test("image path lives under images/ and never collides with audio", () => {
+  assert.equal(imagePathFor("abc123"), "images/abc123.jpg");
+  assert.notEqual(imagePathFor("abc123"), clipPathFor("abc123"));
 });

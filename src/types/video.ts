@@ -15,6 +15,12 @@ export const videoSceneSchema = z.object({
   durationInFrames: z.number().int().positive(),
   themeColor: z.string().regex(/^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/).default("#6d5df6"),
   keywords: z.array(z.string()).default([]),
+  // One sentence describing the picture for this scene. Written by the script
+  // model; empty on hand-written payloads, where the imagery stage falls back
+  // to keywords.
+  imagePrompt: z.string().default(""),
+  // Written by the imagery stage. Relative to public/, e.g. images/3f2a.jpg
+  imageSrc: z.string().optional(),
   // Written by the voiceover stage. Relative to public/, e.g. audio/3f2a.wav
   audioSrc: z.string().optional(),
   // Written by the captions stage, timed against audioSrc.

@@ -13,6 +13,7 @@ const mockPayload = {
       durationInFrames: 60,
       themeColor: "#7c3aed",
       keywords: ["render", "validation", "AI"],
+      imagePrompt: "A bare studio wall under a single hard lamp",
     },
     {
       id: "scene-2",
@@ -22,6 +23,7 @@ const mockPayload = {
       durationInFrames: 60,
       themeColor: "#22c55e",
       keywords: ["sync", "frame", "check"],
+      imagePrompt: "A row of film frames sliding past in perfect step",
     },
     {
       id: "scene-3",
@@ -31,6 +33,7 @@ const mockPayload = {
       durationInFrames: 60,
       themeColor: "#38bdf8",
       keywords: ["output", "review", "ready"],
+      imagePrompt: "A finished reel resting on a dark table",
     },
   ],
 };

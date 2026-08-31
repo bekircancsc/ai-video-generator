@@ -16,6 +16,7 @@ const defaultVideo: VideoPayload = {
       durationInFrames: 90,
       themeColor: "#7c3aed",
       keywords: ["AI", "automation", "future"],
+      imagePrompt: "A dense city skyline at dawn, data light tracing across the glass towers",
     },
     {
       id: "scene-2",
@@ -25,6 +26,7 @@ const defaultVideo: VideoPayload = {
       durationInFrames: 90,
       themeColor: "#22c55e",
       keywords: ["idea", "creative", "execution"],
+      imagePrompt: "A cluttered desk where a sketched notebook page lifts into a glowing prototype",
     },
     {
       id: "scene-3",
@@ -34,6 +36,7 @@ const defaultVideo: VideoPayload = {
       durationInFrames: 90,
       themeColor: "#38bdf8",
       keywords: ["human", "AI", "collaboration"],
+      imagePrompt: "A person's hands and a robotic arm building the same structure together",
     },
   ],
 };

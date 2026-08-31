@@ -1,5 +1,5 @@
 import React from "react";
-import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Img, interpolate, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { BASE_COLOR, HUE_OFFSETS, rotateHue, toTransparentRgba } from "../services/palette";
 import { seedFromId, seededUnit } from "../services/seed";
 
@@ -29,6 +29,20 @@ const CLOUD_BASE_OPACITY = 0.44;
 const CLOUD_OPACITY_STEP_PER_INDEX = 0.07;
 const CLOUD_SCALE_GROWTH = 0.16;
 
+/**
+ * The image is scaled past the frame over the scene so it never sits still.
+ * Kept small on purpose: a stronger zoom pulls the eye off the caption.
+ */
+const IMAGE_ZOOM_GROWTH = 0.08;
+
+/**
+ * How hard the picture is pushed down so white text stays readable on it.
+ * Heavier at the top and bottom, where the keyword badge and the captions sit.
+ */
+const IMAGE_SCRIM =
+  "linear-gradient(to bottom, rgba(2, 4, 9, 0.6) 0%, rgba(2, 4, 9, 0.22) 34%, " +
+  "rgba(2, 4, 9, 0.34) 62%, rgba(2, 4, 9, 0.72) 100%)";
+
 /** A few pixels of grain shift per frame reads as shimmer without any randomness. */
 const GRAIN_SHIFT_STEP_PX = 9;
 const GRAIN_SHIFT_CYCLE_FRAMES = 5;
@@ -42,9 +56,18 @@ type BackgroundProps = {
   // duration. An explicit input beats an invisible dependency on being
   // mounted inside that per-scene Sequence, so keep passing it as a prop.
   durationInFrames: number;
+  // Relative to public/, written by the imagery stage. Scenes without one fall
+  // back to the drawn aurora, which is what every scene used before imagery
+  // existed.
+  imageSrc?: string;
 };
 
-export const Background: React.FC<BackgroundProps> = ({ themeColor, sceneId, durationInFrames }) => {
+export const Background: React.FC<BackgroundProps> = ({
+  themeColor,
+  sceneId,
+  durationInFrames,
+  imageSrc,
+}) => {
   const frame = useCurrentFrame();
   const { width, height } = useVideoConfig();
   const seed = seedFromId(sceneId);
@@ -58,6 +81,45 @@ export const Background: React.FC<BackgroundProps> = ({ themeColor, sceneId, dur
 
   // A few pixels of shift per frame reads as shimmer without any randomness.
   const grainShift = (frame % GRAIN_SHIFT_CYCLE_FRAMES) * GRAIN_SHIFT_STEP_PX;
+
+  if (imageSrc) {
+    return (
+      <AbsoluteFill style={{ backgroundColor: BASE_COLOR, overflow: "hidden" }}>
+        <Img
+          src={staticFile(imageSrc)}
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            transform: `scale(${1 + progress * IMAGE_ZOOM_GROWTH})`,
+          }}
+        />
+
+        <div style={{ position: "absolute", inset: 0, background: IMAGE_SCRIM }} />
+
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage: GRAIN,
+            backgroundPosition: `${grainShift}px ${grainShift}px`,
+            opacity: GRAIN_LAYER_OPACITY,
+            mixBlendMode: "overlay",
+          }}
+        />
+
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 35%, rgba(2, 4, 9, 0.6) 100%)",
+          }}
+        />
+      </AbsoluteFill>
+    );
+  }
 
   return (
     <AbsoluteFill style={{ backgroundColor: BASE_COLOR, overflow: "hidden" }}>

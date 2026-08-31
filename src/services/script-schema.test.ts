@@ -95,3 +95,32 @@ test("parseScriptJson applies no count check at all", () => {
   assert.equal(parseScriptJson(payloadJson(12)).scenes.length, 12);
   assert.equal(parseScriptJson(payloadJson(1)).scenes.length, 1);
 });
+
+test("the JSON schema asks each scene for an imagePrompt", () => {
+  const schema = buildVideoPayloadJsonSchema(4) as any;
+  const scene = schema.properties.scenes.items;
+  assert.ok(scene.properties.imagePrompt, "imagePrompt is missing from the scene schema");
+  assert.ok(scene.required.includes("imagePrompt"));
+});
+
+test("the prompt tells the model what an imagePrompt is for", () => {
+  const prompt = buildScriptPrompt({ topic: "The Future of AI" });
+  assert.match(prompt, /imagePrompt/);
+});
+
+test("a payload without imagePrompt still validates, defaulting to empty", () => {
+  const payload = parseScriptJson(
+    JSON.stringify({
+      title: "T",
+      fps: 30,
+      aspectRatio: "9:16",
+      scenes: [
+        { id: "s1", text: "a", subtext: "b", narration: "n", durationInFrames: 90, themeColor: "#7c3aed", keywords: [] },
+        { id: "s2", text: "a", subtext: "b", narration: "n", durationInFrames: 90, themeColor: "#7c3aed", keywords: [] },
+        { id: "s3", text: "a", subtext: "b", narration: "n", durationInFrames: 90, themeColor: "#7c3aed", keywords: [] },
+      ],
+    })
+  );
+  assert.equal(payload.scenes[0].imagePrompt, "");
+  assert.equal(payload.scenes[0].imageSrc, undefined);
+});

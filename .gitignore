@@ -6,4 +6,5 @@ out/
 !.env.example
 *.log
 public/audio/
+public/images/
 .superpowers/
