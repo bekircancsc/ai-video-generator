@@ -35,6 +35,12 @@ test("is as long as it was asked to be", () => {
   assert.equal(samples(synthesizeBed(1, SECONDS)), MUSIC_SAMPLE_RATE * SECONDS);
 });
 
+test("a length of a whole number of frames is not a whole number of seconds", () => {
+  // 42 frames at 30fps: the length a real payload asks for.
+  const seconds = 42 / 30;
+  assert.equal(samples(synthesizeBed(1, seconds)), Math.round(MUSIC_SAMPLE_RATE * seconds));
+});
+
 test("the same seed gives the same bed", () => {
   assert.ok(synthesizeBed(777, SECONDS).equals(synthesizeBed(777, SECONDS)));
 });
@@ -43,13 +49,18 @@ test("different seeds give different beds", () => {
   assert.ok(!synthesizeBed(777, SECONDS).equals(synthesizeBed(778, SECONDS)));
 });
 
-test("no sample clips", () => {
-  const wav = synthesizeBed(4242, SECONDS);
+test("the bed is normalized to its headroom, and so cannot clip", () => {
+  // Longer than twice the file fade, so the middle of the bed plays at full level.
+  const wav = synthesizeBed(4242, 6);
+  let peak = 0;
 
   for (let offset = 44; offset < wav.length; offset += 2) {
-    const sample = wav.readInt16LE(offset);
-    assert.ok(sample > -32768 && sample < 32767, `sample ${sample} clips at byte ${offset}`);
+    peak = Math.max(peak, Math.abs(wav.readInt16LE(offset)));
   }
+
+  // PEAK 0.5 of the 32000 full scale, reached because the file is normalized.
+  assert.ok(peak <= 16000, `peak ${peak} exceeds the headroom the synthesizer keeps`);
+  assert.ok(peak > 15000, `peak ${peak} means the bed was not normalized`);
 });
 
 test("starts and ends near silence", () => {

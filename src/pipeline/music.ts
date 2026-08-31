@@ -65,7 +65,12 @@ export async function attachMusic(payload: VideoPayload): Promise<VideoPayload> 
 
     console.log(`[music] synthesizing ${seconds.toFixed(2)}s`);
     await fs.mkdir(path.join(publicDir, "music"), { recursive: true });
-    await fs.writeFile(file, synthesizeBed(seed, seconds));
+    // Written beside the cache path and renamed into place. A bed is megabytes:
+    // an interrupted write straight to `file` would leave a truncated WAV that
+    // every later render treats as a cache hit and hands to ffmpeg.
+    const pending = `${file}.${process.pid}.tmp`;
+    await fs.writeFile(pending, synthesizeBed(seed, seconds));
+    await fs.rename(pending, file);
 
     return { ...rest, musicSrc: relPath };
   } catch (error) {

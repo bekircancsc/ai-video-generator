@@ -74,11 +74,17 @@ the sum of its scene durations. The overlap fits inside the 0.5s tail silence
 every clip already carries, so no speech is lost. `src/services/timing.ts` is
 the one place that arithmetic lives.
 
-**The bed sits under everything.** The music plays at `MUSIC_BASE_GAIN` and
-ducks to `MUSIC_DUCKED_GAIN` under narration, over a 0.4-second ramp that
+**The bed sits under everything.** The music ducks from `MUSIC_BASE_GAIN` to
+`MUSIC_DUCKED_GAIN` under narration, over a `DUCK_RAMP_SECONDS` ramp that
 starts before the first word so the duck has already arrived by the time
-someone speaks. It fades in and out over a second at each end. The music is
-synthesized rather than sourced: no track to license, no key to hold.
+someone speaks. Speech is read from the caption word timings where they exist,
+so a real pause inside a scene opens the bed; gaps shorter than
+`MIN_OPEN_SECONDS` are swallowed, since a lift briefer than a ramp out and back
+in is heard as a wobble. The ramp is deliberately short: the gap at a scene
+join is the tail plus the lead-in minus the dissolve, 0.45 seconds, and a
+slower ramp would never finish, leaving the bed ducked for the whole video. It
+fades in and out over a second at each end. The music is synthesized rather
+than sourced: no track to license, no key to hold.
 
 **The React side stays declarative.** Everything under `src/components/` is
 bundled for the browser by Remotion, so nothing there may import a module that

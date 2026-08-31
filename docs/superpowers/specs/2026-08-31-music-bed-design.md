@@ -52,7 +52,7 @@ Deterministic from `seedFromId(payload.title)`, so re-rendering the same video
 gives the same bed.
 
 - A root pitch drawn from a fixed low set (A2–D3 range), and two chords built on
-  it — a minor triad and the chord a sixth below — alternating every 8 seconds
+  it — a minor triad and the major chord a major third below — alternating every 8 seconds
   with an 8-second crossfade, so the harmony moves without ever landing on a
   beat.
 - Each voice is a sine plus a quiet octave partial, with a slow independent
@@ -72,14 +72,22 @@ loop.
 on each frame:
 
 - **Base gain** 0.18 — present but never competing with narration.
-- **Ducked gain** 0.05 while anyone is speaking, reached over a 0.4-second ramp
+- **Ducked gain** 0.05 while anyone is speaking, reached over a 0.18-second ramp
   that starts *before* the speech does, so the duck never clips the first word.
 - **Fades** of 1 second at the start and end of the video.
 
-A speech span is derived from the timeline, not from the audio file: scene *i*
-speaks from `start[i] + LEAD_IN` to `start[i] + duration[i] - TAIL`. Scenes with
-no `audioSrc` contribute no span, so `--no-audio` renders play the bed at full
-base gain throughout.
+The ramp is short for a reason. The only silence between two scenes is the tail
+plus the lead-in minus the dissolve — 0.45 seconds — so a ramp of the half
+second a mixing desk would use never finishes in either direction, and the bed
+sits ducked for the entire video without once reaching its base gain.
+
+Speech spans come from the caption word timings where the captions stage has
+produced them, so a genuine pause inside a scene opens the bed too. Without
+timings the whole padded middle of the scene counts as speech, which is the safe
+assumption. Spans closer together than `MIN_OPEN_SECONDS` (0.4) are merged: a
+lift shorter than a ramp out and back in is heard as a wobble, not a breath.
+Scenes with no `audioSrc` contribute no span, so `--no-audio` renders play the
+bed at full base gain throughout.
 
 ## Caching
 

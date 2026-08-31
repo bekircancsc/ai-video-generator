@@ -32,7 +32,10 @@ export async function renderVideo(
   const spoken =
     options.audio === false ? script : await attachCaptions(await attachVoiceover(script));
   const illustrated = options.images === false ? spoken : await attachImagery(spoken);
-  const payload = options.music === false ? illustrated : await attachMusic(illustrated);
+  // Dropping musicSrc, not just skipping the stage: a saved payload carries one,
+  // and public/music/ is gitignored, so playing it could fail the render.
+  const { musicSrc: _muted, ...silent } = illustrated;
+  const payload = options.music === false ? silent : await attachMusic(illustrated);
 
   const entryPoint = path.join(rootDir, "src", "Root.tsx");
   const bundleDir = path.join(rootDir, ".cache", "remotion");
