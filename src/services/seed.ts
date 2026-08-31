@@ -28,7 +28,7 @@ export function seedFromId(id: string): number {
  * The index is mixed into the seed before the avalanche rather than added to
  * it afterwards. Scene ids differ only in their final character, and a weaker
  * mix leaves the first draw of every scene clustered together, which would
- * make all three scenes of a video look alike.
+ * make every scene of a video look alike.
  */
 export function seededUnit(seed: number, index: number): number {
   let x = Math.imul(seed ^ Math.imul(index + 1, 0x9e3779b1), 0x85ebca6b) >>> 0;

@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { GoogleGenAI } from "@google/genai";
 import type { VideoPayload } from "../types/video";
-import { buildScriptPrompt, parseScriptJson } from "./script-schema";
+import { buildScriptPrompt, parseGeneratedScript, type ScriptBrief } from "./script-schema";
 
 /** Google's schema dialect uses uppercase type names, so it stays separate from the standard one. */
 const responseSchema = {
@@ -42,13 +42,13 @@ export function createGeminiClient() {
   return new GoogleGenAI({ apiKey });
 }
 
-export async function generateVideoPayload(topic: string): Promise<VideoPayload> {
+export async function generateVideoPayload(brief: ScriptBrief): Promise<VideoPayload> {
   const client = createGeminiClient();
 
   const response = await client.models
     .generateContent({
       model: process.env.LLM_MODEL || "gemini-2.5-flash",
-      contents: buildScriptPrompt(topic),
+      contents: buildScriptPrompt(brief),
       config: {
         responseMimeType: "application/json",
         responseSchema,
@@ -66,5 +66,5 @@ export async function generateVideoPayload(topic: string): Promise<VideoPayload>
       throw error;
     });
 
-  return parseScriptJson(response.text ?? "");
+  return parseGeneratedScript(response.text ?? "", brief.sceneCount);
 }

@@ -34,6 +34,12 @@ Skip it and the first render fails with a message pointing back here.
 npm run start -- --topic "The Future of AI"
 ```
 
+Or with an audience and exact scene count:
+
+```bash
+npm run start -- --niche "stoic philosophy for busy men" --scenes 6
+```
+
 No key handy? Render the bundled script instead — this path makes no network
 call at all:
 
@@ -49,7 +55,7 @@ topic ─▶ script ─▶ voiceover ─▶ captions ─▶ render ─▶ out/*.
 
 | Stage | Module | What it produces |
 |---|---|---|
-| Script | `src/services/script-provider.ts` | A validated `VideoPayload`: three scenes, each with on-screen text and a `narration` line written for the ear. |
+| Script | `src/services/script-provider.ts` | A validated `VideoPayload`: three to eight scenes, each with on-screen text and a `narration` line written for the ear. |
 | Voiceover | `src/pipeline/voiceover.ts` | One WAV per scene in `public/audio/`. Measures each clip from its RIFF header and rewrites `durationInFrames` to fit the speech. |
 | Captions | `src/pipeline/captions.ts` | Word-level timings from Groq Whisper, cached beside the clip and stamped onto the scene. Never changes scene length. |
 | Render | `src/pipeline/render.ts` | Bundles the Remotion composition and writes the MP4 to `out/`. |
@@ -68,12 +74,14 @@ data first; components only draw what they are handed.
 ## CLI
 
 ```bash
-npm run start -- [--topic <topic>] [--payload <file.json>] [--no-audio]
+npm run start -- [--topic <topic>] [--niche <niche>] [--scenes <n>] [--payload <file.json>] [--no-audio]
 ```
 
 | Flag | Effect |
 |---|---|
 | `--topic <topic>` | The subject to generate a script about. A bare positional argument works too. |
+| `--niche <niche>` | Who the video is for. On its own, the model also picks the topic. With `--topic`, it sets the audience and tone. |
+| `--scenes <n>` | Exact number of scenes, 3 to 8. Left off, the model picks a number to suit the topic. |
 | `--payload <file>` | Render a hand-written script instead of calling an LLM. See `scripts/example-payload.json`. |
 | `--no-audio` | Skip voiceover and captions entirely. No network calls; scenes keep the durations in the payload. |
 

@@ -1,6 +1,12 @@
 import "dotenv/config";
 import type { VideoPayload } from "../types/video";
-import { buildScriptPrompt, parseScriptJson, scriptSystemPrompt, videoPayloadJsonSchema } from "./script-schema";
+import {
+  buildScriptPrompt,
+  buildVideoPayloadJsonSchema,
+  parseGeneratedScript,
+  scriptSystemPrompt,
+  type ScriptBrief,
+} from "./script-schema";
 
 type Preset = {
   baseUrl: string;
@@ -79,6 +85,7 @@ async function callChatCompletions(
   config: { baseUrl: string; model: string; apiKey: string },
   messages: Message[],
   useJsonSchema: boolean,
+  jsonSchema: object,
 ) {
   const response = await fetch(`${config.baseUrl}/chat/completions`, {
     method: "POST",
@@ -93,7 +100,7 @@ async function callChatCompletions(
       response_format: useJsonSchema
         ? {
             type: "json_schema",
-            json_schema: { name: "video_payload", strict: true, schema: videoPayloadJsonSchema },
+            json_schema: { name: "video_payload", strict: true, schema: jsonSchema },
           }
         : { type: "json_object" },
     }),
@@ -138,15 +145,20 @@ async function describeRequestError(
 
 /**
  * Generates a VideoPayload through any OpenAI-compatible chat completions endpoint.
- * Tries strict json_schema output first, falls back to json_object for endpoints
- * that do not support schemas, and retries once with the validation error attached.
+ * The schema and prompt are shaped by the brief's scene count. Tries strict json_schema
+ * output first, falls back to json_object for endpoints that do not support schemas, and
+ * retries once with the validation error attached. OpenAI's `strict: true` mode does not
+ * support `minItems`/`maxItems`, so some endpoints strip the bounds or reject the request
+ * outright (handled above via the 400 fallback) — `parseGeneratedScript` is what actually
+ * guarantees the scene count.
  */
-export async function generateWithOpenAICompatible(topic: string, provider: string): Promise<VideoPayload> {
+export async function generateWithOpenAICompatible(brief: ScriptBrief, provider: string): Promise<VideoPayload> {
   const config = resolveConfig(provider);
+  const jsonSchema = buildVideoPayloadJsonSchema(brief.sceneCount);
 
   const messages: Message[] = [
     { role: "system", content: scriptSystemPrompt },
-    { role: "user", content: buildScriptPrompt(topic) },
+    { role: "user", content: buildScriptPrompt(brief) },
   ];
 
   let useJsonSchema = true;
@@ -156,7 +168,7 @@ export async function generateWithOpenAICompatible(topic: string, provider: stri
     let raw: string;
 
     try {
-      raw = await callChatCompletions(config, messages, useJsonSchema);
+      raw = await callChatCompletions(config, messages, useJsonSchema, jsonSchema);
     } catch (error) {
       const typed = error as Error & { status?: number };
 
@@ -171,7 +183,7 @@ export async function generateWithOpenAICompatible(topic: string, provider: stri
     }
 
     try {
-      return parseScriptJson(raw);
+      return parseGeneratedScript(raw, brief.sceneCount);
     } catch (error) {
       lastValidationError = error instanceof Error ? error.message : String(error);
 
