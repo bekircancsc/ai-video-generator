@@ -67,7 +67,7 @@ Two rules hold the design together:
 duration, measured from the actual audio plus a 0.25s lead-in and a 0.5s tail.
 Captions read those clips but never touch the timing.
 
-Consecutive scenes then overlap by `TRANSITION_FRAMES` (0.3s) and cross-dissolve
+Consecutive scenes then overlap by `TRANSITION_SECONDS` (0.3s) and cross-dissolve
 into each other, so the finished video runs `(scenes - 1) * 0.3s` shorter than
 the sum of its scene durations. The overlap fits inside the 0.5s tail silence
 every clip already carries, so no speech is lost. `src/services/timing.ts` is

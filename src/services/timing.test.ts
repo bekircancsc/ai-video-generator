@@ -4,7 +4,8 @@ import {
   LEAD_IN_SECONDS,
   MIN_SCENE_FRAMES,
   TAIL_SECONDS,
-  TRANSITION_FRAMES,
+  TRANSITION_SECONDS,
+  transitionFrames,
   computeSceneFrames,
   sceneStartFrames,
   timelineFrames,
@@ -60,10 +61,42 @@ test("a scene shorter than the overlap never starts before the one before it", (
   const starts = sceneStartFrames([90, 5, 90], 9);
   assert.ok(starts[1] > starts[0], `${starts[1]} should follow ${starts[0]}`);
   assert.ok(starts[2] > starts[1], `${starts[2]} should follow ${starts[1]}`);
-  assert.ok(timelineFrames([90, 5, 90], 9) > 0);
 });
 
-test("the default overlap is the transition length", () => {
-  assert.deepEqual(sceneStartFrames([90, 90]), sceneStartFrames([90, 90], TRANSITION_FRAMES));
-  assert.equal(timelineFrames([90, 90]), timelineFrames([90, 90], TRANSITION_FRAMES));
+test("several short scenes in a row still step forward, one frame at a time", () => {
+  // Each scene may swallow all but one frame of the one before it, so a chain
+  // of scenes at the overlap length degenerates to a one-frame stagger rather
+  // than to scenes sharing a start frame.
+  assert.deepEqual(sceneStartFrames([9, 9, 9], 9), [0, 1, 2]);
+});
+
+test("the timeline covers the end of every scene", () => {
+  for (const durations of [[90, 90, 90], [90, 5, 90], [90, 9], [9, 9, 9], [45], [60, 120, 30]]) {
+    const starts = sceneStartFrames(durations, 9);
+    const lastEnd = Math.max(...starts.map((start, index) => start + durations[index]));
+    assert.equal(
+      timelineFrames(durations, 9),
+      lastEnd,
+      `timeline for ${durations.join(",")} must reach ${lastEnd}`
+    );
+  }
+});
+
+test("a short scene at the end still adds to the timeline", () => {
+  assert.ok(timelineFrames([90, 9], 9) > 90, "the closing scene must not be swallowed");
+});
+
+test("the dissolve is a fixed length in seconds, whatever the frame rate", () => {
+  assert.equal(transitionFrames(30), Math.round(TRANSITION_SECONDS * 30));
+  assert.equal(transitionFrames(60), Math.round(TRANSITION_SECONDS * 60));
+  assert.equal(transitionFrames(24), Math.round(TRANSITION_SECONDS * 24));
+});
+
+test("the dissolve never reaches back into the outgoing scene's speech", () => {
+  for (const fps of [12, 24, 25, 30, 50, 60]) {
+    assert.ok(
+      transitionFrames(fps) <= Math.floor(TAIL_SECONDS * fps),
+      `at ${fps}fps the dissolve must fit inside the tail silence`
+    );
+  }
 });
