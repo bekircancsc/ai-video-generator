@@ -92,6 +92,14 @@ video: the first scene that has a generated picture, under a heavier scrim,
 with the title and one supporting line. It is drawn by the `AI-Cover` composition and
 rendered with `renderStill` from the same bundle the video came from.
 
+**Every word is set in Inter.** The typeface is vendored under `public/fonts/`
+as two `unicode-range` subsets and registered through `FontFace`, so nothing is
+fetched at render time and a render works with the machine offline. Before this
+the components named no font at all and inherited Chromium's default serif —
+Times New Roman on Windows, DejaVu Serif on a Linux box — so the same payload
+rendered differently depending on where it ran. The family is set once on each
+composition root; every text component inherits it.
+
 **The React side stays declarative.** Everything under `src/components/` is
 bundled for the browser by Remotion, so nothing there may import a module that
 touches `node:fs`, `node:crypto` or `dotenv`. Pipeline stages resolve all the

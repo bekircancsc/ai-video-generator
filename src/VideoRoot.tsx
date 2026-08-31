@@ -4,6 +4,7 @@ import { MusicBed } from "./components/MusicBed";
 import { Scene } from "./components/Scene";
 import { sceneStartFrames, timelineFrames, transitionFrames } from "./services/timing";
 import { speechSpans } from "./services/music";
+import { FONT_FAMILY } from "./fonts";
 import type { VideoPayload, VideoScene } from "./types/video";
 
 type VideoRootProps = {
@@ -47,7 +48,9 @@ export const VideoRoot: React.FC<VideoRootProps> = ({ video }) => {
   const spans = speechSpans(video.scenes, starts, fps);
 
   return (
-    <>
+    // The one place the video's typeface is set: `Scene`, `AnimatedText` and
+    // `Captions` all inherit it rather than each naming a family of its own.
+    <AbsoluteFill style={{ fontFamily: FONT_FAMILY }}>
       {video.musicSrc ? (
         <MusicBed src={video.musicSrc} spans={spans} totalFrames={totalFrames} />
       ) : null}
@@ -57,6 +60,6 @@ export const VideoRoot: React.FC<VideoRootProps> = ({ video }) => {
           <DissolvingScene scene={scene} fadeInFrames={index === 0 ? 0 : overlap} />
         </Sequence>
       ))}
-    </>
+    </AbsoluteFill>
   );
 };
