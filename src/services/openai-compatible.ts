@@ -145,8 +145,12 @@ async function describeRequestError(
 
 /**
  * Generates a VideoPayload through any OpenAI-compatible chat completions endpoint.
- * Tries strict json_schema output first, falls back to json_object for endpoints
- * that do not support schemas, and retries once with the validation error attached.
+ * The schema and prompt are shaped by the brief's scene count. Tries strict json_schema
+ * output first, falls back to json_object for endpoints that do not support schemas, and
+ * retries once with the validation error attached. OpenAI's `strict: true` mode does not
+ * support `minItems`/`maxItems`, so some endpoints strip the bounds or reject the request
+ * outright (handled above via the 400 fallback) — `parseGeneratedScript` is what actually
+ * guarantees the scene count.
  */
 export async function generateWithOpenAICompatible(brief: ScriptBrief, provider: string): Promise<VideoPayload> {
   const config = resolveConfig(provider);

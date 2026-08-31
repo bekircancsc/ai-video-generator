@@ -5,6 +5,8 @@ import { MAX_SCENES, MIN_SCENES } from "./script-schema";
  * `--scenes` is validated here so a bad value fails before any model call.
  */
 export function parseArgs(argv: string[]) {
+  const consumedIndices = new Set<number>();
+
   const flagValue = (flag: string) => {
     const index = argv.indexOf(flag);
 
@@ -17,6 +19,9 @@ export function parseArgs(argv: string[]) {
     if (!value || value.startsWith("--")) {
       throw new Error(`${flag} requires a value`);
     }
+
+    consumedIndices.add(index);
+    consumedIndices.add(index + 1);
 
     return value;
   };
@@ -36,19 +41,10 @@ export function parseArgs(argv: string[]) {
     }
   }
 
-  const consumed = new Set([
-    topicFlag,
-    payloadFile,
-    niche,
-    scenesFlag,
-    "--topic",
-    "--payload",
-    "--niche",
-    "--scenes",
-    "--no-audio",
-    "--",
-  ]);
-  const positional = argv.filter((arg) => !consumed.has(arg)).join(" ").trim();
+  const positional = argv
+    .filter((arg, i) => !consumedIndices.has(i) && arg !== "--no-audio" && arg !== "--")
+    .join(" ")
+    .trim();
 
   return {
     payloadFile,

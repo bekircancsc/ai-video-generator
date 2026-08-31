@@ -59,3 +59,7 @@ test("--scenes rejects a non-integer", () => {
 test("--scenes with no value is an error", () => {
   assert.throws(() => parseArgs(["--topic", "x", "--scenes"]), /--scenes requires a value/);
 });
+
+test("a positional topic keeps a word that matches a flag value", () => {
+  assert.equal(parseArgs(["5", "stoic", "habits", "--scenes", "5"]).topic, "5 stoic habits");
+});

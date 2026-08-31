@@ -75,7 +75,7 @@ if (isDirectRun) {
     if (payloadFile) {
       const payload = await loadPayloadFile(payloadFile);
       console.log(`Rendering payload from ${payloadFile}`);
-      const result = await renderVideo({ ...brief, topic: topic || payload.title }, payload, { audio });
+      const result = await renderVideo(brief, payload, { audio });
       console.log(`Render complete: ${result.outputLocation}`);
       return;
     }

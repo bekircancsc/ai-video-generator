@@ -80,7 +80,7 @@ function briefLines({ topic, niche }: ScriptBrief) {
 }
 
 function sceneCountLine(sceneCount?: number) {
-  if (sceneCount) {
+  if (sceneCount !== undefined) {
     return `Use exactly ${sceneCount} scenes, each 3-4 seconds long (90-120 frames at 30fps), with punchy copy,`;
   }
 
@@ -149,11 +149,11 @@ export function parseGeneratedScript(raw: string, sceneCount?: number): VideoPay
   const payload = parseScriptJson(raw);
   const actual = payload.scenes.length;
 
-  if (sceneCount && actual !== sceneCount) {
+  if (sceneCount !== undefined && actual !== sceneCount) {
     throw new Error(`The script must have exactly ${sceneCount} scenes, got ${actual}`);
   }
 
-  if (!sceneCount && (actual < MIN_SCENES || actual > MAX_SCENES)) {
+  if (sceneCount === undefined && (actual < MIN_SCENES || actual > MAX_SCENES)) {
     throw new Error(`The script must have between ${MIN_SCENES} and ${MAX_SCENES} scenes, got ${actual}`);
   }
 
