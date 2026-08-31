@@ -68,3 +68,26 @@ export function imageCacheKey(
 export function imagePathFor(key: string): string {
   return `images/${key}.jpg`;
 }
+
+/**
+ * Identifies a music bed by everything that determines how it sounds and how
+ * long it runs, so a re-cut video writes a new bed instead of playing one that
+ * ends in the wrong place.
+ */
+export function musicCacheKey(
+  seed: number,
+  durationInFrames: number,
+  fps: number,
+  version: number
+): string {
+  return crypto
+    .createHash("sha256")
+    .update(`${seed} ${durationInFrames} ${fps} v${version}`)
+    .digest("hex")
+    .slice(0, 16);
+}
+
+/** Music path (relative to public/) for a given cache key, e.g. music/3f2a1b0c....wav */
+export function musicPathFor(key: string): string {
+  return `music/${key}.wav`;
+}

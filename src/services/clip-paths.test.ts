@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { clipPathFor, imageCacheKey, imagePathFor, narrationCacheKey, transcriptPathFor } from "./clip-paths";
+import { clipPathFor, imageCacheKey, imagePathFor, musicCacheKey, musicPathFor, narrationCacheKey, transcriptPathFor } from "./clip-paths";
 
 test("cache key is stable for identical input", () => {
   const first = narrationCacheKey("hello there", "daniel", "orpheus");
@@ -58,4 +58,21 @@ test("image cache key changes with prompt, provider, model or size", () => {
 test("image path lives under images/ and never collides with audio", () => {
   assert.equal(imagePathFor("abc123"), "images/abc123.jpg");
   assert.notEqual(imagePathFor("abc123"), clipPathFor("abc123"));
+});
+
+test("a music key changes with the seed, the length, the fps and the version", () => {
+  const base = musicCacheKey(1, 900, 30, 1);
+  assert.notEqual(base, musicCacheKey(2, 900, 30, 1));
+  assert.notEqual(base, musicCacheKey(1, 901, 30, 1));
+  assert.notEqual(base, musicCacheKey(1, 900, 60, 1));
+  assert.notEqual(base, musicCacheKey(1, 900, 30, 2));
+});
+
+test("the same music inputs give the same key", () => {
+  assert.equal(musicCacheKey(1, 900, 30, 1), musicCacheKey(1, 900, 30, 1));
+  assert.equal(musicCacheKey(1, 900, 30, 1).length, 16);
+});
+
+test("a music path lives under music/ and ends in .wav", () => {
+  assert.equal(musicPathFor("abc123"), "music/abc123.wav");
 });

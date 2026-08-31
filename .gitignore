@@ -7,4 +7,5 @@ out/
 *.log
 public/audio/
 public/images/
+public/music/
 .superpowers/
