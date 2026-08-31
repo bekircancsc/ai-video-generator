@@ -42,3 +42,7 @@ test("an empty scene still produces a usable prompt", () => {
 test("whitespace-only fields are treated as absent", () => {
   assert.match(buildImagePrompt(scene({ imagePrompt: "   " })), /^marble statue, dawn light/);
 });
+
+test("the style block does not veto people", () => {
+  assert.doesNotMatch(IMAGE_STYLE_SUFFIX, /no people|no faces|no portraits/);
+});
