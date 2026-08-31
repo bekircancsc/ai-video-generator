@@ -65,8 +65,10 @@ buildImagePrompt(scene: VideoScene): string
 `IMAGE_PROVIDER` selects the backend, mirroring `SCRIPT_PROVIDER`:
 
 - `pollinations` (default) — keyless. `GET https://image.pollinations.ai/prompt/<encoded>?width=1080&height=1920&model=flux&nologo=true&seed=<n>`; the response body is the image. The seed is derived from the scene id, so a rerun without a cache reproduces the same picture.
-- `together` — used when `IMAGE_API_KEY` is set and the provider is selected. `POST https://api.together.xyz/v1/images/generations` with `black-forest-labs/FLUX.1-schnell-Free`, 768×1344 (FLUX requires multiples of 16), reading the base64 field of the response.
+- `together` — requires `IMAGE_API_KEY`; without it the stage reports a missing-key message and the scene falls back. `POST https://api.together.xyz/v1/images/generations` with `black-forest-labs/FLUX.1-schnell-Free`, 768×1344 (FLUX requires multiples of 16), reading the base64 field of the response.
 - `none` — generation is skipped entirely.
+
+`IMAGE_MODEL` overrides the selected provider's default model (`flux` for pollinations, `black-forest-labs/FLUX.1-schnell-Free` for together).
 
 Every provider returns `{ bytes: Buffer, contentType: string }`. Failures throw
 a message that names the provider and what to do next, following the shape of
