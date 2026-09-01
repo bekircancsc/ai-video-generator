@@ -12,6 +12,8 @@ import { attachImagery } from "./imagery";
 import { attachMusic } from "./music";
 import { removeCover, renderCover } from "./cover";
 import { normaliseLoudness } from "./loudness";
+import { buildResult, type RunFailure } from "../services/result";
+import { appendHistory, readHistory, recentTitles } from "../services/history";
 import type { VideoPayload } from "../types/video";
 import type { ScriptBrief } from "../services/script-schema";
 
@@ -96,45 +98,111 @@ export async function renderVideo(
 }
 
 if (isDirectRun) {
+  /**
+   * Under --json, stdout carries the result object and nothing else.
+   *
+   * Everything that would have gone to stdout is pushed to stderr for the
+   * duration of the run — including anything a library writes to the stream
+   * directly — and the result is written through this saved reference at the
+   * end. A caller parses the whole of stdout; a person reads stderr.
+   */
+  const stdoutWrite = process.stdout.write.bind(process.stdout);
+
   const run = async () => {
-    const { topic, niche, sceneCount, payloadFile, audio, images, music, cover, loudness } =
+    const { topic, niche, nicheFile, sceneCount, payloadFile, audio, images, music, cover, loudness, json } =
       parseArgs(process.argv.slice(2));
-    const brief: ScriptBrief = { topic, niche, sceneCount };
 
-    if (payloadFile) {
-      const payload = await loadPayloadFile(payloadFile);
-      console.log(`Rendering payload from ${payloadFile}`);
-      const result = await renderVideo(brief, payload, { audio, images, music, cover, loudness });
-      console.log(`Render complete: ${result.outputLocation}`);
+    if (json) {
+      process.stdout.write = ((chunk: unknown, ...rest: unknown[]) =>
+        (process.stderr.write as (...args: never[]) => boolean)(
+          chunk as never,
+          ...(rest as never[]),
+        )) as typeof process.stdout.write;
+    }
 
-      if (result.coverLocation) {
-        console.log(`Cover: ${result.coverLocation}`);
+    let briefNiche = niche;
+
+    if (nicheFile) {
+      const resolved = path.resolve(process.cwd(), nicheFile);
+
+      try {
+        briefNiche = await fs.readFile(resolved, "utf8");
+      } catch {
+        throw new Error(`Could not read niche file: ${resolved}`);
       }
 
-      return;
+      if (!briefNiche.trim()) {
+        throw new Error(`The niche file is empty: ${resolved}`);
+      }
     }
 
-    if (!topic && !niche) {
-      throw new Error(
-        "A topic or a niche must be provided via --topic or --niche, or a script via --payload <file.json>",
-      );
+    // A payload file names its own video; the avoid list only shapes a
+    // generated script, so it is not read on that path.
+    const avoidTopics = payloadFile ? undefined : recentTitles(await readHistory(rootDir));
+    const brief: ScriptBrief = { topic, niche: briefNiche, sceneCount, avoidTopics };
+
+    let payload: VideoPayload | undefined;
+
+    if (payloadFile) {
+      payload = await loadPayloadFile(payloadFile);
+      console.log(`Rendering payload from ${payloadFile}`);
+    } else {
+      if (!topic && !briefNiche) {
+        throw new Error(
+          "A topic or a niche must be provided via --topic, --niche or --niche-file, or a script via --payload <file.json>",
+        );
+      }
+
+      const provider = process.env.SCRIPT_PROVIDER || defaultProvider;
+      const subject = topic ? `topic: ${topic}` : nicheFile ? `niche file: ${nicheFile}` : `niche: ${briefNiche}`;
+      const scenes = sceneCount ? `, ${sceneCount} scenes` : "";
+      const avoiding = avoidTopics?.length ? `, avoiding ${avoidTopics.length} published titles` : "";
+      console.log(`Generating video for ${subject} (provider: ${provider}${scenes}${avoiding})`);
     }
 
-    const provider = process.env.SCRIPT_PROVIDER || defaultProvider;
-    const subject = topic ? `topic: ${topic}` : `niche: ${niche}`;
-    const scenes = sceneCount ? `, ${sceneCount} scenes` : "";
-    console.log(`Generating video for ${subject} (provider: ${provider}${scenes})`);
+    const result = await renderVideo(brief, payload, { audio, images, music, cover, loudness });
 
-    const result = await renderVideo(brief, undefined, { audio, images, music, cover, loudness });
     console.log(`Render complete: ${result.outputLocation}`);
 
     if (result.coverLocation) {
       console.log(`Cover: ${result.coverLocation}`);
     }
+
+    const summary = buildResult({
+      payload: result.payload,
+      videoLocation: result.outputLocation,
+      coverLocation: result.coverLocation,
+      rootDir,
+    });
+
+    // Only a generated script goes in the history: a payload file was written
+    // by hand, and its topic was never the model's to choose again.
+    if (!payloadFile) {
+      await appendHistory(rootDir, {
+        date: new Date().toISOString().slice(0, 10),
+        slug: summary.slug,
+        title: summary.title,
+        topic: topic || nicheFile || "",
+      });
+    }
+
+    if (json) {
+      stdoutWrite(`${JSON.stringify(summary)}\n`);
+    }
   };
 
   run().catch((error) => {
-    console.error("Render failed:", error instanceof Error ? error.message : error);
+    const message = error instanceof Error ? error.message : String(error);
+
+    console.error("Render failed:", message);
+
+    // Read from argv rather than the parsed args: parseArgs itself may be what
+    // threw, and the failure still has to come back as JSON.
+    if (process.argv.includes("--json")) {
+      const failure: RunFailure = { ok: false, error: message };
+      stdoutWrite(`${JSON.stringify(failure)}\n`);
+    }
+
     process.exitCode = 1;
   });
 }
