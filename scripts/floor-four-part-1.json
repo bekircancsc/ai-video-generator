@@ -15,7 +15,7 @@
         "fourth floor",
         "liminal"
       ],
-      "imagePrompt": "Straight on macro of a vertical row of five identical round brass elevator buttons on a worn panel in a dim office lobby, the fourth button up from the bottom rubbed completely smooth and blank while the other four stay crisp and intact, sickly amber fluorescent light, no people, analog film grain, shallow depth of field"
+      "imagePrompt": "Extreme close-up of a worn brass elevator button panel in a dim office lobby, buttons numbered 1 2 3 4 5 in a vertical row, the paint around the number four rubbed away to bare metal from decades of use, sickly amber fluorescent light, no people, analog film grain, shallow depth of field"
     },
     {
       "id": "ff1-problem",
@@ -85,7 +85,7 @@
         "four",
         "illuminated"
       ],
-      "imagePrompt": "Straight on macro of the same vertical row of five round brass elevator buttons, the fourth button up from the bottom lit from within with a warm amber glow while every other button stays dark and dead, dim lobby, no hand pressing it, no people, analog film grain, high contrast"
+      "imagePrompt": "Extreme close-up of the same worn elevator button panel, but now the number four button is lit from within with a warm amber glow while every other button stays dark, dim lobby, no hand pressing it, no people, analog film grain, high contrast"
     }
   ]
 }
