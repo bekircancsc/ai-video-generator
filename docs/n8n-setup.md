@@ -20,12 +20,28 @@ is that videos are only produced while this machine is on.
 ## Import and wire
 
 1. **Workflows → Import from file** → `n8n/publish-video.workflow.json`.
-2. Open the **Render** node and set its working directory to the repo root.
-3. Attach the credentials below.
+2. Attach the credentials below.
 
 Give the Render node a generous timeout. A six-scene video takes well over ten
 minutes on a cold cache — script, six voiceovers, six transcriptions, six
 images, a music bed, the render itself, then loudness and the cover.
+
+### The repo path appears twice
+
+The Execute Command node has no working-directory setting, so the `cd` is part
+of the command, and the **Read the result** Code node needs the same root again
+to turn the CLI's repo-relative paths into absolute ones — the file nodes
+resolve paths against n8n's own directory, not this one. Moving the repo means
+editing both.
+
+Both use the 8.3 short path, `C:\Users\bekircan\OneDrive\MASAST~1\AI-VID~1`.
+That is not a stylistic choice: cmd.exe cannot read the accented characters in
+`Masaüstü` and fails the `cd` outright with a syntax error. Get the short path
+for any directory with:
+
+```powershell
+(New-Object -ComObject Scripting.FileSystemObject).GetFolder("<path>").ShortPath
+```
 
 ### Call node, not npm
 

@@ -13,18 +13,18 @@
     },
     {
       "parameters": {
-        "command": "node run.mjs --niche-file niches/floor-four.md --scenes 6 --json"
+        "command": "cd /d \"C:\\Users\\bekircan\\OneDrive\\MASAST~1\\AI-VID~1\" && node run.mjs --niche-file niches/floor-four.md --scenes 6 --json"
       },
       "id": "render",
       "name": "Render",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [220, 0],
-      "notes": "Set the working directory to the repo root in the node's settings. Call node directly, not npm: npm prints its own banner to stdout and would break the JSON contract."
+      "notes": "The node has no working-directory setting, so the cd is part of the command. The 8.3 short path is deliberate: cmd.exe cannot read the accented characters in the real path. Call node directly, not npm: npm prints its own banner to stdout and would break the JSON contract."
     },
     {
       "parameters": {
-        "jsCode": "const raw = $json.stdout ?? '';\nlet result;\ntry {\n  result = JSON.parse(raw);\n} catch {\n  throw new Error('The render did not return JSON. stderr: ' + ($json.stderr ?? '').slice(-800));\n}\nif (!result.ok) {\n  throw new Error(result.error);\n}\nreturn [{ json: result }];"
+        "jsCode": "// The CLI returns repo-relative paths so they read the same on any machine.\n// The file nodes below resolve paths against n8n's own directory, not the\n// repo's, so this is where they become absolute.\nconst repoRoot = 'C:\\\\Users\\\\bekircan\\\\OneDrive\\\\MASAST~1\\\\AI-VID~1';\nconst absolute = (p) => repoRoot + '\\\\' + p.replace(/\\//g, '\\\\');\n\nconst raw = $json.stdout ?? '';\nlet result;\ntry {\n  result = JSON.parse(raw);\n} catch {\n  throw new Error('The render did not return JSON. stderr: ' + ($json.stderr ?? '').slice(-800));\n}\nif (!result.ok) {\n  throw new Error(result.error);\n}\n\nresult.mp4Path = absolute(result.mp4);\nif (result.cover) {\n  result.coverPath = absolute(result.cover);\n}\n\nreturn [{ json: result }];"
       },
       "id": "parse",
       "name": "Read the result",
@@ -34,7 +34,7 @@
     },
     {
       "parameters": {
-        "filePath": "={{ $json.mp4 }}",
+        "filePath": "={{ $json.mp4Path }}",
         "options": { "dataPropertyName": "data" }
       },
       "id": "readvideo",
@@ -65,7 +65,7 @@
     },
     {
       "parameters": {
-        "filePath": "={{ $('Read the result').item.json.cover }}",
+        "filePath": "={{ $('Read the result').item.json.coverPath }}",
         "options": { "dataPropertyName": "data" }
       },
       "id": "readcover",
