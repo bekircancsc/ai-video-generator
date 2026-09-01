@@ -29,6 +29,19 @@ export function buildVideoPayloadJsonSchema(sceneCount?: number) {
       title: { type: "string" },
       fps: { type: "integer" },
       aspectRatio: { type: "string", description: "Ratio such as 9:16" },
+      youtube: {
+        type: "object",
+        additionalProperties: false,
+        properties: {
+          title: { type: "string", description: "Title read cold in a feed, under 70 characters" },
+          description: {
+            type: "string",
+            description: "Two or three sentences for someone deciding whether to watch",
+          },
+          tags: { type: "array", items: { type: "string" }, description: "Search terms, not adjectives" },
+        },
+        required: ["title", "description", "tags"],
+      },
       scenes: {
         type: "array",
         minItems: sceneCount ?? MIN_SCENES,
@@ -62,7 +75,7 @@ export function buildVideoPayloadJsonSchema(sceneCount?: number) {
         },
       },
     },
-    required: ["title", "fps", "aspectRatio", "scenes"],
+    required: ["title", "fps", "aspectRatio", "youtube", "scenes"],
   };
 }
 
@@ -160,6 +173,11 @@ export function buildScriptPrompt(brief: ScriptBrief) {
     "Write `imagePrompt` for the camera: one concrete, filmable sentence describing a single",
     "image for that scene — subject, setting and lighting, no text or logos in the picture,",
     "no named real people.",
+    "Write `youtube.title` to be read cold in a feed by someone who has never seen this channel:",
+    "under 70 characters, concrete, no clickbait punctuation and no emoji.",
+    "Write `youtube.description` for someone deciding whether to watch: two or three sentences,",
+    "no timestamps and no links.",
+    "Write `youtube.tags` as six to ten search terms someone would actually type. Terms, not adjectives.",
     "Respond with JSON matching this schema:",
     JSON.stringify(buildVideoPayloadJsonSchema(brief.sceneCount)),
   ].join("\n");

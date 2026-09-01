@@ -163,3 +163,49 @@ test("an empty avoid list adds nothing to the prompt", () => {
 
   assert.equal(withList, without);
 });
+
+test("the JSON schema requires a youtube block", () => {
+  const schema = buildVideoPayloadJsonSchema() as {
+    required: string[];
+    properties: { youtube: { required: string[] } };
+  };
+
+  assert.ok(schema.required.includes("youtube"));
+  assert.deepEqual(schema.properties.youtube.required, ["title", "description", "tags"]);
+});
+
+test("the prompt asks for youtube metadata", () => {
+  const prompt = buildScriptPrompt({ topic: "The fourth floor" });
+
+  assert.match(prompt, /youtube\.title/);
+  assert.match(prompt, /youtube\.description/);
+  assert.match(prompt, /youtube\.tags/);
+});
+
+test("a payload without a youtube block is still valid", () => {
+  const payload = parseScriptJson(
+    JSON.stringify({
+      title: "T",
+      fps: 30,
+      aspectRatio: "9:16",
+      scenes: [{ id: "1", text: "a", subtext: "", narration: "n", durationInFrames: 90, themeColor: "#a8903c", keywords: [], imagePrompt: "p" }],
+    }),
+  );
+
+  assert.equal(payload.youtube, undefined);
+});
+
+test("a youtube block round-trips through validation", () => {
+  const payload = parseScriptJson(
+    JSON.stringify({
+      title: "T",
+      fps: 30,
+      aspectRatio: "9:16",
+      youtube: { title: "There Is No Fourth Floor", description: "d", tags: ["horror"] },
+      scenes: [{ id: "1", text: "a", subtext: "", narration: "n", durationInFrames: 90, themeColor: "#a8903c", keywords: [], imagePrompt: "p" }],
+    }),
+  );
+
+  assert.equal(payload.youtube?.title, "There Is No Fourth Floor");
+  assert.deepEqual(payload.youtube?.tags, ["horror"]);
+});

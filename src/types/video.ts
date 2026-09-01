@@ -37,6 +37,18 @@ export const videoPayloadSchema = z.object({
   fps: z.number().int().positive().default(30),
   scenes: z.array(videoSceneSchema).min(1),
   aspectRatio: z.string().regex(/^\d+:\d+$/).default("9:16"),
+  // How the video is listed once it is uploaded. Written by the script model,
+  // which is also the author of what the video says — a second model writing
+  // the listing would be a second author, and the two would drift.
+  // Optional in zod so a hand-written payload stays valid; required in the JSON
+  // Schema the model is handed, so a generated script always carries one.
+  youtube: z
+    .object({
+      title: z.string(),
+      description: z.string(),
+      tags: z.array(z.string()).default([]),
+    })
+    .optional(),
   // Written by the music stage. Relative to public/, e.g. music/9f2a1c.wav
   musicSrc: z.string().optional(),
   // Which scene's picture the cover uses. Unset, the cover takes the first
