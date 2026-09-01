@@ -9,6 +9,8 @@ export type ScriptBrief = {
   topic?: string;
   niche?: string;
   sceneCount?: number;
+  /** Titles already published on this channel. The model is told not to repeat them. */
+  avoidTopics?: string[];
 };
 
 /**
@@ -67,6 +69,15 @@ export function buildVideoPayloadJsonSchema(sceneCount?: number) {
 export const scriptSystemPrompt =
   "You are a short-form video scriptwriter. You reply with valid JSON only, no prose and no markdown fences.";
 
+/** A niche given as a document is quoted as a document, not interpolated into a sentence. */
+function nicheBlock(niche: string) {
+  return ["The channel is defined by this brief:", "---", niche.trim(), "---"];
+}
+
+function isDocument(niche: string) {
+  return niche.includes("\n");
+}
+
 /** The opening sentences, which differ by what the brief actually names. */
 function briefLines({ topic, niche }: ScriptBrief) {
   if (!topic && !niche) {
@@ -74,22 +85,54 @@ function briefLines({ topic, niche }: ScriptBrief) {
   }
 
   if (topic && niche) {
-    return [
-      `Generate a high-engagement social media video script for the topic: "${topic}".`,
-      `The video is for a channel in this niche: "${niche}".`,
-      "Match that niche's audience, tone and vocabulary.",
-    ];
+    return isDocument(niche)
+      ? [
+          `Generate a high-engagement social media video script for the topic: "${topic}".`,
+          ...nicheBlock(niche),
+          "Match that brief's audience, tone and vocabulary.",
+        ]
+      : [
+          `Generate a high-engagement social media video script for the topic: "${topic}".`,
+          `The video is for a channel in this niche: "${niche}".`,
+          "Match that niche's audience, tone and vocabulary.",
+        ];
   }
 
   if (niche) {
-    return [
-      `Generate a high-engagement social media video script for a channel in this niche: "${niche}".`,
-      "Pick one specific, high-engagement topic within that niche and write the script for it.",
-      "Match that niche's audience, tone and vocabulary.",
-    ];
+    return isDocument(niche)
+      ? [
+          "Generate a high-engagement social media video script for the channel described below.",
+          ...nicheBlock(niche),
+          "Pick one specific, high-engagement topic within that brief and write the script for it.",
+          "Match that brief's audience, tone and vocabulary.",
+        ]
+      : [
+          `Generate a high-engagement social media video script for a channel in this niche: "${niche}".`,
+          "Pick one specific, high-engagement topic within that niche and write the script for it.",
+          "Match that niche's audience, tone and vocabulary.",
+        ];
   }
 
   return [`Generate a high-engagement social media video script for the topic: "${topic}".`];
+}
+
+/**
+ * Titles the channel has already published.
+ *
+ * A model asked to pick its own topic from a fixed niche converges on the same
+ * few ideas within a month, so the list of what has already gone out is part of
+ * the brief.
+ */
+function avoidLines(avoidTopics?: string[]) {
+  if (!avoidTopics || avoidTopics.length === 0) {
+    return [];
+  }
+
+  return [
+    "These videos have already been published on this channel. Do not repeat them,",
+    "and do not write a near-duplicate of one under a different title:",
+    ...avoidTopics.map((title) => `- ${title}`),
+  ];
 }
 
 function sceneCountLine(sceneCount?: number) {
@@ -106,6 +149,7 @@ function sceneCountLine(sceneCount?: number) {
 export function buildScriptPrompt(brief: ScriptBrief) {
   return [
     ...briefLines(brief),
+    ...avoidLines(brief.avoidTopics),
     sceneCountLine(brief.sceneCount),
     "short subtitles, vibrant six-digit hex theme colors, and a 9:16 aspect ratio.",
     "Keep `text` under 40 characters and `subtext` under 90 characters so it fits a vertical frame.",

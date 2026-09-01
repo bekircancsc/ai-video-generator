@@ -124,3 +124,42 @@ test("a payload without imagePrompt still validates, defaulting to empty", () =>
   assert.equal(payload.scenes[0].imagePrompt, "");
   assert.equal(payload.scenes[0].imageSrc, undefined);
 });
+
+test("a single-line niche stays in a quoted sentence", () => {
+  const prompt = buildScriptPrompt({ niche: "stoic philosophy" });
+
+  assert.match(prompt, /niche: "stoic philosophy"/);
+});
+
+test("a multi-line niche is rendered as its own block", () => {
+  const niche = "# Office horror\n\nFirst person, flat delivery.\nNo faces.";
+  const prompt = buildScriptPrompt({ niche });
+
+  assert.match(prompt, /The channel is defined by this brief:/);
+  assert.ok(prompt.includes(niche), "the brief text appears verbatim");
+  assert.doesNotMatch(prompt, /niche: "# Office horror/);
+});
+
+test("a multi-line niche still asks the model to pick the topic", () => {
+  const prompt = buildScriptPrompt({ niche: "# Office horror\n\nFirst person." });
+
+  assert.match(prompt, /Pick one specific, high-engagement topic/);
+});
+
+test("avoid topics are listed as things not to repeat", () => {
+  const prompt = buildScriptPrompt({
+    niche: "office horror",
+    avoidTopics: ["There Is No Fourth Floor", "I Pressed Four"],
+  });
+
+  assert.match(prompt, /already been published/);
+  assert.match(prompt, /There Is No Fourth Floor/);
+  assert.match(prompt, /I Pressed Four/);
+});
+
+test("an empty avoid list adds nothing to the prompt", () => {
+  const withList = buildScriptPrompt({ niche: "office horror", avoidTopics: [] });
+  const without = buildScriptPrompt({ niche: "office horror" });
+
+  assert.equal(withList, without);
+});
