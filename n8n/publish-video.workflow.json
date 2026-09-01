@@ -3,13 +3,26 @@
   "nodes": [
     {
       "parameters": {
-        "rule": { "interval": [{ "field": "weeks", "triggerAtDay": [1], "triggerAtHour": 9 }] }
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 9
+            }
+          ]
+        }
       },
       "id": "schedule",
       "name": "Weekly",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
-      "position": [0, 0]
+      "position": [
+        0,
+        0
+      ]
     },
     {
       "parameters": {
@@ -19,7 +32,10 @@
       "name": "Render",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
-      "position": [220, 0],
+      "position": [
+        220,
+        0
+      ],
       "notes": "The node has no working-directory setting, so the cd is part of the command. The 8.3 short path is deliberate: cmd.exe cannot read the accented characters in the real path. Call node directly, not npm: npm prints its own banner to stdout and would break the JSON contract."
     },
     {
@@ -30,18 +46,40 @@
       "name": "Read the result",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [440, 0]
+      "position": [
+        440,
+        0
+      ]
     },
     {
       "parameters": {
-        "filePath": "={{ $json.mp4Path }}",
-        "options": { "dataPropertyName": "data" }
+        "command": "=copy /Y \"{{ $json.mp4Path }}\" \"C:\\n8n-data\\{{ $json.slug }}.mp4\" && copy /Y \"{{ $json.coverPath }}\" \"C:\\n8n-data\\{{ $json.slug }}.jpg\""
+      },
+      "id": "stage",
+      "name": "Copy to n8n-data",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        660,
+        0
+      ],
+      "notes": "n8n's N8N_RESTRICT_FILE_ACCESS_TO limits the file nodes to C:\\n8n-data, so the render's output is staged there first. The destination names the file rather than ending in a backslash: a backslash immediately before the closing quote escapes it in cmd. Delete old files from C:\\n8n-data now and then; nothing reads them after the upload."
+    },
+    {
+      "parameters": {
+        "filePath": "=C:\\n8n-data\\{{ $('Read the result').item.json.slug }}.mp4",
+        "options": {
+          "dataPropertyName": "data"
+        }
       },
       "id": "readvideo",
       "name": "Read the video",
       "type": "n8n-nodes-base.readBinaryFile",
       "typeVersion": 1,
-      "position": [660, 0]
+      "position": [
+        880,
+        0
+      ]
     },
     {
       "parameters": {
@@ -61,18 +99,26 @@
       "name": "Upload to YouTube",
       "type": "n8n-nodes-base.youTube",
       "typeVersion": 1,
-      "position": [880, 0]
+      "position": [
+        1100,
+        0
+      ]
     },
     {
       "parameters": {
-        "filePath": "={{ $('Read the result').item.json.coverPath }}",
-        "options": { "dataPropertyName": "data" }
+        "filePath": "=C:\\n8n-data\\{{ $('Read the result').item.json.slug }}.jpg",
+        "options": {
+          "dataPropertyName": "data"
+        }
       },
       "id": "readcover",
       "name": "Read the cover",
       "type": "n8n-nodes-base.readBinaryFile",
       "typeVersion": 1,
-      "position": [1100, 0],
+      "position": [
+        1320,
+        0
+      ],
       "notes": "A run with --no-cover returns no cover field. Disable this node and the one after it if you turn covers off."
     },
     {
@@ -90,7 +136,10 @@
       "name": "Set the cover",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1320, 0]
+      "position": [
+        1540,
+        0
+      ]
     },
     {
       "parameters": {
@@ -101,17 +150,103 @@
       "name": "Tell me",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
-      "position": [1540, 0]
+      "position": [
+        1760,
+        0
+      ]
     }
   ],
   "connections": {
-    "Weekly": { "main": [[{ "node": "Render", "type": "main", "index": 0 }]] },
-    "Render": { "main": [[{ "node": "Read the result", "type": "main", "index": 0 }]] },
-    "Read the result": { "main": [[{ "node": "Read the video", "type": "main", "index": 0 }]] },
-    "Read the video": { "main": [[{ "node": "Upload to YouTube", "type": "main", "index": 0 }]] },
-    "Upload to YouTube": { "main": [[{ "node": "Read the cover", "type": "main", "index": 0 }]] },
-    "Read the cover": { "main": [[{ "node": "Set the cover", "type": "main", "index": 0 }]] },
-    "Set the cover": { "main": [[{ "node": "Tell me", "type": "main", "index": 0 }]] }
+    "Weekly": {
+      "main": [
+        [
+          {
+            "node": "Render",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Render": {
+      "main": [
+        [
+          {
+            "node": "Read the result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read the result": {
+      "main": [
+        [
+          {
+            "node": "Copy to n8n-data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Copy to n8n-data": {
+      "main": [
+        [
+          {
+            "node": "Read the video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read the video": {
+      "main": [
+        [
+          {
+            "node": "Upload to YouTube",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload to YouTube": {
+      "main": [
+        [
+          {
+            "node": "Read the cover",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read the cover": {
+      "main": [
+        [
+          {
+            "node": "Set the cover",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set the cover": {
+      "main": [
+        [
+          {
+            "node": "Tell me",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
   },
-  "settings": { "executionOrder": "v1" }
+  "settings": {
+    "executionOrder": "v1"
+  }
 }
