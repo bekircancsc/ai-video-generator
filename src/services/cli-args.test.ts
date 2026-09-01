@@ -103,3 +103,35 @@ test("--no-loudness turns the loudness stage off and is not read as a topic", ()
 test("loudness is on unless it is turned off", () => {
   assert.equal(parseArgs(["--topic", "Lifts"]).loudness, true);
 });
+
+test("reads --niche-file as a path", () => {
+  assert.equal(parseArgs(["--niche-file", "niches/floor-four.md"]).nicheFile, "niches/floor-four.md");
+});
+
+test("nicheFile is undefined when the flag is absent", () => {
+  assert.equal(parseArgs(["--topic", "x"]).nicheFile, undefined);
+});
+
+test("--niche-file and --niche together are an error", () => {
+  assert.throws(
+    () => parseArgs(["--niche", "office horror", "--niche-file", "niches/floor-four.md"]),
+    /--niche and --niche-file cannot be used together/,
+  );
+});
+
+test("--niche-file with no value is an error", () => {
+  assert.throws(() => parseArgs(["--niche-file"]), /--niche-file requires a value/);
+});
+
+test("a niche file path does not leak into the positional topic", () => {
+  assert.equal(parseArgs(["--niche-file", "niches/floor-four.md"]).topic, "");
+});
+
+test("json is off by default and on with --json", () => {
+  assert.equal(parseArgs(["--topic", "x"]).json, false);
+  assert.equal(parseArgs(["--topic", "x", "--json"]).json, true);
+});
+
+test("--json is not swallowed into the topic", () => {
+  assert.equal(parseArgs(["The", "Future", "--json"]).topic, "The Future");
+});

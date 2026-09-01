@@ -29,7 +29,12 @@ export function parseArgs(argv: string[]) {
   const payloadFile = flagValue("--payload");
   const topicFlag = flagValue("--topic");
   const niche = flagValue("--niche");
+  const nicheFile = flagValue("--niche-file");
   const scenesFlag = flagValue("--scenes");
+
+  if (niche !== undefined && nicheFile !== undefined) {
+    throw new Error("--niche and --niche-file cannot be used together. The niche file is the niche.");
+  }
 
   let sceneCount: number | undefined;
 
@@ -50,6 +55,7 @@ export function parseArgs(argv: string[]) {
         arg !== "--no-music" &&
         arg !== "--no-cover" &&
         arg !== "--no-loudness" &&
+        arg !== "--json" &&
         arg !== "--",
     )
     .join(" ")
@@ -59,11 +65,13 @@ export function parseArgs(argv: string[]) {
     payloadFile,
     topic: topicFlag ?? positional,
     niche,
+    nicheFile,
     sceneCount,
     audio: !argv.includes("--no-audio"),
     images: !argv.includes("--no-images"),
     music: !argv.includes("--no-music"),
     cover: !argv.includes("--no-cover"),
     loudness: !argv.includes("--no-loudness"),
+    json: argv.includes("--json"),
   };
 }
