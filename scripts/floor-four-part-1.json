@@ -1,0 +1,91 @@
+{
+  "title": "Please Do Not Press Four",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "ff1-hook",
+      "text": "THERE IS NO FOURTH FLOOR",
+      "subtext": "The elevator stops there anyway.",
+      "narration": "There is no fourth floor. The elevator stops there anyway.",
+      "durationInFrames": 105,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "elevator",
+        "fourth floor",
+        "liminal"
+      ],
+      "imagePrompt": "Straight on macro of a vertical row of five identical round brass elevator buttons on a worn panel in a dim office lobby, the fourth button up from the bottom rubbed completely smooth and blank while the other four stay crisp and intact, sickly amber fluorescent light, no people, analog film grain, shallow depth of field"
+    },
+    {
+      "id": "ff1-problem",
+      "text": "THREE. THEN FIVE.",
+      "subtext": "Nobody here has ever mentioned it.",
+      "narration": "Check the fire map by the stairs. It goes three, then five. Nobody here has ever mentioned it.",
+      "durationInFrames": 150,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "fire map",
+        "stairwell",
+        "floor plan"
+      ],
+      "imagePrompt": "A glass-framed fire evacuation floor plan mounted on a beige corridor wall beside a stairwell door, the floor list printed down one side, amber emergency lighting, faded institutional signage, empty office building at night, no people, slight reflection in the glass, analog photograph"
+    },
+    {
+      "id": "ff1-agitate",
+      "text": "NOBODY LOOKED UP",
+      "subtext": "Six of us inside.",
+      "narration": "Last Tuesday the doors opened on four. Six of us inside. Nobody looked up.",
+      "durationInFrames": 130,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "elevator interior",
+        "commuters",
+        "silence"
+      ],
+      "imagePrompt": "Interior of a crowded office elevator photographed from chest height looking down at the floor, six pairs of polished work shoes on grey carpet all pointed at the doors, open elevator doors spilling pale light in from outside, nobody's face visible, muted amber tones, security camera quality, grainy"
+    },
+    {
+      "id": "ff1-corridor",
+      "text": "THE DOORS HAD NO NUMBERS",
+      "subtext": "Same carpet. Same lights.",
+      "narration": "I looked. Same carpet. Same lights. Same corridor, except the doors had no numbers.",
+      "durationInFrames": 140,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "corridor",
+        "unmarked doors",
+        "fluorescent"
+      ],
+      "imagePrompt": "A long empty office corridor receding into darkness, identical closed doors down both sides with blank nameplates and no room numbers, grey commercial carpet, drop ceiling with one flickering fluorescent panel, amber and green colour cast, deserted, analog camcorder footage aesthetic, no people"
+    },
+    {
+      "id": "ff1-figure",
+      "text": "WORN THROUGH TO CONCRETE",
+      "subtext": "He said we hadn't stopped.",
+      "narration": "At the far end someone stood facing the lift. They had stood there long enough that the carpet beneath them had worn through to concrete. On five, I asked the man beside me which floor we'd stopped on. He said we hadn't stopped.",
+      "durationInFrames": 330,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "distant figure",
+        "worn carpet",
+        "corridor end"
+      ],
+      "imagePrompt": "The far end of a long dim office corridor seen from a great distance, a small dark human silhouette standing motionless with its back turned facing a closed elevator, the carpet directly beneath the figure worn away in a patch down to bare grey concrete, no facial detail at all, heavy amber fluorescent haze, deep grain, unsettling stillness"
+    },
+    {
+      "id": "ff1-loop",
+      "text": "IT STOPS THERE ANYWAY",
+      "subtext": "You do not have to press four.",
+      "narration": "You do not have to press four. It stops there anyway.",
+      "durationInFrames": 110,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "button",
+        "four",
+        "illuminated"
+      ],
+      "imagePrompt": "Straight on macro of the same vertical row of five round brass elevator buttons, the fourth button up from the bottom lit from within with a warm amber glow while every other button stays dark and dead, dim lobby, no hand pressing it, no people, analog film grain, high contrast"
+    }
+  ]
+}

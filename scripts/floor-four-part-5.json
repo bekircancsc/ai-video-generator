@@ -1,0 +1,91 @@
+{
+  "title": "I Pressed Four",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "ff5-hook",
+      "text": "I PRESSED FOUR",
+      "subtext": "It lit up first time.",
+      "narration": "This morning I got in the lift alone and I pressed four. It lit up first time, like it had been waiting to be asked.",
+      "durationInFrames": 220,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "button",
+        "pressed",
+        "lit"
+      ],
+      "imagePrompt": "Extreme close-up of a thumb pressing the fourth button up from the bottom in a vertical row of five worn brass lift buttons, that one button glowing warm amber from within, the others dark, dim lobby light, skin and metal texture sharp, shallow depth of field, analog film grain"
+    },
+    {
+      "id": "ff5-open",
+      "text": "THE DOORS OPENED",
+      "subtext": "Same carpet. Same lights.",
+      "narration": "The doors opened on the same carpet and the same lights I had seen the week before. Nothing about it looked haunted. That was the worst part.",
+      "durationInFrames": 250,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "corridor",
+        "ordinary",
+        "fluorescent"
+      ],
+      "imagePrompt": "A long ordinary office corridor viewed from inside an open lift, grey commercial carpet, blank doors with no numbers, drop ceiling with even fluorescent panels, amber and green colour cast, completely deserted, banal and wrong, analog camcorder aesthetic"
+    },
+    {
+      "id": "ff5-turn",
+      "text": "HE TURNED AROUND",
+      "subtext": "Like a man watching his lift arrive.",
+      "narration": "He turned around. Not slowly, not the way they do in films. He turned the way any man turns when he hears his lift finally arrive.",
+      "durationInFrames": 250,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "figure",
+        "turning",
+        "corridor end"
+      ],
+      "imagePrompt": "A distant dark human silhouette at the far end of a dim office corridor caught mid turn toward the camera, face lost entirely in amber fluorescent haze and grain, shoulders squared, no features resolvable, deep depth of field, unsettling ordinariness, heavy film grain"
+    },
+    {
+      "id": "ff5-step",
+      "text": "I STEPPED OUT",
+      "subtext": "He walked past me without a word.",
+      "narration": "I stepped out onto the carpet and I held the doors. He walked past me without a word. He smelled like rain on a wool coat.",
+      "durationInFrames": 250,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "passing",
+        "doorway",
+        "hand on door"
+      ],
+      "imagePrompt": "Point of view from inside a lift doorway, a hand braced against the rubber door edge in the foreground, motion blurred dark shape of a person passing close by into the car, amber corridor light behind, grey carpet, no face visible, grainy handheld frame"
+    },
+    {
+      "id": "ff5-close",
+      "text": "THE DOORS CLOSED",
+      "subtext": "The carpet under me was worn through.",
+      "narration": "The doors closed on him and the numbers counted down, three, two, one, ground. I looked at the floor. The carpet under my shoes was worn through to concrete.",
+      "durationInFrames": 290,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "closed doors",
+        "worn carpet",
+        "standing"
+      ],
+      "imagePrompt": "Looking straight down at a pair of polished work shoes standing in two shoe shaped patches worn through grey office carpet to bare concrete, amber overhead light casting a short shadow, closed lift doors just visible at the top of frame, no other people, sharp macro, film grain"
+    },
+    {
+      "id": "ff5-loop",
+      "text": "THERE IS NO FOURTH FLOOR",
+      "subtext": "The lift stops here anyway.",
+      "narration": "There is no fourth floor in this building. Ask anyone. The lift stops here anyway, and one day it will open for you.",
+      "durationInFrames": 330,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "elevator button",
+        "four",
+        "glow"
+      ],
+      "imagePrompt": "Straight on macro of a worn vertical row of five brass lift buttons in a dim lobby, the fourth button up from the bottom lit from within in warm amber while every other button stays dark, no hand near it, deep shadow around the panel, high contrast, analog film grain"
+    }
+  ]
+}

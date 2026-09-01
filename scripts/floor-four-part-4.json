@@ -1,0 +1,91 @@
+{
+  "title": "The Man Who Never Transferred",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "ff4-hook",
+      "text": "HE TRANSFERRED IN 2003",
+      "subtext": "Nobody remembers the leaving do.",
+      "narration": "Human resources say he transferred out in two thousand and three. Nobody in this building remembers the leaving party.",
+      "durationInFrames": 200,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "personnel file",
+        "archive",
+        "records"
+      ],
+      "imagePrompt": "A dusty cardboard personnel archive box open on a storeroom floor, manila folders standing in a row with faded typed tabs, one folder pulled slightly forward, single bare amber bulb overhead, no people, deep shadows, analog film grain, the entire frame lit only by warm amber fluorescent light, strong golden amber colour grade across every surface, warm brown shadows, no grey or blue or desaturated tones anywhere, well exposed with readable midtones"
+    },
+    {
+      "id": "ff4-photo",
+      "text": "HE IS IN EVERY PHOTO",
+      "subtext": "Always at the edge. Always turning away.",
+      "narration": "He is in the department photographs though. All of them. Always at the very edge of the group, always half turned away from the camera.",
+      "durationInFrames": 230,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "group photo",
+        "edge of frame",
+        "blurred"
+      ],
+      "imagePrompt": "A faded framed office group photograph hanging slightly crooked on a corridor wall, rows of people in nineties work clothing, the figure at the far right edge caught mid turn and blurred beyond recognition, amber glass reflection, dust on the frame, analog grain, the entire frame lit only by warm amber fluorescent light, strong golden amber colour grade across every surface, warm brown shadows, no grey or blue or desaturated tones anywhere, well exposed with readable midtones"
+    },
+    {
+      "id": "ff4-desk",
+      "text": "HIS CHAIR IS STILL ON THE ASSET LIST",
+      "subtext": "Location field: blank.",
+      "narration": "His chair is still on the office asset list. Serial number, purchase date, everything. The location field is blank.",
+      "durationInFrames": 200,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "office chair",
+        "asset tag",
+        "inventory"
+      ],
+      "imagePrompt": "Macro shot of a worn barcode asset sticker peeling off the underside of a grey office chair base, adhesive yellowed with age, faded printed serial digits, dim amber light, grey carpet beneath, no people, shallow depth of field, film grain, the entire frame lit only by warm amber fluorescent light, strong golden amber colour grade across every surface, warm brown shadows, no grey or blue or desaturated tones anywhere, well exposed with readable midtones"
+    },
+    {
+      "id": "ff4-carpet",
+      "text": "THE PATCH IS SHOE SHAPED",
+      "subtext": "Worn down through the underlay.",
+      "narration": "That worn patch at the end of the corridor is shoe shaped. Two of them, side by side, pressed down through the carpet and the underlay both.",
+      "durationInFrames": 240,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "worn carpet",
+        "footprints",
+        "concrete"
+      ],
+      "imagePrompt": "Close-up of grey commercial office carpet worn away in two shoe shaped patches side by side down to the bare concrete screed beneath, fibres frayed at the edges from decades of standing, amber overhead light, empty corridor, no people, sharp macro, heavy grain, the entire frame lit only by warm amber fluorescent light, strong golden amber colour grade across every surface, warm brown shadows, no grey or blue or desaturated tones anywhere, well exposed with readable midtones"
+    },
+    {
+      "id": "ff4-why",
+      "text": "HE STEPS ASIDE",
+      "subtext": "Every time. To let you on first.",
+      "narration": "The lift opens on four for him every single day. He has never got in. He steps aside first, out of politeness, and by the time he looks up the doors have closed.",
+      "durationInFrames": 280,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "lift doors",
+        "closing",
+        "waiting figure"
+      ],
+      "imagePrompt": "Elevator doors closing in a dim corridor seen from inside the car, the narrowing gap showing a distant motionless dark silhouette standing back from the threshold with its head lowered, amber corridor haze, no facial detail, grainy security camera aesthetic, the entire frame lit only by warm amber fluorescent light, strong golden amber colour grade across every surface, warm brown shadows, no grey or blue or desaturated tones anywhere, well exposed with readable midtones"
+    },
+    {
+      "id": "ff4-loop",
+      "text": "IF THE DOORS OPEN ON FOUR",
+      "subtext": "Don't step aside. He already did.",
+      "narration": "So if the doors open on four, do not step aside for anyone. He did that once, and it has cost him twenty two years.",
+      "durationInFrames": 210,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "threshold",
+        "elevator",
+        "gap"
+      ],
+      "imagePrompt": "Low angle close-up of the metal threshold strip between a lift car and a corridor floor, the dark gap of the shaft visible below, worn brass edging, amber light from above, grey carpet on the far side, no people, high contrast, analog grain, the entire frame lit only by warm amber fluorescent light, strong golden amber colour grade across every surface, warm brown shadows, no grey or blue or desaturated tones anywhere, well exposed with readable midtones"
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "title": "Do Not Count The Stairs",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "ff2-hook",
+      "text": "I COUNTED THE STEPS",
+      "subtext": "Eleven between every floor.",
+      "narration": "I counted the steps. Eleven between every floor in this building. Then I counted the flight from three to five.",
+      "durationInFrames": 200,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "stairwell",
+        "steps",
+        "counting"
+      ],
+      "imagePrompt": "Looking straight down a narrow concrete fire stairwell from a landing, painted steel handrail spiralling away, worn non-slip nosing strips on each step, sickly amber emergency lighting, institutional grey walls, no people, analog film grain, slight vignette, the entire frame lit only by warm amber fluorescent light, strong golden amber colour grade across every surface, warm brown shadows, no grey or blue or desaturated tones anywhere, well exposed with readable midtones"
+    },
+    {
+      "id": "ff2-count",
+      "text": "TWENTY TWO",
+      "subtext": "Two flights. One landing nobody uses.",
+      "narration": "Twenty two. Two flights worth. Which means there is a landing inside that count that nobody ever walks out onto.",
+      "durationInFrames": 210,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "landing",
+        "fire door",
+        "stencilled number"
+      ],
+      "imagePrompt": "A bare concrete stairwell landing with a heavy grey fire door and a stencilled floor number on the wall beside it, the paint on the number half scrubbed off, amber wall light, chipped skirting, deserted, harsh institutional shadows, analog photograph, the entire frame lit only by warm amber fluorescent light, strong golden amber colour grade across every surface, warm brown shadows, no grey or blue or desaturated tones anywhere, well exposed with readable midtones"
+    },
+    {
+      "id": "ff2-wall",
+      "text": "THE DOOR IS STILL THERE",
+      "subtext": "No handle on this side.",
+      "narration": "It is still there. Halfway up, the paint sits flat over a doorframe somebody plastered across. There is no handle on this side.",
+      "durationInFrames": 230,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "plastered doorway",
+        "outline",
+        "wall"
+      ],
+      "imagePrompt": "A painted stairwell wall photographed at an angle so raking amber light reveals the faint rectangular outline of a doorway plastered over flush, hinge scars filled and sanded, no handle, no fittings, grey concrete floor below, empty, high grain, quietly wrong, the entire frame lit only by warm amber fluorescent light, strong golden amber colour grade across every surface, warm brown shadows, no grey or blue or desaturated tones anywhere, well exposed with readable midtones"
+    },
+    {
+      "id": "ff2-knock",
+      "text": "SO I KNOCKED",
+      "subtext": "Something set a cup down.",
+      "narration": "So I knocked. On the other side of that wall, somebody set a cup down on a desk.",
+      "durationInFrames": 170,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "knuckles",
+        "wall",
+        "listening"
+      ],
+      "imagePrompt": "Extreme close-up of a hand knuckle resting against a flat painted wall in dim amber light, skin texture and paint texture sharp, everything beyond falling into darkness, shallow depth of field, analog film grain, tense stillness, no face visible, the entire frame lit only by warm amber fluorescent light, strong golden amber colour grade across every surface, warm brown shadows, no grey or blue or desaturated tones anywhere, well exposed with readable midtones"
+    },
+    {
+      "id": "ff2-footsteps",
+      "text": "THEN FOOTSTEPS. UNHURRIED.",
+      "subtext": "The stairwell was empty.",
+      "narration": "Then footsteps, unhurried, climbing. I stood alone in an empty stairwell and listened to somebody walk past me to the floor above.",
+      "durationInFrames": 220,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "empty stairwell",
+        "ascending",
+        "alone"
+      ],
+      "imagePrompt": "An empty fire stairwell photographed looking up through the central gap toward a distant amber ceiling light, flights receding upward, handrails converging, absolutely no one on any landing, dust in the light, grainy analog exposure, faint motion blur, the entire frame lit only by warm amber fluorescent light, strong golden amber colour grade across every surface, warm brown shadows, no grey or blue or desaturated tones anywhere, well exposed with readable midtones"
+    },
+    {
+      "id": "ff2-loop",
+      "text": "TAKE THE LIFT",
+      "subtext": "Whatever you do, do not count.",
+      "narration": "Take the lift. Whatever you do, do not count the stairs.",
+      "durationInFrames": 120,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "stairwell door",
+        "closing",
+        "exit"
+      ],
+      "imagePrompt": "A heavy grey fire door swinging shut on a dim stairwell seen from inside the lobby, a narrow wedge of amber light narrowing to a line, worn push bar, deserted office lobby carpet in the foreground, no people, deep grain, high contrast, the entire frame lit only by warm amber fluorescent light, strong golden amber colour grade across every surface, warm brown shadows, no grey or blue or desaturated tones anywhere, well exposed with readable midtones"
+    }
+  ]
+}

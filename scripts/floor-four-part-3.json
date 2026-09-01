@@ -1,0 +1,91 @@
+{
+  "title": "Someone Badges In On Four",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "ff3-hook",
+      "text": "FOUR THOUSAND ENTRIES",
+      "subtext": "On a floor this building doesn't have.",
+      "narration": "Facilities let me read the door log. Four thousand entries on a floor this building does not have.",
+      "durationInFrames": 190,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "access log",
+        "monitor",
+        "records"
+      ],
+      "imagePrompt": "A dim security office at night, an old CRT monitor showing a dense scrolling list of timestamped access entries, amber phosphor glow on a cluttered desk, coffee ring on the laminate, blinds half drawn, no people, heavy analog grain, the entire frame lit only by warm amber fluorescent light, strong golden amber colour grade across every surface, warm brown shadows, no grey or blue or desaturated tones anywhere, well exposed with readable midtones"
+    },
+    {
+      "id": "ff3-time",
+      "text": "EVERY MORNING. 6:52.",
+      "subtext": "Twenty two years. Not one sick day.",
+      "narration": "The same badge, every single morning, at six fifty two. Going back twenty two years without one sick day.",
+      "durationInFrames": 200,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "badge reader",
+        "morning",
+        "routine"
+      ],
+      "imagePrompt": "Close-up of a wall-mounted proximity badge reader beside a lift, its small indicator glowing amber in a dark lobby, scuffed plastic housing worn pale where thousands of cards have touched it, no hand present, shallow focus, analog film grain, the entire frame lit only by warm amber fluorescent light, strong golden amber colour grade across every surface, warm brown shadows, no grey or blue or desaturated tones anywhere, well exposed with readable midtones"
+    },
+    {
+      "id": "ff3-name",
+      "text": "THE NAME WAS CLIPPED",
+      "subtext": "Not deleted. Clipped.",
+      "narration": "The name field was empty. Not deleted, though. Clipped, like the system had been taught not to say it out loud.",
+      "durationInFrames": 210,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "blank field",
+        "database",
+        "redaction"
+      ],
+      "imagePrompt": "Macro shot of a computer screen showing a personnel record with every field filled except the name line, which sits blank between two ruled boxes, amber monochrome display, visible pixel grid and scanline, dust on the glass, no people, the entire frame lit only by warm amber fluorescent light, strong golden amber colour grade across every surface, warm brown shadows, no grey or blue or desaturated tones anywhere, well exposed with readable midtones"
+    },
+    {
+      "id": "ff3-exit",
+      "text": "NO EXIT SCANS",
+      "subtext": "Not once. Not in twenty two years.",
+      "narration": "And there are no exit scans. In twenty two years that badge has never once left the building.",
+      "durationInFrames": 180,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "turnstile",
+        "lobby",
+        "exit"
+      ],
+      "imagePrompt": "An empty office lobby turnstile lane at night seen head on, brushed steel barriers closed, an illuminated green arrow on the floor pointing out toward dark glass doors, amber street light beyond, absolutely no one, long exposure grain, the entire frame lit only by warm amber fluorescent light, strong golden amber colour grade across every surface, warm brown shadows, no grey or blue or desaturated tones anywhere, well exposed with readable midtones"
+    },
+    {
+      "id": "ff3-manager",
+      "text": "WE DO NOT REISSUE IT",
+      "subtext": "He didn't look up when he said it.",
+      "narration": "I asked the facilities manager whose badge it was. He said he did not know, and that we do not reissue that number.",
+      "durationInFrames": 220,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "card drawer",
+        "spare badges",
+        "gap"
+      ],
+      "imagePrompt": "An open metal desk drawer of blank white access cards in neat numbered slots, one slot in the middle conspicuously empty, amber desk lamp light raking across, dust in the empty slot, office at night, no people, sharp macro detail, film grain, the entire frame lit only by warm amber fluorescent light, strong golden amber colour grade across every surface, warm brown shadows, no grey or blue or desaturated tones anywhere, well exposed with readable midtones"
+    },
+    {
+      "id": "ff3-loop",
+      "text": "IT IS 6:51 NOW",
+      "subtext": "Wait one minute. Watch the log.",
+      "narration": "It is six fifty one now. If you want to know who it is, wait one minute and watch the log.",
+      "durationInFrames": 180,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "clock",
+        "waiting",
+        "screen"
+      ],
+      "imagePrompt": "Extreme close-up of a wall clock face in a dark corridor reading almost seven in the morning, amber emergency light on the glass, second hand caught mid sweep, everything behind it lost in shadow, no people, heavy grain, quiet dread, the entire frame lit only by warm amber fluorescent light, strong golden amber colour grade across every surface, warm brown shadows, no grey or blue or desaturated tones anywhere, well exposed with readable midtones"
+    }
+  ]
+}
