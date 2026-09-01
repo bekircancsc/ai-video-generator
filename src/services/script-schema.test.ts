@@ -209,3 +209,9 @@ test("a youtube block round-trips through validation", () => {
   assert.equal(payload.youtube?.title, "There Is No Fourth Floor");
   assert.deepEqual(payload.youtube?.tags, ["horror"]);
 });
+
+test("the prompt forbids a description that describes the video", () => {
+  const prompt = buildScriptPrompt({ topic: "The fourth floor" });
+
+  assert.match(prompt, /Never describe the video, its style, its pacing or how it was made/);
+});
