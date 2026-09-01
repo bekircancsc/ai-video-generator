@@ -126,7 +126,7 @@ data first; components only draw what they are handed.
 ## CLI
 
 ```bash
-npm run start -- [--topic <topic>] [--niche <niche>] [--scenes <n>] [--payload <file.json>] [--no-audio] [--no-images] [--no-music] [--no-cover] [--no-loudness]
+npm run start -- [--topic <topic>] [--niche <niche>] [--niche-file <file.md>] [--scenes <n>] [--payload <file.json>] [--json] [--no-audio] [--no-images] [--no-music] [--no-cover] [--no-loudness]
 ```
 
 | Flag | Effect |
@@ -135,6 +135,8 @@ npm run start -- [--topic <topic>] [--niche <niche>] [--scenes <n>] [--payload <
 | `--niche <niche>` | Who the video is for. On its own, the model also picks the topic. With `--topic`, it sets the audience and tone. |
 | `--scenes <n>` | Exact number of scenes, 3 to 8. Left off, the model picks a number to suit the topic. |
 | `--payload <file>` | Render a hand-written script instead of calling an LLM. See `scripts/example-payload.json`. |
+| `--niche-file <file>` | Read the niche from a Markdown file instead of `--niche`. The file is the channel definition; see `niches/`. Cannot be combined with `--niche`. |
+| `--json` | Print the run result as one JSON object on stdout and send every log to stderr. For automation; see `docs/n8n-setup.md`. |
 | `--no-audio` | Skip voiceover and captions entirely. No network calls; scenes keep the durations in the payload. |
 | `--no-loudness` | Leave the mix at whatever level it rendered at, instead of correcting it to -14 LUFS. |
 | `--no-images` | Skip image generation. Every scene renders the drawn aurora background instead. |
@@ -169,6 +171,20 @@ All settings live in `.env`. Only `LLM_API_KEY` is required.
 
 Any OpenAI-compatible endpoint works through the same adapter. Pointing
 `SCRIPT_PROVIDER=ollama` at a local model needs no key at all.
+
+## Automation
+
+`docs/n8n-setup.md` covers running the pipeline on a schedule from n8n: one
+weekly run that generates a video from a niche document and uploads it to
+YouTube as a private draft. n8n orchestrates and this repo produces — the
+contract between them is `--json`, which puts a single result object on stdout
+and every log on stderr.
+
+Two files support it. `niches/*.md` defines a channel — voice, shape, look and
+rules — and is passed with `--niche-file`. `history.json` records every
+generated video's title, and the next run is told not to repeat them, because a
+model asked to pick its own topic from a fixed niche will otherwise return to
+the same few ideas within a month.
 
 ## Caching
 

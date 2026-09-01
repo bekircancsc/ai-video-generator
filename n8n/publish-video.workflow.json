@@ -1,0 +1,117 @@
+{
+  "name": "Publish a video",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": { "interval": [{ "field": "weeks", "triggerAtDay": [1], "triggerAtHour": 9 }] }
+      },
+      "id": "schedule",
+      "name": "Weekly",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "command": "node run.mjs --niche-file niches/floor-four.md --scenes 6 --json"
+      },
+      "id": "render",
+      "name": "Render",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [220, 0],
+      "notes": "Set the working directory to the repo root in the node's settings. Call node directly, not npm: npm prints its own banner to stdout and would break the JSON contract."
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $json.stdout ?? '';\nlet result;\ntry {\n  result = JSON.parse(raw);\n} catch {\n  throw new Error('The render did not return JSON. stderr: ' + ($json.stderr ?? '').slice(-800));\n}\nif (!result.ok) {\n  throw new Error(result.error);\n}\nreturn [{ json: result }];"
+      },
+      "id": "parse",
+      "name": "Read the result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [440, 0]
+    },
+    {
+      "parameters": {
+        "filePath": "={{ $json.mp4 }}",
+        "options": { "dataPropertyName": "data" }
+      },
+      "id": "readvideo",
+      "name": "Read the video",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "typeVersion": 1,
+      "position": [660, 0]
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "upload",
+        "title": "={{ $('Read the result').item.json.title }}",
+        "regionCode": "US",
+        "categoryId": "24",
+        "options": {
+          "description": "={{ $('Read the result').item.json.description }}",
+          "tags": "={{ $('Read the result').item.json.tags.join(',') }}",
+          "privacyStatus": "private",
+          "selfDeclaredMadeForKids": false
+        }
+      },
+      "id": "upload",
+      "name": "Upload to YouTube",
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [880, 0]
+    },
+    {
+      "parameters": {
+        "filePath": "={{ $('Read the result').item.json.cover }}",
+        "options": { "dataPropertyName": "data" }
+      },
+      "id": "readcover",
+      "name": "Read the cover",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "typeVersion": 1,
+      "position": [1100, 0],
+      "notes": "A run with --no-cover returns no cover field. Disable this node and the one after it if you turn covers off."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://www.googleapis.com/upload/youtube/v3/thumbnails/set?videoId={{ $('Upload to YouTube').item.json.id }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "youTubeOAuth2Api",
+        "sendBody": true,
+        "contentType": "binaryData",
+        "inputDataFieldName": "data",
+        "options": {}
+      },
+      "id": "thumbnail",
+      "name": "Set the cover",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1320, 0]
+    },
+    {
+      "parameters": {
+        "text": "=Ready: {{ $('Read the result').item.json.title }}\nhttps://youtube.com/watch?v={{ $('Upload to YouTube').item.json.id }}\n{{ $('Read the result').item.json.durationSeconds }}s, private. Review it before publishing.",
+        "additionalFields": {}
+      },
+      "id": "notify",
+      "name": "Tell me",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1540, 0]
+    }
+  ],
+  "connections": {
+    "Weekly": { "main": [[{ "node": "Render", "type": "main", "index": 0 }]] },
+    "Render": { "main": [[{ "node": "Read the result", "type": "main", "index": 0 }]] },
+    "Read the result": { "main": [[{ "node": "Read the video", "type": "main", "index": 0 }]] },
+    "Read the video": { "main": [[{ "node": "Upload to YouTube", "type": "main", "index": 0 }]] },
+    "Upload to YouTube": { "main": [[{ "node": "Read the cover", "type": "main", "index": 0 }]] },
+    "Read the cover": { "main": [[{ "node": "Set the cover", "type": "main", "index": 0 }]] },
+    "Set the cover": { "main": [[{ "node": "Tell me", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" }
+}
