@@ -126,7 +126,7 @@ data first; components only draw what they are handed.
 ## CLI
 
 ```bash
-npm run start -- [--topic <topic>] [--niche <niche>] [--niche-file <file.md>] [--scenes <n>] [--payload <file.json>] [--json] [--no-audio] [--no-images] [--no-music] [--no-cover] [--no-loudness]
+npm run start -- [--topic <topic>] [--niche <niche>] [--niche-file <file.md>] [--scenes <n>] [--payload <file.json>] [--json] [--stage <dir>] [--no-audio] [--no-images] [--no-music] [--no-cover] [--no-loudness]
 ```
 
 | Flag | Effect |
@@ -136,6 +136,7 @@ npm run start -- [--topic <topic>] [--niche <niche>] [--niche-file <file.md>] [-
 | `--scenes <n>` | Exact number of scenes, 3 to 8. Left off, the model picks a number to suit the topic. |
 | `--payload <file>` | Render a hand-written script instead of calling an LLM. See `scripts/example-payload.json`. |
 | `--niche-file <file>` | Read the niche from a Markdown file instead of `--niche`. The file is the channel definition; see `niches/`. Cannot be combined with `--niche`. |
+| `--stage <dir>` | Also copy the finished video and cover into `<dir>` as `video.mp4` and `cover.jpg`. For a tool that may only read from one directory. |
 | `--json` | Print the run result as one JSON object on stdout and send every log to stderr. For automation; see `docs/n8n-setup.md`. |
 | `--no-audio` | Skip voiceover and captions entirely. No network calls; scenes keep the durations in the payload. |
 | `--no-loudness` | Leave the mix at whatever level it rendered at, instead of correcting it to -14 LUFS. |

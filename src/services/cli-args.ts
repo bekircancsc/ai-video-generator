@@ -30,6 +30,7 @@ export function parseArgs(argv: string[]) {
   const topicFlag = flagValue("--topic");
   const niche = flagValue("--niche");
   const nicheFile = flagValue("--niche-file");
+  const stageDir = flagValue("--stage");
   const scenesFlag = flagValue("--scenes");
 
   if (niche !== undefined && nicheFile !== undefined) {
@@ -66,6 +67,7 @@ export function parseArgs(argv: string[]) {
     topic: topicFlag ?? positional,
     niche,
     nicheFile,
+    stageDir,
     sceneCount,
     audio: !argv.includes("--no-audio"),
     images: !argv.includes("--no-images"),

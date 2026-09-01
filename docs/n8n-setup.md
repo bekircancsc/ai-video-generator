@@ -26,22 +26,29 @@ Give the Render node a generous timeout. A six-scene video takes well over ten
 minutes on a cold cache — script, six voiceovers, six transcriptions, six
 images, a music bed, the render itself, then loudness and the cover.
 
-### The repo path appears twice
+### The repo path, and where the files land
 
 The Execute Command node has no working-directory setting, so the `cd` is part
-of the command, and the **Read the result** Code node needs the same root again
-to turn the CLI's repo-relative paths into absolute ones — the file nodes
-resolve paths against n8n's own directory, not this one. Moving the repo means
-editing both.
-
-Both use the 8.3 short path, `C:\Users\bekircan\OneDrive\MASAST~1\AI-VID~1`.
-That is not a stylistic choice: cmd.exe cannot read the accented characters in
-`Masaüstü` and fails the `cd` outright with a syntax error. Get the short path
-for any directory with:
+of the command. It uses the 8.3 short path,
+`C:\Users\bekircan\OneDrive\MASAST~1\AI-VID~1`, and that is not a stylistic
+choice: cmd.exe cannot read the accented characters in `Masaüstü` and fails the
+`cd` outright with a syntax error. Get the short path for any directory with:
 
 ```powershell
 (New-Object -ComObject Scripting.FileSystemObject).GetFolder("<path>").ShortPath
 ```
+
+n8n restricts its file nodes to the directories in `N8N_RESTRICT_FILE_ACCESS_TO`
+— here `C:\n8n-data` — so the render cannot be read from `out/` at all. That is
+what `--stage C:\n8n-data` is for: it drops a copy of the video and the cover there
+as `video.mp4` and `cover.jpg`, and the two file nodes point at those names as
+plain text.
+
+The fixed names are the point. Building `C:\n8n-data\<slug>.mp4` in the node would
+need an expression, and an expression that silently fails to resolve — a field
+left in Fixed mode, a node run on its own with no input — passes its own source
+text through as a filename. A constant path cannot do that. The copies are
+overwritten every run; nothing reads them after the upload.
 
 ### Call node, not npm
 
@@ -73,12 +80,14 @@ stdout carries one JSON object and nothing else. stderr carries every log.
 
 ```json
 {"ok":true,"mp4":"out/x.mp4","cover":"out/x.jpg","slug":"x",
- "title":"…","description":"…","tags":["…"],"durationSeconds":47.2}
+ "title":"…","description":"…","tags":["…"],"durationSeconds":47.2,
+ "stagedMp4":"C:\\n8n-data\\video.mp4","stagedCover":"C:\\n8n-data\\cover.jpg"}
 ```
 
 On failure, stdout carries `{"ok":false,"error":"…"}` and the process exits 1.
 `cover` is absent when `--no-cover` was passed or the cover stage fell back.
-Paths are repo-relative with forward slashes.
+Paths are repo-relative with forward slashes. The two `staged` fields appear
+only when `--stage <dir>` was passed, and are absolute.
 
 ## What it does on failure
 
@@ -99,7 +108,7 @@ descriptions and pinned comments. The same workflow publishes those — change t
 Render node's command to
 
 ```
-node run.mjs --payload scripts/floor-four-part-3.json --json
+node run.mjs --payload scripts/floor-four-part-3.json --json --stage C:\n8n-data
 ```
 
 — but the publishing pack asks for scheduled releases and pinned comments, and

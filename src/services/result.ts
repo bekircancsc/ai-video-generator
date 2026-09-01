@@ -19,6 +19,13 @@ export type RunResult = {
   description: string;
   tags: string[];
   durationSeconds: number;
+  /**
+   * Absolute paths to the copies `--stage` made, under their fixed names.
+   * Present only when that flag was used. An automation reads these instead of
+   * `mp4` and `cover`, and needs no template to build the path.
+   */
+  stagedMp4?: string;
+  stagedCover?: string;
 };
 
 /** What a `--json` run prints when a stage aborted the render. */

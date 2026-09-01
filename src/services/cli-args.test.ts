@@ -135,3 +135,19 @@ test("json is off by default and on with --json", () => {
 test("--json is not swallowed into the topic", () => {
   assert.equal(parseArgs(["The", "Future", "--json"]).topic, "The Future");
 });
+
+test("reads --stage as a directory", () => {
+  assert.equal(parseArgs(["--topic", "x", "--stage", "C:/n8n-data"]).stageDir, "C:/n8n-data");
+});
+
+test("stageDir is undefined when the flag is absent", () => {
+  assert.equal(parseArgs(["--topic", "x"]).stageDir, undefined);
+});
+
+test("--stage with no value is an error", () => {
+  assert.throws(() => parseArgs(["--topic", "x", "--stage"]), /--stage requires a value/);
+});
+
+test("a staging directory does not leak into the positional topic", () => {
+  assert.equal(parseArgs(["Rome", "--stage", "C:/n8n-data"]).topic, "Rome");
+});

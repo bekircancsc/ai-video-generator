@@ -14,6 +14,7 @@ import { removeCover, renderCover } from "./cover";
 import { normaliseLoudness } from "./loudness";
 import { buildResult, type RunFailure } from "../services/result";
 import { appendHistory, readHistory, recentTitles } from "../services/history";
+import { stageOutputs } from "../services/stage";
 import type { VideoPayload } from "../types/video";
 import type { ScriptBrief } from "../services/script-schema";
 
@@ -109,7 +110,7 @@ if (isDirectRun) {
   const stdoutWrite = process.stdout.write.bind(process.stdout);
 
   const run = async () => {
-    const { topic, niche, nicheFile, sceneCount, payloadFile, audio, images, music, cover, loudness, json } =
+    const { topic, niche, nicheFile, stageDir, sceneCount, payloadFile, audio, images, music, cover, loudness, json } =
       parseArgs(process.argv.slice(2));
 
     if (json) {
@@ -174,6 +175,18 @@ if (isDirectRun) {
       coverLocation: result.coverLocation,
       rootDir,
     });
+
+    if (stageDir) {
+      const staged = await stageOutputs(path.resolve(process.cwd(), stageDir), {
+        videoLocation: result.outputLocation,
+        coverLocation: result.coverLocation,
+      });
+
+      summary.stagedMp4 = staged.mp4;
+      summary.stagedCover = staged.cover;
+
+      console.log(`Staged: ${staged.mp4}${staged.cover ? ` and ${staged.cover}` : ""}`);
+    }
 
     // Only a generated script goes in the history: a payload file was written
     // by hand, and its topic was never the model's to choose again.

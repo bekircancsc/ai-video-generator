@@ -26,7 +26,7 @@
     },
     {
       "parameters": {
-        "command": "cd /d \"C:\\Users\\bekircan\\OneDrive\\MASAST~1\\AI-VID~1\" && node run.mjs --niche-file niches/floor-four.md --scenes 6 --json"
+        "command": "cd /d \"C:\\Users\\bekircan\\OneDrive\\MASAST~1\\AI-VID~1\" && node run.mjs --niche-file niches/floor-four.md --scenes 6 --json --stage C:\\n8n-data"
       },
       "id": "render",
       "name": "Render",
@@ -36,11 +36,11 @@
         220,
         0
       ],
-      "notes": "The node has no working-directory setting, so the cd is part of the command. The 8.3 short path is deliberate: cmd.exe cannot read the accented characters in the real path. Call node directly, not npm: npm prints its own banner to stdout and would break the JSON contract."
+      "notes": "The node has no working-directory setting, so the cd is part of the command. The 8.3 short path is deliberate: cmd.exe cannot read the accented characters in the real path. --stage drops a copy of the video and cover in C:\\n8n-data under fixed names, which is the only place n8n is allowed to read files from. Call node directly, not npm: npm prints its own banner to stdout and would break the JSON contract."
     },
     {
       "parameters": {
-        "jsCode": "// The CLI returns repo-relative paths so they read the same on any machine.\n// The file nodes below resolve paths against n8n's own directory, not the\n// repo's, so this is where they become absolute.\nconst repoRoot = 'C:\\\\Users\\\\bekircan\\\\OneDrive\\\\MASAST~1\\\\AI-VID~1';\nconst absolute = (p) => repoRoot + '\\\\' + p.replace(/\\//g, '\\\\');\n\nconst raw = $json.stdout ?? '';\nlet result;\ntry {\n  result = JSON.parse(raw);\n} catch {\n  throw new Error('The render did not return JSON. stderr: ' + ($json.stderr ?? '').slice(-800));\n}\nif (!result.ok) {\n  throw new Error(result.error);\n}\n\nresult.mp4Path = absolute(result.mp4);\nif (result.cover) {\n  result.coverPath = absolute(result.cover);\n}\n\nreturn [{ json: result }];"
+        "jsCode": "const raw = $json.stdout ?? '';\nlet result;\ntry {\n  result = JSON.parse(raw);\n} catch {\n  throw new Error('The render did not return JSON. stderr: ' + ($json.stderr ?? '').slice(-800));\n}\nif (!result.ok) {\n  throw new Error(result.error);\n}\nreturn [{ json: result }];"
       },
       "id": "parse",
       "name": "Read the result",
@@ -53,21 +53,7 @@
     },
     {
       "parameters": {
-        "command": "=copy /Y \"{{ $json.mp4Path }}\" \"C:\\n8n-data\\{{ $json.slug }}.mp4\" && copy /Y \"{{ $json.coverPath }}\" \"C:\\n8n-data\\{{ $json.slug }}.jpg\""
-      },
-      "id": "stage",
-      "name": "Copy to n8n-data",
-      "type": "n8n-nodes-base.executeCommand",
-      "typeVersion": 1,
-      "position": [
-        660,
-        0
-      ],
-      "notes": "n8n's N8N_RESTRICT_FILE_ACCESS_TO limits the file nodes to C:\\n8n-data, so the render's output is staged there first. The destination names the file rather than ending in a backslash: a backslash immediately before the closing quote escapes it in cmd. Delete old files from C:\\n8n-data now and then; nothing reads them after the upload."
-    },
-    {
-      "parameters": {
-        "filePath": "=C:\\n8n-data\\{{ $('Read the result').item.json.slug }}.mp4",
+        "filePath": "C:\\n8n-data\\video.mp4",
         "options": {
           "dataPropertyName": "data"
         }
@@ -77,7 +63,7 @@
       "type": "n8n-nodes-base.readBinaryFile",
       "typeVersion": 1,
       "position": [
-        880,
+        660,
         0
       ]
     },
@@ -100,13 +86,13 @@
       "type": "n8n-nodes-base.youTube",
       "typeVersion": 1,
       "position": [
-        1100,
+        880,
         0
       ]
     },
     {
       "parameters": {
-        "filePath": "=C:\\n8n-data\\{{ $('Read the result').item.json.slug }}.jpg",
+        "filePath": "C:\\n8n-data\\cover.jpg",
         "options": {
           "dataPropertyName": "data"
         }
@@ -116,7 +102,7 @@
       "type": "n8n-nodes-base.readBinaryFile",
       "typeVersion": 1,
       "position": [
-        1320,
+        1100,
         0
       ],
       "notes": "A run with --no-cover returns no cover field. Disable this node and the one after it if you turn covers off."
@@ -137,7 +123,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1540,
+        1320,
         0
       ]
     },
@@ -151,7 +137,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1760,
+        1540,
         0
       ]
     }
@@ -180,17 +166,6 @@
       ]
     },
     "Read the result": {
-      "main": [
-        [
-          {
-            "node": "Copy to n8n-data",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Copy to n8n-data": {
       "main": [
         [
           {
