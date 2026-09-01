@@ -92,3 +92,14 @@ test("--no-cover turns the cover off and is not read as a topic", () => {
 test("the cover is on by default", () => {
   assert.equal(parseArgs(["--topic", "Stoicism"]).cover, true);
 });
+
+test("--no-loudness turns the loudness stage off and is not read as a topic", () => {
+  const args = parseArgs(["--topic", "Lifts", "--no-loudness"]);
+
+  assert.equal(args.loudness, false);
+  assert.equal(args.topic, "Lifts");
+});
+
+test("loudness is on unless it is turned off", () => {
+  assert.equal(parseArgs(["--topic", "Lifts"]).loudness, true);
+});

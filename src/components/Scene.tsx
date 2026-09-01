@@ -1,20 +1,29 @@
 import React from "react";
 import { AbsoluteFill, Audio, Sequence, staticFile, useVideoConfig } from "remotion";
-import { AnimatedText } from "./AnimatedText";
 import { Captions } from "./Captions";
 import { Background } from "./Background";
 import { LEAD_IN_SECONDS } from "../services/timing";
-import { BASE_COLOR, withAlpha } from "../services/palette";
+import { BASE_COLOR } from "../services/palette";
 import type { VideoScene } from "../types/video";
 
 type SceneProps = {
   scene: VideoScene;
 };
 
+/**
+ * A scene is its picture, its narration and its captions — nothing else.
+ *
+ * The frame carried a keyword pill in the top corner and the scene's own
+ * headline across the middle. Both competed with the captions for the same
+ * attention, and the headline said the same thing the voice was already
+ * saying, a beat out of step with it. Captions are the only text now: they
+ * are timed to the word being spoken, so they can never fall out of sync
+ * with it. `text` and `subtext` are still carried on the scene and still
+ * printed on the cover, which is read in silence and needs them.
+ */
 export const Scene: React.FC<SceneProps> = ({ scene }) => {
   const { fps } = useVideoConfig();
   const leadInFrames = Math.round(LEAD_IN_SECONDS * fps);
-  const hasCaptions = Boolean(scene.captions && scene.captions.length > 0);
 
   return (
     // Safety-net ground colour in case Background ever fails to cover the
@@ -33,32 +42,7 @@ export const Scene: React.FC<SceneProps> = ({ scene }) => {
         </Sequence>
       ) : null}
 
-      <div
-        style={{
-          position: "absolute",
-          left: 60,
-          top: 60,
-          border: `1px solid ${withAlpha(scene.themeColor, 0.6)}`,
-          borderRadius: 999,
-          padding: "10px 16px",
-          color: "white",
-          fontSize: 14,
-          letterSpacing: "0.12em",
-          textTransform: "uppercase",
-          background: "rgba(15, 23, 42, 0.35)",
-        }}
-      >
-        {scene.keywords.slice(0, 3).join(" • ") || "AI STORY"}
-      </div>
-
-      <AnimatedText
-        text={scene.text}
-        subtext={hasCaptions ? "" : scene.subtext}
-        themeColor={scene.themeColor}
-        accent="#f8fafc"
-      />
-
-      {hasCaptions && scene.captions ? (
+      {scene.captions && scene.captions.length > 0 ? (
         <Captions words={scene.captions} themeColor={scene.themeColor} />
       ) : null}
     </AbsoluteFill>

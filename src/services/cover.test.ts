@@ -104,3 +104,26 @@ test("surrounding whitespace does not shrink the headline", () => {
 
   assert.equal(coverHeadlineSize(padded), COVER_HEADLINE_MAX);
 });
+
+test("takes the cover from the scene the payload names", () => {
+  const plan = coverPlan({
+    ...payload([
+      scene({ id: "a", imageSrc: "images/a.jpg", themeColor: "#111111" }),
+      scene({ id: "b", imageSrc: "images/b.jpg", themeColor: "#222222", subtext: "the better frame" }),
+    ]),
+    coverSceneId: "b",
+  });
+
+  assert.equal(plan.imageSrc, "images/b.jpg");
+  assert.equal(plan.themeColor, "#222222");
+  assert.equal(plan.kicker, "the better frame");
+});
+
+test("falls back to the first picture when the named scene never got one", () => {
+  const plan = coverPlan({
+    ...payload([scene({ id: "a", imageSrc: "images/a.jpg" }), scene({ id: "b" })]),
+    coverSceneId: "b",
+  });
+
+  assert.equal(plan.imageSrc, "images/a.jpg");
+});

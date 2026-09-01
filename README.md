@@ -50,7 +50,7 @@ npm run start -- --payload scripts/example-payload.json --no-audio
 ## How it works
 
 ```
-topic ─▶ script ─▶ voiceover ─▶ captions ─▶ imagery ─▶ music ─▶ render ─▶ out/*.mp4
+topic ─▶ script ─▶ voiceover ─▶ captions ─▶ imagery ─▶ music ─▶ render ─▶ loudness ─▶ out/*.mp4
 ```
 
 | Stage | Module | What it produces |
@@ -61,6 +61,7 @@ topic ─▶ script ─▶ voiceover ─▶ captions ─▶ imagery ─▶ music
 | Imagery | `src/pipeline/imagery.ts` | One generated still per scene in `public/images/`, drawn full-frame under a darkening scrim with a slow zoom. A scene without one falls back to the drawn aurora background. |
 | Music | `src/pipeline/music.ts` | One synthesized ambient bed for the whole video in `public/music/`, stamped onto the payload as `musicSrc`. |
 | Render | `src/pipeline/render.ts` | Bundles the Remotion composition and writes the MP4 to `out/`. |
+| Loudness | `src/pipeline/loudness.ts` | Brings the finished mix to -14 LUFS in place, with ffmpeg. |
 
 Two rules hold the design together:
 
@@ -86,6 +87,23 @@ slower ramp would never finish, leaving the bed ducked for the whole video. It
 fades in and out over a second at each end. The music is synthesized rather
 than sourced: no track to license, no key to hold.
 
+**Captions are the only text in the frame.** The scene's `text` and
+`subtext` are set on the cover, not over the video. They used to be drawn
+across the middle of every scene, with a pill of keywords in the top corner
+above them, and both competed with the captions for the same attention while
+saying what the voice was already saying, a beat out of step with it. The
+captions are timed to the word being spoken, so they cannot drift from it.
+
+**The mix leaves at streaming loudness.** A render lands wherever the
+narration and the bed happen to sum, which is around -22 LUFS. YouTube
+normalises to about -14 and only ever turns content down, so a quiet upload
+plays quiet next to everything around it. `src/pipeline/loudness.ts` measures
+the finished file and applies the correction in one linear pass — linear
+because the bed already ducks on purpose and a dynamic pass would flatten
+that back out. The picture is copied, not re-encoded. ffmpeg is not a
+dependency: a machine without one gets a warning and the mix as rendered.
+Set `FFMPEG_PATH` to point at a particular binary.
+
 **Every render also writes a cover.** Beside `out/<slug>.mp4` goes
 `out/<slug>.jpg`, a purpose-built thumbnail rather than a frame lifted from the
 video: the first scene that has a generated picture, under a heavier scrim,
@@ -108,7 +126,7 @@ data first; components only draw what they are handed.
 ## CLI
 
 ```bash
-npm run start -- [--topic <topic>] [--niche <niche>] [--scenes <n>] [--payload <file.json>] [--no-audio] [--no-images] [--no-music] [--no-cover]
+npm run start -- [--topic <topic>] [--niche <niche>] [--scenes <n>] [--payload <file.json>] [--no-audio] [--no-images] [--no-music] [--no-cover] [--no-loudness]
 ```
 
 | Flag | Effect |
@@ -118,6 +136,7 @@ npm run start -- [--topic <topic>] [--niche <niche>] [--scenes <n>] [--payload <
 | `--scenes <n>` | Exact number of scenes, 3 to 8. Left off, the model picks a number to suit the topic. |
 | `--payload <file>` | Render a hand-written script instead of calling an LLM. See `scripts/example-payload.json`. |
 | `--no-audio` | Skip voiceover and captions entirely. No network calls; scenes keep the durations in the payload. |
+| `--no-loudness` | Leave the mix at whatever level it rendered at, instead of correcting it to -14 LUFS. |
 | `--no-images` | Skip image generation. Every scene renders the drawn aurora background instead. |
 | `--no-music` | Skip the music bed. The video plays with speech alone. |
 | `--no-cover` | Skip the cover frame. Only the MP4 is written. |

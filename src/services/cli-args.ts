@@ -49,6 +49,7 @@ export function parseArgs(argv: string[]) {
         arg !== "--no-images" &&
         arg !== "--no-music" &&
         arg !== "--no-cover" &&
+        arg !== "--no-loudness" &&
         arg !== "--",
     )
     .join(" ")
@@ -63,5 +64,6 @@ export function parseArgs(argv: string[]) {
     images: !argv.includes("--no-images"),
     music: !argv.includes("--no-music"),
     cover: !argv.includes("--no-cover"),
+    loudness: !argv.includes("--no-loudness"),
   };
 }

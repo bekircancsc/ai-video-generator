@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { buildImagePrompt, IMAGE_STYLE_SUFFIX } from "./image-prompt";
+import { buildImagePrompt, IMAGE_NEGATIVES, IMAGE_NO_TEXT, IMAGE_STYLE_SUFFIX } from "./image-prompt";
 import type { VideoScene } from "../types/video";
 
 const scene = (over: Partial<VideoScene> = {}): VideoScene => ({
@@ -29,14 +29,31 @@ test("falls back to the scene text when there are no keywords either", () => {
 });
 
 test("always appends the shared style block", () => {
-  assert.ok(buildImagePrompt(scene()).endsWith(IMAGE_STYLE_SUFFIX));
-  assert.ok(buildImagePrompt(scene({ imagePrompt: "x" })).endsWith(IMAGE_STYLE_SUFFIX));
+  assert.ok(buildImagePrompt(scene()).includes(IMAGE_STYLE_SUFFIX));
+  assert.ok(buildImagePrompt(scene({ imagePrompt: "x" })).includes(IMAGE_STYLE_SUFFIX));
+});
+
+test("always appends the negatives last", () => {
+  assert.ok(buildImagePrompt(scene()).endsWith(IMAGE_NEGATIVES));
+  assert.ok(buildImagePrompt(scene({ allowTextInImage: true })).endsWith(IMAGE_NEGATIVES));
+});
+
+test("rules text out of the picture by default", () => {
+  assert.ok(buildImagePrompt(scene()).includes(IMAGE_NO_TEXT));
+});
+
+test("keeps the text clause off a scene that allows lettering", () => {
+  const prompt = buildImagePrompt(scene({ allowTextInImage: true, imagePrompt: "A lift panel numbered one to five" }));
+
+  assert.ok(!prompt.includes(IMAGE_NO_TEXT));
+  assert.ok(prompt.includes(IMAGE_STYLE_SUFFIX));
+  assert.match(prompt, /^A lift panel numbered one to five/);
 });
 
 test("an empty scene still produces a usable prompt", () => {
   const prompt = buildImagePrompt(scene({ keywords: [], text: "", imagePrompt: "   " }));
   assert.ok(prompt.trim().length > 0);
-  assert.ok(prompt.endsWith(IMAGE_STYLE_SUFFIX));
+  assert.ok(prompt.includes(IMAGE_STYLE_SUFFIX));
 });
 
 test("whitespace-only fields are treated as absent", () => {

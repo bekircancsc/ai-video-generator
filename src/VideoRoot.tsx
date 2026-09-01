@@ -48,8 +48,8 @@ export const VideoRoot: React.FC<VideoRootProps> = ({ video }) => {
   const spans = speechSpans(video.scenes, starts, fps);
 
   return (
-    // The one place the video's typeface is set: `Scene`, `AnimatedText` and
-    // `Captions` all inherit it rather than each naming a family of its own.
+    // The one place the video's typeface is set: `Scene` and
+    // `Captions` inherit it rather than each naming a family of its own.
     <AbsoluteFill style={{ fontFamily: FONT_FAMILY }}>
       {video.musicSrc ? (
         <MusicBed src={video.musicSrc} spans={spans} totalFrames={totalFrames} />

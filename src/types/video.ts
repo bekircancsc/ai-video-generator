@@ -19,6 +19,11 @@ export const videoSceneSchema = z.object({
   // model; empty on hand-written payloads, where the imagery stage falls back
   // to keywords.
   imagePrompt: z.string().default(""),
+  // Lets this scene's picture contain lettering. The image style block rules
+  // text out by default, because text behind captions is noise and image
+  // models render it as unreadable smears. A scene whose subject IS lettering
+  // — a numbered panel, a sign, a screen — sets this and takes that risk.
+  allowTextInImage: z.boolean().optional(),
   // Written by the imagery stage. Relative to public/, e.g. images/3f2a.jpg
   imageSrc: z.string().optional(),
   // Written by the voiceover stage. Relative to public/, e.g. audio/3f2a.wav
@@ -34,6 +39,10 @@ export const videoPayloadSchema = z.object({
   aspectRatio: z.string().regex(/^\d+:\d+$/).default("9:16"),
   // Written by the music stage. Relative to public/, e.g. music/9f2a1c.wav
   musicSrc: z.string().optional(),
+  // Which scene's picture the cover uses. Unset, the cover takes the first
+  // scene that has one, which is the opening scene whenever its image
+  // generated. Set it when a later scene carries the better thumbnail.
+  coverSceneId: z.string().optional(),
 });
 
 export type VideoScene = z.infer<typeof videoSceneSchema>;

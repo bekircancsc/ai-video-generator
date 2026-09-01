@@ -61,10 +61,19 @@ export function coverHeadlineSize(headline: string): number {
  *
  * The opening scene is the one written to hook, so its picture is the cover
  * whenever it has one; a scene whose image generation failed is skipped rather
- * than leaving the cover blank.
+ * than leaving the cover blank. `coverSceneId` overrides that, because the
+ * best thumbnail is not always the first frame the video happens to open on
+ * — and without it the only way to change a cover is to change the opening
+ * scene's picture, which changes the video too.
+ *
+ * A named scene that never got a picture falls back to the usual search
+ * rather than to a blank cover: the name is a preference, not a demand.
  */
 export function coverPlan(payload: VideoPayload): CoverPlan {
-  const scene = payload.scenes.find((candidate) => candidate.imageSrc) ?? payload.scenes[0];
+  const named = payload.coverSceneId
+    ? payload.scenes.find((candidate) => candidate.id === payload.coverSceneId && candidate.imageSrc)
+    : undefined;
+  const scene = named ?? payload.scenes.find((candidate) => candidate.imageSrc) ?? payload.scenes[0];
 
   if (!scene) {
     throw new Error("A cover needs at least one scene");
