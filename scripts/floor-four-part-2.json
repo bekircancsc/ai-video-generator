@@ -7,7 +7,7 @@
       "id": "ff2-hook",
       "text": "I COUNTED THE STEPS",
       "subtext": "Eleven between every floor.",
-      "narration": "I counted the steps. Eleven between every floor in this building. Then I counted the flight from three to five.",
+      "narration": "I counted the steps. Eleven between every floor in this building. Three and five are next to each other on the board, so that flight should be eleven too.",
       "durationInFrames": 200,
       "themeColor": "#a8903c",
       "keywords": [
@@ -20,8 +20,8 @@
     {
       "id": "ff2-count",
       "text": "TWENTY TWO",
-      "subtext": "Two flights. One landing nobody uses.",
-      "narration": "Twenty two. Two flights worth. Which means there is a landing inside that count that nobody ever walks out onto.",
+      "subtext": "Two floors of climbing. One landing missing.",
+      "narration": "It is twenty two. Two floors worth of climbing between two floors the building calls neighbours.",
       "durationInFrames": 210,
       "themeColor": "#a8903c",
       "keywords": [

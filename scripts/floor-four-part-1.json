@@ -63,8 +63,8 @@
       "id": "ff1-figure",
       "text": "WORN THROUGH TO CONCRETE",
       "subtext": "He said we hadn't stopped.",
-      "narration": "At the far end someone stood facing the lift. They had stood there long enough that the carpet beneath them had worn through to concrete. On five, I asked the man beside me which floor we'd stopped on. He said we hadn't stopped.",
-      "durationInFrames": 330,
+      "narration": "At the far end of the corridor someone was standing, facing the lift. They had stood there long enough to wear the carpet through to the concrete.",
+      "durationInFrames": 200,
       "themeColor": "#a8903c",
       "keywords": [
         "distant figure",
@@ -72,6 +72,20 @@
         "corridor end"
       ],
       "imagePrompt": "The far end of a long dim office corridor seen from a great distance, a small dark human silhouette standing motionless with its back turned facing a closed elevator, the carpet directly beneath the figure worn away in a patch down to bare grey concrete, no facial detail at all, heavy amber fluorescent haze, deep grain, unsettling stillness"
+    },
+    {
+      "id": "ff1-denial",
+      "text": "WE HADN'T STOPPED",
+      "subtext": "He did not look at me when he said it.",
+      "narration": "On five I asked the man beside me which floor we had stopped on. He said we had not stopped.",
+      "durationInFrames": 190,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "lift interior",
+        "two men",
+        "denial"
+      ],
+      "imagePrompt": "Interior of a small office lift photographed from the back corner, two men in work coats standing apart facing the doors, both seen from behind so no face is visible, brushed steel walls, worn grey carpet, the entire frame lit only by warm amber fluorescent light, strong golden amber colour grade across every surface, warm brown shadows, no grey or blue or desaturated tones anywhere, well exposed with readable midtones"
     },
     {
       "id": "ff1-loop",
