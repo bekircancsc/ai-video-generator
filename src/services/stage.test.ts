@@ -72,3 +72,29 @@ test("a missing staging directory is created", async () => {
 
   assert.equal(await fs.readFile(staged.mp4, "utf8"), "v");
 });
+
+test("no half-written file is ever visible under the final name", async () => {
+  const source = await tempDir("src-");
+  const target = await tempDir("stage-");
+  const video = path.join(source, "s.mp4");
+  await fs.writeFile(video, "v".repeat(4096));
+
+  await stageOutputs(target, { videoLocation: video });
+
+  // The temporary name the copy is written under must not survive the call.
+  const left = await fs.readdir(target);
+  assert.deepEqual(left, [STAGED_VIDEO_NAME]);
+});
+
+test("a leftover temporary file from a crashed run does not block the next one", async () => {
+  const source = await tempDir("src-");
+  const target = await tempDir("stage-");
+  const video = path.join(source, "s.mp4");
+  await fs.writeFile(video, "v");
+  await fs.writeFile(path.join(target, `${STAGED_VIDEO_NAME}.part`), "junk");
+
+  const staged = await stageOutputs(target, { videoLocation: video });
+
+  assert.equal(await fs.readFile(staged.mp4, "utf8"), "v");
+  assert.deepEqual(await fs.readdir(target), [STAGED_VIDEO_NAME]);
+});
