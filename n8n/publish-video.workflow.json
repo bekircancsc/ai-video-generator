@@ -53,19 +53,23 @@
     },
     {
       "parameters": {
-        "filePath": "C:\\n8n-data\\video.mp4",
+        "fileSelector": "C:\\n8n-data\\video.mp4",
         "options": {
           "dataPropertyName": "data"
         }
       },
       "id": "readvideo",
       "name": "Read the video",
-      "type": "n8n-nodes-base.readBinaryFile",
+      "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
         660,
         0
-      ]
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000,
+      "notes": "Read/Write Files from Disk, not the older Read Binary File: that node is deprecated and fails on current n8n with 'The file has changed and cannot be accessed'."
     },
     {
       "parameters": {
@@ -92,20 +96,23 @@
     },
     {
       "parameters": {
-        "filePath": "C:\\n8n-data\\cover.jpg",
+        "fileSelector": "C:\\n8n-data\\cover.jpg",
         "options": {
           "dataPropertyName": "data"
         }
       },
       "id": "readcover",
       "name": "Read the cover",
-      "type": "n8n-nodes-base.readBinaryFile",
+      "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
         1100,
         0
       ],
-      "notes": "A run with --no-cover returns no cover field. Disable this node and the one after it if you turn covers off."
+      "notes": "A run with --no-cover stages no cover. Disable this node and the one after it if you turn covers off.",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000
     },
     {
       "parameters": {

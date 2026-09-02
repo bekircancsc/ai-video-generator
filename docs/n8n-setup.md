@@ -50,6 +50,15 @@ left in Fixed mode, a node run on its own with no input — passes its own sourc
 text through as a filename. A constant path cannot do that. The copies are
 overwritten every run; nothing reads them after the upload.
 
+### Read/Write Files from Disk, not Read Binary File
+
+The two file nodes are `Read/Write Files from Disk`. The older `Read Binary
+File` node is deprecated and on current n8n (checked against 2.8.4) it fails
+with `The file has changed and cannot be accessed` even when the file is
+complete, readable and nothing is holding it. Both nodes also have Retry On
+Fail set to three tries five seconds apart, because a virus scanner can hold a
+freshly written file for a moment.
+
 ### Call node, not npm
 
 The command is `node run.mjs … --json`, not `npm run start -- … --json`.
