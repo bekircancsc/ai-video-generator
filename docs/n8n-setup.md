@@ -179,11 +179,32 @@ the arc needs to know where it got to. The entry's topic reads
 means a gap in the numbering still goes out in the author's intended order, and
 a part whose render failed is picked up again the next day rather than skipped.
 
-**The arc is finite.** Five parts, one a day, and on the sixth day the run fails
-with `Every episode of scripts/floor-four has been published (5 of 5)`. That is
-the design, not a fault: the schedule keeps firing and the failure is the
-reminder to write the next part. Nothing is uploaded on a failed run, because
-the Render node is the first step.
+**The arc is finite, so queue the next one.** `--series` is repeatable and the
+arcs play in the order given:
+
+```
+node run.mjs --series scripts/floor-four --series scripts/night-audit --json --stage C:\n8n-data
+```
+
+An arc with no parts written yet is skipped rather than refused, which is the
+point: name tomorrow's arc today, and starting it is then nothing but dropping
+`night-audit-part-1.json` into `scripts/`. The schedule never has to be touched
+again, and neither does this command.
+
+When every queued arc really is spent the run fails, and the message names each
+one with the reason, because "write the next part" and "the arc you queued is
+still empty" are different jobs:
+
+```
+Every queued arc is spent:
+  scripts/floor-four — all 5 published
+  scripts/night-audit — no parts written yet
+Write the next part, or queue another arc.
+```
+
+That failure is the design, not a fault: the schedule keeps firing and the
+failure is the reminder. Nothing is uploaded on a failed run, because the Render
+node is the first step.
 
 `scripts/floor-four-publishing.md` carries the series' own release schedule,
 descriptions and pinned comments, and this workflow does none of that. It

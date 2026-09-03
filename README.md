@@ -135,7 +135,7 @@ npm run start -- [--topic <topic>] [--niche <niche>] [--niche-file <file.md>] [-
 | `--niche <niche>` | Who the video is for. On its own, the model also picks the topic. With `--topic`, it sets the audience and tone. |
 | `--scenes <n>` | Exact number of scenes, 3 to 8. Left off, the model picks a number to suit the topic. |
 | `--payload <file>` | Render a hand-written script instead of calling an LLM. See `scripts/example-payload.json`. |
-| `--series <prefix>` | Render the next unpublished part of an arc. `--series scripts/floor-four` finds `floor-four-part-1.json` and its siblings, orders them by number, and picks the first one `history.json` has no record of. Cannot be combined with `--payload`. |
+| `--series <prefix>` | Render the next unpublished part of an arc. `--series scripts/floor-four` finds `floor-four-part-1.json` and its siblings, orders them by number, and picks the first one `history.json` has no record of. Repeatable: several arcs form a queue, played in the order given, and an arc with no parts written yet is skipped rather than refused. Cannot be combined with `--payload`. |
 | `--niche-file <file>` | Read the niche from a Markdown file instead of `--niche`. The file is the channel definition; see `niches/`. Cannot be combined with `--niche`. |
 | `--stage <dir>` | Also copy the finished video and cover into `<dir>` as `video.mp4` and `cover.jpg`. For a tool that may only read from one directory. |
 | `--json` | Print the run result as one JSON object on stdout and send every log to stderr. For automation; see `docs/n8n-setup.md`. |

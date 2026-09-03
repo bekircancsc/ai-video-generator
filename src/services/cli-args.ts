@@ -26,8 +26,32 @@ export function parseArgs(argv: string[]) {
     return value;
   };
 
+  /** Every occurrence of a repeatable flag, in the order they were written. */
+  const flagValues = (flag: string) => {
+    const values: string[] = [];
+
+    argv.forEach((arg, index) => {
+      if (arg !== flag) {
+        return;
+      }
+
+      const value = argv[index + 1];
+
+      if (!value || value.startsWith("--")) {
+        throw new Error(`${flag} requires a value`);
+      }
+
+      consumedIndices.add(index);
+      consumedIndices.add(index + 1);
+      values.push(value);
+    });
+
+    return values;
+  };
+
   const payloadFile = flagValue("--payload");
-  const series = flagValue("--series");
+  // Repeatable: the arcs form a queue, played in the order given.
+  const series = flagValues("--series");
   const topicFlag = flagValue("--topic");
   const niche = flagValue("--niche");
   const nicheFile = flagValue("--niche-file");
@@ -39,7 +63,7 @@ export function parseArgs(argv: string[]) {
   }
 
   // --series picks the payload, so naming one as well says two different things.
-  if (series !== undefined && payloadFile !== undefined) {
+  if (series.length > 0 && payloadFile !== undefined) {
     throw new Error("--series and --payload cannot be used together. The series chooses the payload.");
   }
 

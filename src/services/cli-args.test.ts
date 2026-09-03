@@ -10,6 +10,32 @@ test("treats a bare positional argument as the topic", () => {
   assert.equal(parseArgs(["The", "Future", "of", "AI"]).topic, "The Future of AI");
 });
 
+test("a queue of arcs keeps the order it was written in", () => {
+  assert.deepEqual(parseArgs(["--series", "scripts/floor-four", "--series", "scripts/night-audit"]).series, [
+    "scripts/floor-four",
+    "scripts/night-audit",
+  ]);
+});
+
+test("no --series is an empty queue, not undefined", () => {
+  assert.deepEqual(parseArgs(["--topic", "lifts"]).series, []);
+});
+
+test("an arc name is not mistaken for the topic", () => {
+  assert.equal(parseArgs(["--series", "scripts/floor-four"]).topic, "");
+});
+
+test("--series and --payload together is refused", () => {
+  assert.throws(
+    () => parseArgs(["--series", "scripts/floor-four", "--payload", "scripts/example-payload.json"]),
+    /cannot be used together/,
+  );
+});
+
+test("a --series with no value is refused rather than swallowing the next flag", () => {
+  assert.throws(() => parseArgs(["--series", "--json"]), /--series requires a value/);
+});
+
 test("reads --payload", () => {
   assert.equal(parseArgs(["--payload", "scripts/example-payload.json"]).payloadFile, "scripts/example-payload.json");
 });

@@ -81,3 +81,65 @@ export function nextEpisode(episodes: Episode[], entries: HistoryEntry[]): Episo
 
   return episodes.find((episode) => !published.has(path.basename(episode.file)));
 }
+
+/** One arc in the queue, with whatever instalments exist for it today. */
+export type QueuedArc = {
+  /** The prefix as written on the command line, for messages the reader has to match up. */
+  prefix: string;
+  episodes: Episode[];
+};
+
+/**
+ * The queued arcs, in the order they were named.
+ *
+ * An arc with no files yet is kept rather than rejected: naming tomorrow's arc
+ * before writing it is the point of a queue. Dropping its first part into the
+ * directory is then the whole of starting it, with nothing to change in the
+ * schedule that runs this. An unreadable *directory* is still an error, because
+ * that is a typo rather than an intention.
+ */
+export async function loadArcs(prefixes: string[], cwd = process.cwd()): Promise<QueuedArc[]> {
+  const arcs: QueuedArc[] = [];
+
+  for (const prefix of prefixes) {
+    // Resolved for reading, kept as written for anything a person will read back.
+    arcs.push({ prefix, episodes: await listEpisodes(path.resolve(cwd, prefix)) });
+  }
+
+  return arcs;
+}
+
+/** The next instalment across the whole queue, or undefined when every arc is spent. */
+export function nextInQueue(
+  arcs: QueuedArc[],
+  entries: HistoryEntry[],
+): { arc: QueuedArc; episode: Episode } | undefined {
+  for (const arc of arcs) {
+    const episode = nextEpisode(arc.episodes, entries);
+
+    if (episode) {
+      return { arc, episode };
+    }
+  }
+
+  return undefined;
+}
+
+/**
+ * What to say when the queue has nothing left.
+ *
+ * Each arc is named with its own count, because "write the next part" and "the
+ * arc you queued is still empty" are different jobs and the reader has to be
+ * able to tell which one is waiting.
+ */
+export function exhaustedQueueMessage(arcs: QueuedArc[]): string {
+  const lines = arcs.map((arc) => {
+    const total = arc.episodes.length;
+
+    return total === 0
+      ? `  ${arc.prefix} — no parts written yet`
+      : `  ${arc.prefix} — all ${total} published`;
+  });
+
+  return ["Every queued arc is spent:", ...lines, "Write the next part, or queue another arc."].join("\n");
+}

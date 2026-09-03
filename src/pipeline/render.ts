@@ -14,7 +14,7 @@ import { removeCover, renderCover } from "./cover";
 import { normaliseLoudness } from "./loudness";
 import { buildResult, type RunFailure } from "../services/result";
 import { appendHistory, readHistory, recentTitles } from "../services/history";
-import { listEpisodes, nextEpisode, seriesTopic } from "../services/series";
+import { exhaustedQueueMessage, loadArcs, nextInQueue, seriesTopic } from "../services/series";
 import { stageOutputs } from "../services/stage";
 import type { VideoPayload } from "../types/video";
 import type { ScriptBrief } from "../services/script-schema";
@@ -150,28 +150,19 @@ if (isDirectRun) {
     // in, because that record is the only thing that moves the arc forward.
     let historyTopic: string | undefined = payloadFile ? undefined : topic || nicheFile || "";
 
-    if (series) {
-      const seriesPrefix = path.resolve(process.cwd(), series);
-      const episodes = await listEpisodes(seriesPrefix);
+    if (series.length > 0) {
+      const arcs = await loadArcs(series);
+      const next = nextInQueue(arcs, history);
 
-      if (episodes.length === 0) {
-        throw new Error(
-          `No episodes found for ${series}. Expected files named ${path.basename(series)}-part-1.json next to it.`,
-        );
+      if (!next) {
+        throw new Error(exhaustedQueueMessage(arcs));
       }
 
-      const episode = nextEpisode(episodes, history);
-
-      if (!episode) {
-        throw new Error(
-          `Every episode of ${series} has been published (${episodes.length} of ${episodes.length}). ` +
-            "Write the next part, or point the run at another arc.",
-        );
-      }
+      const { arc, episode } = next;
 
       payloadFile = episode.file;
       historyTopic = seriesTopic(episode.file);
-      console.log(`Series ${series}: part ${episode.number} of ${episodes.length}`);
+      console.log(`Series ${arc.prefix}: part ${episode.number} of ${arc.episodes.length}`);
     }
 
     // A payload file names its own video; the avoid list only shapes a
