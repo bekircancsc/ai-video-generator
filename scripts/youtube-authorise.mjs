@@ -28,10 +28,11 @@ import { spawn } from "node:child_process";
 
 const PORT = 8765;
 
-// No trailing slash: a Desktop app client registers the bare `http://localhost`
-// and Google matches the loopback redirect on scheme, host and path while
-// ignoring the port. A path of "/" against a registered "" is the kind of
-// difference that comes back as redirect_uri_mismatch and explains nothing.
+// No trailing slash, which is the bare `http://localhost` a Desktop app client
+// registers; Google matches a loopback redirect on scheme, host and path and
+// ignores the port. Sent in this form because it is the registered one, not
+// because the slash was ever the problem: the redirect_uri_mismatch that
+// prompted the change came from openInBrowser below, not from here.
 const REDIRECT_URI = `http://localhost:${PORT}`;
 
 // youtube.upload alone cannot set a thumbnail; youtube covers both, and nothing
@@ -40,6 +41,27 @@ const SCOPES = [
   "https://www.googleapis.com/auth/youtube.upload",
   "https://www.googleapis.com/auth/youtube",
 ];
+
+/**
+ * Opens a URL in the default browser without letting a shell read it first.
+ *
+ * Not `cmd /c start`: Node quotes an argument only when it contains a space, so
+ * the consent URL reaches cmd.exe unquoted and cmd cuts it at the first `&`.
+ * The browser then asks Google to authorise with a client_id and nothing else —
+ * no redirect_uri, no scope — and Google answers redirect_uri_mismatch, which
+ * sends you to inspect a redirect URI that was never sent. rundll32 takes the
+ * URL as one argv entry and no shell ever parses it.
+ */
+function openInBrowser(url) {
+  const [command, args] =
+    process.platform === "win32"
+      ? ["rundll32", ["url.dll,FileProtocolHandler", url]]
+      : process.platform === "darwin"
+        ? ["open", [url]]
+        : ["xdg-open", [url]];
+
+  spawn(command, args, { stdio: "ignore", detached: true }).unref();
+}
 
 function flag(name) {
   const index = process.argv.indexOf(`--${name}`);
@@ -132,9 +154,7 @@ const code = await new Promise((resolve, reject) => {
     console.log("Opening the consent screen. If nothing happens, paste this into a browser:\n");
     console.log(`${consentUrl}\n`);
 
-    // start is a cmd builtin, hence the shell; the empty string is the window
-    // title cmd would otherwise take the URL for.
-    spawn("cmd", ["/c", "start", "", consentUrl], { stdio: "ignore", detached: true }).unref();
+    openInBrowser(consentUrl);
   });
 });
 
