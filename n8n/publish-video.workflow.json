@@ -94,6 +94,27 @@
     },
     {
       "parameters": {
+        "method": "PUT",
+        "url": "https://www.googleapis.com/youtube/v3/videos?part=status",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "youTubeOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"id\": \"{{ $('Upload to YouTube').item.json.uploadId }}\",\n  \"status\": {\n    \"privacyStatus\": \"private\",\n    \"selfDeclaredMadeForKids\": false,\n    \"containsSyntheticMedia\": true\n  }\n}",
+        "options": {}
+      },
+      "notes": "YouTube requires realistic synthetic content to be disclosed, and the YouTube node cannot: containsSyntheticMedia appears nowhere in it, so this sets it through the API afterwards. videos.update replaces the whole part it is given, so privacyStatus and selfDeclaredMadeForKids are repeated here on purpose — omitting privacyStatus would clear it and take the video out of private. part=status leaves the snippet alone, so the title, description and tags are not at risk.",
+      "id": "synthetic",
+      "name": "Say it is synthetic",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1104,
+        0
+      ]
+    },
+    {
+      "parameters": {
         "fileSelector": "C:\\n8n-data\\cover.jpg",
         "options": {
           "dataPropertyName": "data"
@@ -104,7 +125,7 @@
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        1100,
+        1324,
         0
       ],
       "notes": "A run with --no-cover stages no cover. Disable this node and the one after it if you turn covers off.",
@@ -129,7 +150,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1320,
+        1544,
         0
       ]
     },
@@ -143,7 +164,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1540,
+        1764,
         0
       ]
     }
@@ -186,7 +207,7 @@
       "main": [
         [
           {
-            "node": "Read the cover",
+            "node": "Say it is synthetic",
             "type": "main",
             "index": 0
           }
@@ -220,6 +241,17 @@
         [
           {
             "node": "Render",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Say it is synthetic": {
+      "main": [
+        [
+          {
+            "node": "Read the cover",
             "type": "main",
             "index": 0
           }

@@ -189,6 +189,44 @@ There is no automatic retry. Script and render failures here are deterministic �
 a bad model name, a missing key, an unaccepted speech model — and running them
 again produces the same error a minute later.
 
+## Disclosing that the video is synthetic
+
+YouTube requires realistic altered or synthetic content to be disclosed — content
+a viewer could mistake for a real person, place, scene or event. Using AI to
+write a script or a title is exempt as production assistance; a realistic
+depiction is not. These videos are the second kind by design: the niche file
+asks for a narrator who "describes what they saw the way someone describes it to
+a colleague at lunch", over photoreal stills of fluorescent-lit offices, read by
+a synthetic voice. Disclosure does not limit reach or monetisation, and the
+January 2026 enforcement wave is what happens to channels that skip it, so the
+trade is one-sided.
+
+The API field is `status.containsSyntheticMedia`, on `videos.insert` and
+`videos.update`. n8n's YouTube node cannot set it — the string appears nowhere in
+the node, which sends only `privacyStatus`, `embeddable`, `selfDeclaredMadeForKids`
+and `license` — so the **Say it is synthetic** node sets it afterwards:
+
+```
+PUT https://www.googleapis.com/youtube/v3/videos?part=status
+{
+  "id": "{{ $('Upload to YouTube').item.json.uploadId }}",
+  "status": {
+    "privacyStatus": "private",
+    "selfDeclaredMadeForKids": false,
+    "containsSyntheticMedia": true
+  }
+}
+```
+
+**`privacyStatus` is repeated on purpose.** `videos.update` replaces the whole
+part it is handed: any mutable property left out of the body is cleared. Sending
+`containsSyntheticMedia` on its own would drop the privacy setting and take the
+video out of private — a compliance fix that publishes the draft. `part=status`
+does leave the snippet alone, so the title, description and tags are not at risk.
+
+The node sits between the upload and the cover, so a failure to disclose stops
+the run loudly rather than leaving an undisclosed video with a nice thumbnail.
+
 ## The daily series run
 
 The workflow publishes one part of *Please Do Not Press Four* a day. The Render
