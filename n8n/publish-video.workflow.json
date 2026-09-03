@@ -117,7 +117,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "=https://www.googleapis.com/upload/youtube/v3/thumbnails/set?videoId={{ $('Upload to YouTube').item.json.id }}",
+        "url": "=https://www.googleapis.com/upload/youtube/v3/thumbnails/set?videoId={{ $('Upload to YouTube').item.json.uploadId }}",
         "authentication": "predefinedCredentialType",
         "nodeCredentialType": "youTubeOAuth2Api",
         "sendBody": true,
@@ -125,6 +125,7 @@
         "inputDataFieldName": "data",
         "options": {}
       },
+      "notes": "videoId comes from uploadId, not id. The YouTube node uploads in resumable chunks and returns { uploadId, ...initiateResponse.body }; the initiate call has an empty body, so there is no id field. Reading .id sends videoId=undefined, and the HTTP Request node hides Google refusal behind a circular-structure error.",
       "id": "thumbnail",
       "name": "Set the cover",
       "type": "n8n-nodes-base.httpRequest",
@@ -136,7 +137,7 @@
     },
     {
       "parameters": {
-        "text": "=Ready: {{ $('Read the result').item.json.title }}\nhttps://youtube.com/watch?v={{ $('Upload to YouTube').item.json.id }}\n{{ $('Read the result').item.json.durationSeconds }}s, private. Review it before publishing.",
+        "text": "=Ready: {{ $('Read the result').item.json.title }}\nhttps://youtube.com/watch?v={{ $('Upload to YouTube').item.json.uploadId }}\n{{ $('Read the result').item.json.durationSeconds }}s, private. Review it before publishing.",
         "additionalFields": {}
       },
       "id": "notify",
