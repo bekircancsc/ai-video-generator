@@ -58,13 +58,21 @@ $trigger = New-ScheduledTaskTrigger -AtLogOn -User $env:USERNAME
 # ought to finish: no execution time limit, and no second copy if the task is
 # somehow triggered again. StartWhenAvailable covers a logon that happened while
 # the machine was still settling.
+#
+# The restart settings matter more than they look. n8n dying between the logon
+# and the evening publish is silent — the schedule simply does not fire, and
+# nothing says so until the video fails to appear. Retrying every minute, five
+# times, turns most of those into a gap of a minute instead of a lost day. The
+# start script's port check makes a needless retry harmless.
 $settings = New-ScheduledTaskSettingsSet `
     -AllowStartIfOnBatteries `
     -DontStopIfGoingOnBatteries `
     -DontStopOnIdleEnd `
     -StartWhenAvailable `
     -MultipleInstances IgnoreNew `
-    -ExecutionTimeLimit ([TimeSpan]::Zero)
+    -ExecutionTimeLimit ([TimeSpan]::Zero) `
+    -RestartCount 5 `
+    -RestartInterval (New-TimeSpan -Minutes 1)
 
 # Run as the logged-on user, not SYSTEM: the workflow renders into this user's
 # OneDrive path, reads this user's n8n database, and holds this user's

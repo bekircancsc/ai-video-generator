@@ -145,6 +145,8 @@ npm run start -- [--topic <topic>] [--niche <niche>] [--niche-file <file.md>] [-
 | `--no-music` | Skip the music bed. The video plays with speech alone. |
 | `--no-cover` | Skip the cover frame. Only the MP4 is written. |
 
+A generated script is written to `out/drafts/<date>-<slug>.json` before the voiceover starts, and the run prints the `--payload` line that resumes it. The voiceover is the expensive stage and the one bound by a daily quota, so a run that dies inside it used to cost the script as well as the audio: the next attempt spent the quota again on a subject the model had to invent from scratch, which is a different video rather than a retry. A `--payload` or `--series` run writes no draft, because its script is already a file.
+
 | Script | Purpose |
 |---|---|
 | `npm run start` | Generate and render. The main entry point. |

@@ -16,6 +16,7 @@ import { buildResult, type RunFailure } from "../services/result";
 import { appendHistory, readHistory, recentTitles } from "../services/history";
 import { exhaustedQueueMessage, loadArcs, nextInQueue, seriesTopic } from "../services/series";
 import { stageOutputs } from "../services/stage";
+import { saveDraft } from "../services/draft";
 import type { VideoPayload } from "../types/video";
 import type { ScriptBrief } from "../services/script-schema";
 
@@ -35,6 +36,20 @@ export async function renderVideo(
   options: { audio?: boolean; images?: boolean; music?: boolean; cover?: boolean; loudness?: boolean } = {},
 ) {
   const script = payloadOverride ?? (await generateScript(brief));
+
+  // Before the voiceover, which is the expensive stage and the one bound by a
+  // daily quota. A run that died inside it used to lose the script too, and the
+  // next attempt spent the quota again on a subject the model had to invent
+  // from scratch — a different video, not a retry of this one. A hand-written
+  // payload needs no such copy: it is already a file on disk.
+  if (!payloadOverride) {
+    const draft = await saveDraft(rootDir, slugify(brief.topic || script.title), script);
+
+    if (draft) {
+      console.log(`Script saved to ${draft} — resume this video with --payload ${draft}`);
+    }
+  }
+
   const spoken =
     options.audio === false ? script : await attachCaptions(await attachVoiceover(script));
   const illustrated = options.images === false ? spoken : await attachImagery(spoken);
