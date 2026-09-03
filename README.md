@@ -178,17 +178,26 @@ Any OpenAI-compatible endpoint works through the same adapter. Pointing
 
 ## Automation
 
-`docs/n8n-setup.md` covers running the pipeline on a schedule from n8n: one
-weekly run that generates a video from a niche document and uploads it to
-YouTube as a private draft. n8n orchestrates and this repo produces — the
-contract between them is `--json`, which puts a single result object on stdout
-and every log on stderr.
+The pipeline is scheduled two ways, and they publish from the same
+`history.json`, so only one of them should be live at a time.
+
+`docs/n8n-setup.md` covers the local route: an n8n instance on this machine
+that runs daily and uploads the next part of an arc as a private draft. It
+publishes nothing while the machine is off, and nothing catches up afterwards.
+
+`docs/publish-setup.md` covers the same run on GitHub Actions, which has no
+machine to be off. It is manual until a run has been watched end to end; the
+cron goes in only once the n8n side is turned off.
+
+n8n and Actions both orchestrate and this repo produces — the contract between
+them is `--json`, which puts a single result object on stdout and every log on
+stderr.
 
 Two files support it. `niches/*.md` defines a channel — voice, shape, look and
-rules — and is passed with `--niche-file`. `history.json` records every
-generated video's title, and the next run is told not to repeat them, because a
-model asked to pick its own topic from a fixed niche will otherwise return to
-the same few ideas within a month.
+rules — and is passed with `--niche-file`, which has the model invent a topic.
+`history.json` records every generated video's title and every arc part
+already published: it is what stops `--niche-file` returning to the same few
+ideas within a month, and what tells `--series` which part comes next.
 
 ## Caching
 
