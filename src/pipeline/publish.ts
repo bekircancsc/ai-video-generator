@@ -1,0 +1,128 @@
+import "dotenv/config";
+import fs from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import type { RunResult } from "../services/result";
+import { accessToken, buildUploadMetadata, setThumbnail, uploadVideo, watchUrl } from "../services/youtube";
+import { sendMessage } from "../services/telegram";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const rootDir = path.resolve(__dirname, "..", "..");
+const isDirectRun = process.argv[1] ? path.resolve(process.argv[1]) === __filename : false;
+
+/**
+ * Reads what a `--json` render printed.
+ *
+ * A failed render writes `{ok: false}` and the publisher must not treat that as
+ * something to upload — the file exists either way, and the difference is one
+ * field.
+ */
+export async function readRunResult(file: string): Promise<RunResult> {
+  let raw: string;
+
+  try {
+    raw = await fs.readFile(file, "utf8");
+  } catch {
+    throw new Error(`Could not read the render result: ${file}`);
+  }
+
+  let parsed: unknown;
+
+  try {
+    parsed = JSON.parse(raw);
+  } catch {
+    throw new Error(
+      `${file} is not JSON. It should be exactly what \`run.mjs --json\` printed on stdout; ` +
+        "a log line in there means stdout and stderr were mixed.",
+    );
+  }
+
+  const result = parsed as RunResult & { error?: string };
+
+  if (result.ok !== true) {
+    throw new Error(`The render failed, so there is nothing to publish: ${result.error ?? "no reason given"}`);
+  }
+
+  if (!result.mp4) {
+    throw new Error(`${file} names no video file.`);
+  }
+
+  return result;
+}
+
+/** The message the finished upload announces itself with. */
+export function announcement(result: RunResult, videoId: string): string {
+  return [
+    `Ready: ${result.title}`,
+    watchUrl(videoId),
+    `${result.durationSeconds}s, private. Review it before publishing.`,
+  ].join("\n");
+}
+
+export async function publish(result: RunResult): Promise<string> {
+  const token = await accessToken();
+
+  const video = await fs.readFile(path.resolve(rootDir, result.mp4));
+
+  console.log(`Uploading ${result.mp4} (${(video.length / 1_000_000).toFixed(1)} MB) as "${result.title}"`);
+
+  const videoId = await uploadVideo({
+    token,
+    video,
+    metadata: buildUploadMetadata({
+      title: result.title,
+      description: result.description,
+      tags: result.tags,
+    }),
+  });
+
+  console.log(`Uploaded as ${watchUrl(videoId)}`);
+
+  // After the upload, because a thumbnail needs a video to belong to, and
+  // tolerated on failure: a cover is worth less than the video is, and a
+  // channel that cannot set custom thumbnails would otherwise lose both.
+  if (result.cover) {
+    try {
+      await setThumbnail({ token, videoId, cover: await fs.readFile(path.resolve(rootDir, result.cover)) });
+      console.log("Cover set.");
+    } catch (error) {
+      console.warn(`[cover] ${error instanceof Error ? error.message : String(error)}`);
+    }
+  }
+
+  return videoId;
+}
+
+if (isDirectRun) {
+  const run = async () => {
+    const index = process.argv.indexOf("--result");
+    const file = index === -1 ? undefined : process.argv[index + 1];
+
+    if (!file || file.startsWith("--")) {
+      throw new Error("Usage: node --import tsx src/pipeline/publish.ts --result <render.json>");
+    }
+
+    const result = await readRunResult(path.resolve(process.cwd(), file));
+    const videoId = await publish(result);
+
+    // Last, and tolerated on failure: the video is up either way, and a failed
+    // notification is not worth a red build over an uploaded video.
+    try {
+      await sendMessage(announcement(result, videoId));
+      console.log("Told Telegram.");
+    } catch (error) {
+      console.warn(`[telegram] ${error instanceof Error ? error.message : String(error)}`);
+    }
+
+    process.stdout.write(`${JSON.stringify({ ok: true, videoId, url: watchUrl(videoId) })}\n`);
+  };
+
+  run().catch((error) => {
+    const message = error instanceof Error ? error.message : String(error);
+
+    console.error("Publish failed:", message);
+    process.stdout.write(`${JSON.stringify({ ok: false, error: message })}\n`);
+    process.exitCode = 1;
+  });
+}

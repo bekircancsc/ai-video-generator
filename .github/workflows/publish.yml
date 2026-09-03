@@ -1,0 +1,100 @@
+# Renders the next episode and publishes it, without a machine at home being on.
+#
+# Manual for now, on purpose. The cron goes in only once a run has been watched
+# end to end from here — until then the local n8n instance is still the thing
+# that publishes, and two schedules would publish two videos a day.
+
+name: Publish a video
+
+on:
+  workflow_dispatch:
+    inputs:
+      series:
+        description: Arc to publish the next unpublished part of
+        default: scripts/floor-four
+        required: true
+      dry-run:
+        description: Render only. Nothing is uploaded and no episode is consumed.
+        type: boolean
+        default: false
+
+# One at a time. Two concurrent runs would each pick the same "next" episode,
+# because the history that decides it is only written at the end.
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    permissions:
+      # To push the history entry back. Nothing else needs writing.
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      # Remotion renders through headless Chrome and fetches its own copy on
+      # first use. Cached, because it is ~150 MB and does not change between
+      # runs of the same Remotion version.
+      - name: Cache the browser Remotion renders with
+        uses: actions/cache@v4
+        with:
+          path: node_modules/.remotion
+          key: remotion-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Render
+        env:
+          SCRIPT_PROVIDER: groq
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          TTS_VOICE: daniel
+        run: node run.mjs --series "${{ inputs.series }}" --json > render.json
+
+      # Separately from the render, so a failed upload leaves the video to look
+      # at rather than only a log saying it existed.
+      - name: Keep the video whatever happens next
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: video
+          path: |
+            out/*.mp4
+            out/*.jpg
+            render.json
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Publish
+        if: ${{ !inputs.dry-run }}
+        env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: node --import tsx src/pipeline/publish.ts --result render.json
+
+      # The arc's position lives in history.json, so a run that does not commit
+      # it publishes the same episode again tomorrow. A dry run deliberately
+      # does not: it consumed nothing.
+      - name: Record the episode
+        if: ${{ !inputs.dry-run }}
+        run: |
+          if git diff --quiet history.json; then
+            echo "history.json unchanged — nothing to record."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add history.json
+          git commit -m "Published $(node -p "require('./render.json').title")"
+          git push
