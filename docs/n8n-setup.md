@@ -42,6 +42,29 @@ Not in Docker. The Execute Command node has to see this repo, this Node
 installation and ffmpeg, and inside a container it sees none of them. The cost
 is that videos are only produced while this machine is on.
 
+## Start it from the script, not by hand
+
+```powershell
+nvm use 24.11.1
+.\n8n\start-n8n.ps1
+```
+
+`n8n start` on its own brings up an instance that looks healthy and cannot run
+this workflow. Two settings have to be in the environment, and neither survives
+a reboot on its own, so they live in `n8n/start-n8n.ps1`.
+
+**`NODES_EXCLUDE`.** n8n excludes Execute Command by default — the shipped
+value is `["n8n-nodes-base.executeCommand", "n8n-nodes-base.localFileTrigger"]`.
+An excluded node is not disabled-but-visible: the editor never receives its
+type, so the **Render** node draws as a grey `?`, the canvas turns read-only,
+and nothing on screen says why. The override replaces the default list whole,
+which is why the script names `localFileTrigger` again — that one should stay
+excluded.
+
+**`N8N_RESTRICT_FILE_ACCESS_TO`.** Set to `C:\n8n-data`, the directory `--stage`
+copies into. Left unset the restriction is absent rather than relaxed, and n8n
+will read anything the user can.
+
 ## Import and wire
 
 1. **Workflows → Import from file** → `n8n/publish-video.workflow.json`.
