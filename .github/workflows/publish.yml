@@ -1,12 +1,19 @@
 # Renders the next episode and publishes it, without a machine at home being on.
 #
-# Manual for now, on purpose. The cron goes in only once a run has been watched
-# end to end from here — until then the local n8n instance is still the thing
-# that publishes, and two schedules would publish two videos a day.
+# Daily at 20:17 Europe/Istanbul. GitHub cron is UTC and Turkey is UTC+3 the
+# whole year, so 17:17 UTC. The odd minute is deliberate: scheduled runs are
+# queued best-effort and the top of the hour is when everyone else's are too.
+#
+# This is meant to be the only schedule. The local n8n instance published the
+# same arc from the same history.json every morning, and two schedules put out
+# two parts a day, so it has to stay deactivated.
 
 name: Publish a video
 
 on:
+  schedule:
+    - cron: "17 17 * * *"
+
   workflow_dispatch:
     inputs:
       series:
@@ -52,12 +59,16 @@ jobs:
           path: node_modules/.remotion
           key: remotion-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
 
+      # A scheduled run carries no inputs at all, so the arc has to fall back to
+      # a literal here. Without it the schedule renders `--series ""` and fails
+      # nightly, while the button next to it keeps working.
       - name: Render
         env:
           SCRIPT_PROVIDER: groq
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
           TTS_VOICE: daniel
-        run: node run.mjs --series "${{ inputs.series }}" --json > render.json
+          SERIES: ${{ inputs.series || 'scripts/floor-four' }}
+        run: node run.mjs --series "$SERIES" --json > render.json
 
       # Separately from the render, so a failed upload leaves the video to look
       # at rather than only a log saying it existed.

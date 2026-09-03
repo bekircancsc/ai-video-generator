@@ -178,16 +178,16 @@ Any OpenAI-compatible endpoint works through the same adapter. Pointing
 
 ## Automation
 
-The pipeline is scheduled two ways, and they publish from the same
-`history.json`, so only one of them should be live at a time.
+The pipeline publishes from **GitHub Actions**, daily at 20:17 Istanbul time,
+and `docs/publish-setup.md` covers it: the OAuth client, the secrets, and the
+one manual run that proves them. It runs on GitHub's machines, so nothing here
+has to be switched on at eight in the evening.
 
-`docs/n8n-setup.md` covers the local route: an n8n instance on this machine
-that runs daily and uploads the next part of an arc as a private draft. It
-publishes nothing while the machine is off, and nothing catches up afterwards.
-
-`docs/publish-setup.md` covers the same run on GitHub Actions, which has no
-machine to be off. It is manual until a run has been watched end to end; the
-cron goes in only once the n8n side is turned off.
+`docs/n8n-setup.md` covers the local n8n route it replaced, kept because it
+documents most of what the pipeline does and every Windows trap under it. Its
+schedule is **deactivated on purpose**: both routes take the next episode from
+the same `history.json`, so two live schedules publish two parts of the arc a
+day.
 
 n8n and Actions both orchestrate and this repo produces — the contract between
 them is `--json`, which puts a single result object on stdout and every log on

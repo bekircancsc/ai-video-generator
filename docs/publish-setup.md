@@ -80,18 +80,30 @@ works on a machine with none of this one's cached audio, images or music.
 Then run it again without dry-run. The video arrives private; the Telegram
 message carries the link.
 
-## Two schedulers publish two videos
+## One schedule, and it is this one
 
-The cron is deliberately not in the workflow yet. The local n8n instance still
-publishes daily at 09:00 from the same `history.json`, and adding a cron here
-would put out two parts of the arc a day, each machine believing it was the
-only one publishing.
+The workflow runs daily at **17:17 UTC**, which is 20:17 in Istanbul: GitHub
+cron speaks UTC only and Turkey sits at UTC+3 the whole year, with no summer
+change to chase. The odd minute is not decoration — scheduled runs are queued
+best effort and the top of the hour is when every other repository asks too, so
+a run booked at :00 is the one that waits. Expect the video a few minutes late
+and sometimes half an hour; it arrives as a private draft, so the minute does
+not matter.
 
-Before adding a `schedule:` trigger, turn off the n8n side — deactivate the
-workflow in the editor, or unregister the logon task with
-`.\n8n\install-autostart.ps1 -Remove`.
+A scheduled run carries **no inputs at all**. `inputs.series` is empty on a
+`schedule` event, which is why the Render step falls back to a literal arc
+instead of reading the input directly — without that the nightly run renders
+`--series ""` and fails every night while the button beside it keeps working.
+`inputs.dry-run` being empty is the behaviour wanted: a scheduled run publishes.
+
+**The local n8n schedule was turned off on 2026-09-03, and must stay off.**
+Both read the same `history.json`, so two live schedules put out two parts of
+the arc a day. What was done: the `Publish a video` workflow set inactive in
+`~/.n8n/database.sqlite`, and the logon task removed with the `-Remove` switch
+of `n8n/install-autostart.ps1`. Reactivating it in the n8n editor is all it
+takes to get the double publishing back.
 
 The two also disagree about where the arc's position is written. A run here
-commits `history.json` to `main`; a local n8n run writes it in the working
-tree and nothing pushes it. Whichever one keeps publishing, `git pull` before
-rendering locally, or the same episode goes out twice under two names.
+commits `history.json` to `main`; a local n8n run writes it in the working tree
+and nothing pushes it. `git pull` before rendering locally, or the same episode
+goes out twice under two names.
