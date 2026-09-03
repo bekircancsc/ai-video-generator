@@ -1,8 +1,13 @@
 // Gets the long-lived YouTube refresh token that CI publishes with.
 //
-// Run once, on a machine with a browser:
+// Run once, on a machine with a browser. Easiest with the file behind the
+// OAuth client's "Download JSON" button, since the console masks the secret
+// and will often not copy it:
 //
-//     node scripts/youtube-authorise.mjs --client-id <id> --client-secret <secret>
+//     node scripts/youtube-authorise.mjs --client-file ~/Downloads/client_secret_....json
+//
+// --client-id and --client-secret work too, and --out <file> writes the token
+// somewhere outside the repository rather than printing it to be selected.
 //
 // Before it will work, the OAuth client needs this exact redirect URI added in
 // Google Cloud Console under APIs & Services > Credentials:
@@ -15,7 +20,9 @@
 // "In production" for the token to last. Publishing it does not require
 // verification while the only scopes are these and the only user is you.
 
+import fs from "node:fs";
 import http from "node:http";
+import path from "node:path";
 import { spawn } from "node:child_process";
 
 const PORT = 8765;
@@ -35,15 +42,54 @@ function flag(name) {
   return value && !value.startsWith("--") ? value : undefined;
 }
 
-const clientId = flag("client-id") ?? process.env.YOUTUBE_CLIENT_ID;
-const clientSecret = flag("client-secret") ?? process.env.YOUTUBE_CLIENT_SECRET;
+/**
+ * Reads the JSON Google hands out from the OAuth client page.
+ *
+ * The console masks the client secret and does not always offer a copy button,
+ * so "Download JSON" is often the only way to get at it. Taking the file
+ * directly means the secret never has to be selected, pasted, or read aloud.
+ * The shape has the fields under `web` or `installed` depending on the client
+ * type, and neither is worth making the caller care about.
+ */
+function fromClientFile(file) {
+  let parsed;
+
+  try {
+    parsed = JSON.parse(fs.readFileSync(file, "utf8"));
+  } catch (error) {
+    console.error(`Could not read ${file}: ${error.message}`);
+    process.exit(1);
+  }
+
+  const block = parsed.web ?? parsed.installed ?? parsed;
+
+  if (!block.client_id || !block.client_secret) {
+    console.error(`${file} carries no client_id and client_secret. Is it the OAuth client JSON?`);
+    process.exit(1);
+  }
+
+  return { clientId: block.client_id, clientSecret: block.client_secret };
+}
+
+const clientFile = flag("client-file");
+const fromFile = clientFile ? fromClientFile(clientFile) : undefined;
+
+const clientId = flag("client-id") ?? fromFile?.clientId ?? process.env.YOUTUBE_CLIENT_ID;
+const clientSecret = flag("client-secret") ?? fromFile?.clientSecret ?? process.env.YOUTUBE_CLIENT_SECRET;
 
 if (!clientId || !clientSecret) {
   console.error(
-    "Usage: node scripts/youtube-authorise.mjs --client-id <id> --client-secret <secret>\n" +
-      "Both come from the OAuth 2.0 Client ID in Google Cloud Console.",
+    "Usage:\n" +
+      "  node scripts/youtube-authorise.mjs --client-file <downloaded.json>\n" +
+      "  node scripts/youtube-authorise.mjs --client-id <id> --client-secret <secret>\n\n" +
+      "The JSON is the 'Download JSON' button on the OAuth client in Google Cloud Console,\n" +
+      "which is the easier route: the console masks the secret and often will not copy it.",
   );
   process.exit(1);
+}
+
+if (fromFile) {
+  console.log(`Read the client from ${clientFile}`);
 }
 
 const consentUrl =
@@ -116,7 +162,27 @@ if (!refreshToken) {
   process.exit(1);
 }
 
-console.log("\nRefresh token:\n");
-console.log(refreshToken);
+const out = flag("out");
+
+if (out) {
+  // Refuse to drop a live credential where git could pick it up. Crude on
+  // purpose: anywhere under the repository is the wrong place for it.
+  const repoRoot = path.resolve(import.meta.dirname, "..");
+  const target = path.resolve(process.cwd(), out);
+
+  if (!path.relative(repoRoot, target).startsWith("..")) {
+    console.error(`\nRefusing to write a credential inside the repository: ${target}`);
+    console.error("Choose a path outside it, or drop --out and copy from the screen.");
+    process.exit(1);
+  }
+
+  fs.writeFileSync(target, `${refreshToken}\n`, "utf8");
+  console.log(`\nRefresh token written to ${target}`);
+} else {
+  console.log("\nRefresh token:\n");
+  console.log(refreshToken);
+}
+
 console.log("\nPut it in the repository's Actions secrets as YOUTUBE_REFRESH_TOKEN.");
 console.log("Treat it as a password: it grants upload access to the channel until revoked.");
+console.log("Delete any file you wrote it to once the secret is saved.");
