@@ -10,9 +10,10 @@
 // somewhere outside the repository rather than printing it to be selected.
 //
 // Before it will work, the OAuth client needs this exact redirect URI added in
-// Google Cloud Console under APIs & Services > Credentials:
+// Google Cloud Console (not needed for a Desktop app client, which allows any
+// loopback port on its own):
 //
-//     http://localhost:8765/
+//     http://localhost:8765
 //
 // BEWARE the publishing status of the OAuth consent screen. While the app is in
 // "Testing", Google expires every refresh token after seven days, which makes a
@@ -26,7 +27,12 @@ import path from "node:path";
 import { spawn } from "node:child_process";
 
 const PORT = 8765;
-const REDIRECT_URI = `http://localhost:${PORT}/`;
+
+// No trailing slash: a Desktop app client registers the bare `http://localhost`
+// and Google matches the loopback redirect on scheme, host and path while
+// ignoring the port. A path of "/" against a registered "" is the kind of
+// difference that comes back as redirect_uri_mismatch and explains nothing.
+const REDIRECT_URI = `http://localhost:${PORT}`;
 
 // youtube.upload alone cannot set a thumbnail; youtube covers both, and nothing
 // here needs the broader youtubepartner or force-ssl that n8n's node requests.
