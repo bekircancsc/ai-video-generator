@@ -6,12 +6,37 @@ the CLI once with `--json` and reads the result.
 
 ## Install n8n natively
 
+n8n must run on **Node 24 or newer** on Windows. Before installing it, switch:
+
 ```powershell
+nvm use 24.11.1
 npm install -g n8n
 n8n start
 ```
 
 Then open http://localhost:5678.
+
+Node 24 is not a preference, it is the difference between the workflow running
+and not running. Every node that reads a file — **Read the video**, **Read the
+cover** — goes through n8n's `createReadStream` helper, which stats the path,
+opens a handle, stats the handle, and refuses the file if the two identities
+disagree. It is a guard against the file being swapped between the two calls.
+On Windows under Node 22 and 23 the two always disagree: `fs.stat()` reports
+`dev` as `0` while `fileHandle.stat()` reports the real volume serial, so the
+guard fires on every file, however still and readable it is. The node reports
+`The file has changed and cannot be accessed.` and blames the video. Node 24
+carries the libuv change that makes path-stat report the same `dev`, and the
+guard passes.
+
+Reproduce it in one command if it ever comes back:
+
+```powershell
+node -e "const {stat,open}=require('fs/promises');const {constants}=require('fs');(async()=>{const p='C:/n8n-data/video.mp4';const a=await stat(p);const f=await open(p,constants.O_RDONLY|constants.O_NOFOLLOW);const b=await f.stat();console.log(a.dev,b.dev,a.dev===b.dev);await f.close()})()"
+```
+
+Two different numbers means n8n cannot read that file. Note that nvm keeps
+global packages per Node version, so n8n has to be installed again after the
+switch — the copy under the old version is invisible to the new one.
 
 Not in Docker. The Execute Command node has to see this repo, this Node
 installation and ffmpeg, and inside a container it sees none of them. The cost
