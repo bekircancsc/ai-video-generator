@@ -42,6 +42,38 @@ Not in Docker. The Execute Command node has to see this repo, this Node
 installation and ffmpeg, and inside a container it sees none of them. The cost
 is that videos are only produced while this machine is on.
 
+## Starting at logon
+
+n8n is an ordinary program and the daily publish is a cron inside it, so a
+schedule that comes due while n8n is not running does not fire — and nothing
+catches up afterwards. The schedule trigger calls `registerCron` and has no
+missed-run handling of any kind. Remembering to open a terminal cannot be part
+of the design, so register the task once:
+
+```powershell
+.\n8n\install-autostart.ps1
+```
+
+It creates a scheduled task, `n8n publishing`, that runs `start-n8n.ps1` at
+logon as the logged-on user — not SYSTEM, which would see neither the OneDrive
+render path, nor this user's n8n database, nor the credentials in it. The window
+is hidden, which is why the task passes `-LogFile`: a start that fails
+unattended has to leave something behind. The log is
+`%LOCALAPPDATA%\n8n-autostart.log`.
+
+`start-n8n.ps1` exits early if something is already listening on 5678. Two
+instances cannot share the port and the second dies with a bind error that reads
+like a broken install, which is the likeliest outcome of a logon task firing
+while n8n is already up.
+
+Remove it with `.\n8n\install-autostart.ps1 -Remove`.
+
+**What this does not fix.** A machine that is switched off when the video is due
+publishes nothing, and no local arrangement changes that. The arc still loses no
+episode: `--series` takes the next unpublished part from `history.json` rather
+than from the calendar, so a missed day shifts the run by a day instead of
+skipping a part.
+
 ## Start it from the script, not by hand
 
 ```powershell
