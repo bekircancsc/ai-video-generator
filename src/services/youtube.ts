@@ -12,6 +12,38 @@ export const TITLE_LIMIT = 100;
 export const DESCRIPTION_LIMIT = 5000;
 export const TAGS_LIMIT = 500;
 
+/**
+ * When a scheduled upload turns itself public: 18:00 UTC, which is 21:00 in
+ * Istanbul the whole year — Turkey stopped changing its clocks in 2016, so no
+ * summer-time arithmetic is needed and none is done.
+ */
+export const PUBLISH_HOUR_UTC = 18;
+
+/**
+ * How close to now a publish time is allowed to be.
+ *
+ * YouTube rejects a `publishAt` in the past outright, and a scheduled run is
+ * queued best effort — it can land minutes or half an hour late. Without a
+ * floor, a run delayed past its own publish hour would fail at the upload,
+ * having already rendered.
+ */
+export const MINIMUM_LEAD_MINUTES = 30;
+
+/**
+ * The moment a video uploaded now should go public.
+ *
+ * Today's publish hour, unless that is too close or already gone, in which
+ * case half an hour from now. The gap is the point: the video sits private
+ * long enough to be deleted if the render came out wrong, and publishes itself
+ * if nobody does anything.
+ */
+export function scheduledPublishTime(now: Date = new Date()): string {
+  const target = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), PUBLISH_HOUR_UTC);
+  const earliest = now.getTime() + MINIMUM_LEAD_MINUTES * 60_000;
+
+  return new Date(Math.max(target, earliest)).toISOString();
+}
+
 export type YouTubeConfig = {
   clientId: string;
   clientSecret: string;
@@ -29,6 +61,7 @@ export type UploadMetadata = {
     privacyStatus: string;
     selfDeclaredMadeForKids: boolean;
     containsSyntheticMedia: boolean;
+    publishAt?: string;
   };
 };
 
@@ -125,13 +158,22 @@ export function buildUploadMetadata({
   tags,
   privacyStatus = "private",
   categoryId = DEFAULT_CATEGORY_ID,
+  publishAt,
 }: {
   title: string;
   description: string;
   tags: string[];
   privacyStatus?: string;
   categoryId?: string;
+  publishAt?: string;
 }): UploadMetadata {
+  // YouTube only honours publishAt on a private video: on anything already
+  // visible there is nothing left to schedule, and it answers with an error
+  // about the privacy status rather than about the field you set.
+  if (publishAt && privacyStatus !== "private") {
+    throw new Error(`A publishAt needs privacyStatus "private", not "${privacyStatus}".`);
+  }
+
   const kept: string[] = [];
   let used = 0;
 
@@ -158,6 +200,7 @@ export function buildUploadMetadata({
       privacyStatus,
       selfDeclaredMadeForKids: false,
       containsSyntheticMedia: true,
+      ...(publishAt ? { publishAt } : {}),
     },
   };
 }

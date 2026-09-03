@@ -3,7 +3,14 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { RunResult } from "../services/result";
-import { accessToken, buildUploadMetadata, setThumbnail, uploadVideo, watchUrl } from "../services/youtube";
+import {
+  accessToken,
+  buildUploadMetadata,
+  scheduledPublishTime,
+  setThumbnail,
+  uploadVideo,
+  watchUrl,
+} from "../services/youtube";
 import { sendMessage } from "../services/telegram";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -51,16 +58,28 @@ export async function readRunResult(file: string): Promise<RunResult> {
   return result;
 }
 
-/** The message the finished upload announces itself with. */
-export function announcement(result: RunResult, videoId: string): string {
-  return [
-    `Ready: ${result.title}`,
-    watchUrl(videoId),
-    `${result.durationSeconds}s, private. Review it before publishing.`,
-  ].join("\n");
+/**
+ * The message the finished upload announces itself with.
+ *
+ * It states the deadline rather than asking for an action, because the video
+ * publishes itself: doing nothing is consent, and the only thing worth knowing
+ * is how long there is left to disagree.
+ */
+export function announcement(result: RunResult, videoId: string, publishAt?: string): string {
+  const when = publishAt
+    ? `Goes public ${new Date(publishAt).toLocaleString("en-GB", {
+        timeZone: "Europe/Istanbul",
+        day: "2-digit",
+        month: "short",
+        hour: "2-digit",
+        minute: "2-digit",
+      })} Istanbul time. Delete it before then if it came out wrong.`
+    : "Private. Review it before publishing.";
+
+  return [`Ready: ${result.title}`, watchUrl(videoId), `${result.durationSeconds}s. ${when}`].join("\n");
 }
 
-export async function publish(result: RunResult): Promise<string> {
+export async function publish(result: RunResult, publishAt?: string): Promise<string> {
   const token = await accessToken();
 
   const video = await fs.readFile(path.resolve(rootDir, result.mp4));
@@ -74,6 +93,7 @@ export async function publish(result: RunResult): Promise<string> {
       title: result.title,
       description: result.description,
       tags: result.tags,
+      publishAt,
     }),
   });
 
@@ -104,12 +124,15 @@ if (isDirectRun) {
     }
 
     const result = await readRunResult(path.resolve(process.cwd(), file));
-    const videoId = await publish(result);
+    const publishAt = scheduledPublishTime();
+    const videoId = await publish(result, publishAt);
+
+    console.log(`Scheduled to go public at ${publishAt}.`);
 
     // Last, and tolerated on failure: the video is up either way, and a failed
     // notification is not worth a red build over an uploaded video.
     try {
-      await sendMessage(announcement(result, videoId));
+      await sendMessage(announcement(result, videoId, publishAt));
       console.log("Told Telegram.");
     } catch (error) {
       console.warn(`[telegram] ${error instanceof Error ? error.message : String(error)}`);

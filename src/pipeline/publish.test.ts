@@ -58,15 +58,26 @@ test("log lines mixed into the JSON are diagnosed, not parsed", async () => {
   await assert.rejects(() => readRunResult(file), /stdout and stderr were mixed/);
 });
 
-test("the announcement carries the title, the link and the private warning", () => {
+test("an unscheduled announcement asks for a review", () => {
   const text = announcement(success, "abc123");
 
   assert.match(text, /I Pressed Four/);
   assert.match(text, /https:\/\/youtube\.com\/watch\?v=abc123/);
   assert.match(text, /44\.6s/);
-  assert.match(text, /private/);
+  assert.match(text, /Private/);
 });
 
 test("the announcement never interpolates an undefined id", () => {
   assert.ok(!announcement(success, "abc123").includes("undefined"));
+});
+
+test("a scheduled announcement gives the deadline in local time, not the raw timestamp", () => {
+  const text = announcement(success, "abc123", "2026-09-04T18:00:00.000Z");
+
+  // 18:00Z is 21:00 in Istanbul, and a bare Z timestamp in a phone notification
+  // is a subtraction to do at the moment you least want to do one.
+  assert.match(text, /21:00/);
+  assert.match(text, /04 Sep/);
+  assert.ok(!text.includes("18:00:00.000Z"));
+  assert.match(text, /Delete it before then/);
 });

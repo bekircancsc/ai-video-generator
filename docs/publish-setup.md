@@ -107,3 +107,25 @@ The two also disagree about where the arc's position is written. A run here
 commits `history.json` to `main`; a local n8n run writes it in the working tree
 and nothing pushes it. `git pull` before rendering locally, or the same episode
 goes out twice under two names.
+
+## The video publishes itself
+
+The upload is private, but not indefinitely. It carries a `publishAt`, and
+YouTube turns it public on its own at **21:00 Istanbul** — 18:00 UTC, which is
+what the code actually holds, Turkey having stopped changing its clocks in 2016.
+
+The gap between the render landing around 20:17 and the video appearing at
+21:00 is the whole point. Doing nothing publishes it; deleting it in Studio
+inside that window is how you say no. There is no daily button to press, and
+also no morning where something broken has been public since the evening
+before.
+
+`publishAt` only works on a private video, so `buildUploadMetadata` refuses the
+combination rather than letting YouTube answer with an error about the privacy
+status instead of the field that was set.
+
+A time already past is rejected outright by the API, and a scheduled run is
+queued best effort, so the publish time is never closer than
+`MINIMUM_LEAD_MINUTES` from now: a run delayed past its own publish hour slips
+to half an hour after it finishes rather than failing at the upload with the
+render already paid for.

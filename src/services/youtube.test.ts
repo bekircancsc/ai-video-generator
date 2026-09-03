@@ -4,7 +4,10 @@ import {
   DESCRIPTION_LIMIT,
   TAGS_LIMIT,
   TITLE_LIMIT,
+  MINIMUM_LEAD_MINUTES,
+  PUBLISH_HOUR_UTC,
   buildUploadMetadata,
+  scheduledPublishTime,
   describeYouTubeError,
   resolveYouTubeConfig,
   watchUrl,
@@ -140,4 +143,45 @@ test("an unrecognised failure still carries the status and the body", () => {
 
 test("the watch url is the one a person can open", () => {
   assert.equal(watchUrl("abc123"), "https://youtube.com/watch?v=abc123");
+});
+
+test("a video uploaded in the morning is scheduled for the publish hour that evening", () => {
+  const when = scheduledPublishTime(new Date("2026-09-04T06:00:00Z"));
+
+  assert.equal(when, `2026-09-04T${String(PUBLISH_HOUR_UTC).padStart(2, "0")}:00:00.000Z`);
+});
+
+test("a run that lands shortly before the publish hour still gets its review window", () => {
+  // 17:45Z is fifteen minutes before an 18:00Z publish hour, which would leave
+  // less time to delete a bad render than the floor allows.
+  const when = new Date(scheduledPublishTime(new Date("2026-09-04T17:45:00Z")));
+
+  assert.equal(when.getTime(), Date.parse("2026-09-04T17:45:00Z") + MINIMUM_LEAD_MINUTES * 60_000);
+});
+
+test("a run after the publish hour is never scheduled in the past", () => {
+  const now = new Date("2026-09-04T23:10:00Z");
+  const when = new Date(scheduledPublishTime(now));
+
+  assert.ok(when > now, `${when.toISOString()} should be after ${now.toISOString()}`);
+  assert.equal(when.getTime(), now.getTime() + MINIMUM_LEAD_MINUTES * 60_000);
+});
+
+test("an upload carries no publishAt unless one is asked for", () => {
+  assert.equal(buildUploadMetadata(listing).status.publishAt, undefined);
+  assert.equal(buildUploadMetadata(listing).status.privacyStatus, "private");
+});
+
+test("a scheduled upload carries the publish time and stays private until it", () => {
+  const status = buildUploadMetadata({ ...listing, publishAt: "2026-09-04T18:00:00.000Z" }).status;
+
+  assert.equal(status.publishAt, "2026-09-04T18:00:00.000Z");
+  assert.equal(status.privacyStatus, "private");
+});
+
+test("scheduling an already public upload is refused rather than sent", () => {
+  assert.throws(
+    () => buildUploadMetadata({ ...listing, privacyStatus: "public", publishAt: "2026-09-04T18:00:00.000Z" }),
+    /private/,
+  );
 });
