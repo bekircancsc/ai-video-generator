@@ -6,27 +6,25 @@
         "rule": {
           "interval": [
             {
-              "field": "weeks",
-              "triggerAtDay": [
-                1
-              ],
+              "field": "days",
               "triggerAtHour": 9
             }
           ]
         }
       },
       "id": "schedule",
-      "name": "Weekly",
+      "name": "Daily",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
         0,
         0
-      ]
+      ],
+      "notes": "One video a day at 09:00 local. The arc is finite: when --series runs out of parts the Render node fails on purpose and this trigger keeps firing, so a run that fails with \"Every episode ... has been published\" means write the next part, not fix the workflow."
     },
     {
       "parameters": {
-        "command": "cd /d \"C:\\Users\\bekircan\\OneDrive\\MASAST~1\\AI-VID~1\" && node run.mjs --niche-file niches/floor-four.md --scenes 6 --json --stage C:\\n8n-data"
+        "command": "cd /d \"C:\\Users\\bekircan\\OneDrive\\MASAST~1\\AI-VID~1\" && node run.mjs --series scripts/floor-four --json --stage C:\\n8n-data"
       },
       "id": "render",
       "name": "Render",
@@ -36,7 +34,7 @@
         220,
         0
       ],
-      "notes": "The node has no working-directory setting, so the cd is part of the command. The 8.3 short path is deliberate: cmd.exe cannot read the accented characters in the real path. --stage drops a copy of the video and cover in C:\\n8n-data under fixed names, which is the only place n8n is allowed to read files from. Call node directly, not npm: npm prints its own banner to stdout and would break the JSON contract."
+      "notes": "--series renders the next unpublished part of the arc, chosen by history.json, so the schedule needs no counter of its own. The node has no working-directory setting, so the cd is part of the command. The 8.3 short path is deliberate: cmd.exe cannot read the accented characters in the real path. --stage drops a copy of the video and cover in C:\\n8n-data under fixed names, which is the only place n8n is allowed to read files from. Call node directly, not npm: npm prints its own banner to stdout and would break the JSON contract."
     },
     {
       "parameters": {
@@ -151,17 +149,6 @@
     }
   ],
   "connections": {
-    "Weekly": {
-      "main": [
-        [
-          {
-            "node": "Render",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Render": {
       "main": [
         [
@@ -222,6 +209,17 @@
         [
           {
             "node": "Tell me",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Daily": {
+      "main": [
+        [
+          {
+            "node": "Render",
             "type": "main",
             "index": 0
           }

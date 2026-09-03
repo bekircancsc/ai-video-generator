@@ -14,6 +14,7 @@ import { removeCover, renderCover } from "./cover";
 import { normaliseLoudness } from "./loudness";
 import { buildResult, type RunFailure } from "../services/result";
 import { appendHistory, readHistory, recentTitles } from "../services/history";
+import { listEpisodes, nextEpisode, seriesTopic } from "../services/series";
 import { stageOutputs } from "../services/stage";
 import type { VideoPayload } from "../types/video";
 import type { ScriptBrief } from "../services/script-schema";
@@ -110,8 +111,12 @@ if (isDirectRun) {
   const stdoutWrite = process.stdout.write.bind(process.stdout);
 
   const run = async () => {
-    const { topic, niche, nicheFile, stageDir, sceneCount, payloadFile, audio, images, music, cover, loudness, json } =
-      parseArgs(process.argv.slice(2));
+    const args = parseArgs(process.argv.slice(2));
+    const { topic, niche, nicheFile, stageDir, sceneCount, series, audio, images, music, cover, loudness, json } =
+      args;
+
+    // Reassigned when --series resolves the arc to one of its episodes.
+    let payloadFile = args.payloadFile;
 
     if (json) {
       process.stdout.write = ((chunk: unknown, ...rest: unknown[]) =>
@@ -137,9 +142,41 @@ if (isDirectRun) {
       }
     }
 
+    const history = await readHistory(rootDir);
+
+    // What this run should record when it finishes, or undefined for a run that
+    // history has no business remembering. A hand-written --payload stays out:
+    // its subject was never the model's to choose again. A --series episode goes
+    // in, because that record is the only thing that moves the arc forward.
+    let historyTopic: string | undefined = payloadFile ? undefined : topic || nicheFile || "";
+
+    if (series) {
+      const seriesPrefix = path.resolve(process.cwd(), series);
+      const episodes = await listEpisodes(seriesPrefix);
+
+      if (episodes.length === 0) {
+        throw new Error(
+          `No episodes found for ${series}. Expected files named ${path.basename(series)}-part-1.json next to it.`,
+        );
+      }
+
+      const episode = nextEpisode(episodes, history);
+
+      if (!episode) {
+        throw new Error(
+          `Every episode of ${series} has been published (${episodes.length} of ${episodes.length}). ` +
+            "Write the next part, or point the run at another arc.",
+        );
+      }
+
+      payloadFile = episode.file;
+      historyTopic = seriesTopic(episode.file);
+      console.log(`Series ${series}: part ${episode.number} of ${episodes.length}`);
+    }
+
     // A payload file names its own video; the avoid list only shapes a
     // generated script, so it is not read on that path.
-    const avoidTopics = payloadFile ? undefined : recentTitles(await readHistory(rootDir));
+    const avoidTopics = payloadFile ? undefined : recentTitles(history);
     const brief: ScriptBrief = { topic, niche: briefNiche, sceneCount, avoidTopics };
 
     let payload: VideoPayload | undefined;
@@ -188,14 +225,12 @@ if (isDirectRun) {
       console.log(`Staged: ${staged.mp4}${staged.cover ? ` and ${staged.cover}` : ""}`);
     }
 
-    // Only a generated script goes in the history: a payload file was written
-    // by hand, and its topic was never the model's to choose again.
-    if (!payloadFile) {
+    if (historyTopic !== undefined) {
       await appendHistory(rootDir, {
         date: new Date().toISOString().slice(0, 10),
         slug: summary.slug,
         title: summary.title,
-        topic: topic || nicheFile || "",
+        topic: historyTopic,
       });
     }
 

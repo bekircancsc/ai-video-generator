@@ -157,20 +157,40 @@ There is no automatic retry. Script and render failures here are deterministic �
 a bad model name, a missing key, an unaccepted speech model — and running them
 again produces the same error a minute later.
 
-## Rendering a hand-written series instead
+## The daily series run
 
-The *Please Do Not Press Four* series is rendered from payload files, not from a
-niche, and `scripts/floor-four-publishing.md` carries its own release schedule,
-descriptions and pinned comments. The same workflow publishes those — change the
-Render node's command to
+The workflow publishes one part of *Please Do Not Press Four* a day. The Render
+node calls
 
 ```
-node run.mjs --payload scripts/floor-four-part-3.json --json --stage C:\n8n-data
+node run.mjs --series scripts/floor-four --json --stage C:\n8n-data
 ```
 
-— but the publishing pack asks for scheduled releases and pinned comments, and
-this workflow does neither. For that series the workflow is a way to render and
-upload the draft; the listing still comes from the pack by hand.
+`--series` takes the arc's name, not a directory: it finds
+`scripts/floor-four-part-1.json` and its siblings, sorts them by the number in
+the filename, and renders the first one `history.json` has no record of. A
+directory would have swept up `example-payload.json`, which sits beside them.
 
-Payload runs are not written to `history.json`. That list exists to stop the
-model repeating itself, and a hand-written script was never its choice.
+That record is what moves the arc forward, so a `--series` run is written to
+`history.json` where a plain `--payload` run is not: the history exists to stop
+the model repeating itself, and a hand-written script was never its choice, but
+the arc needs to know where it got to. The entry's topic reads
+`series:floor-four-part-2.json`. Ordering by the filename and not by position
+means a gap in the numbering still goes out in the author's intended order, and
+a part whose render failed is picked up again the next day rather than skipped.
+
+**The arc is finite.** Five parts, one a day, and on the sixth day the run fails
+with `Every episode of scripts/floor-four has been published (5 of 5)`. That is
+the design, not a fault: the schedule keeps firing and the failure is the
+reminder to write the next part. Nothing is uploaded on a failed run, because
+the Render node is the first step.
+
+`scripts/floor-four-publishing.md` carries the series' own release schedule,
+descriptions and pinned comments, and this workflow does none of that. It
+renders and uploads the private draft; the listing still comes from the pack by
+hand.
+
+To go back to one-off videos from the niche instead, the command is
+`node run.mjs --niche-file niches/floor-four.md --scenes 6 --json --stage C:\n8n-data`.
+Those runs generate their own subject and are given the last 40 published titles
+as a do-not-repeat list.

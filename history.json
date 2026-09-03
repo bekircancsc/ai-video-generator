@@ -16,5 +16,23 @@
     "slug": "conference-room-ghost-schedule",
     "title": "Conference room schedule lists a 3:13 am meeting every day",
     "topic": "niches/floor-four.md"
+  },
+  {
+    "date": "2026-09-03",
+    "slug": "restroom-occupied-sign-stays-lit-despite-empty-stall",
+    "title": "Restroom occupied sign stays lit despite empty stall",
+    "topic": "niches/floor-four.md"
+  },
+  {
+    "date": "2026-09-03",
+    "slug": "garage-gate-logs-a-car-that-never-arrived",
+    "title": "Garage gate logs a car that never arrived",
+    "topic": "niches/floor-four.md"
+  },
+  {
+    "date": "2026-09-03",
+    "slug": "coffee-machine-timer-stuck-at-3-33-in-office",
+    "title": "Coffee machine timer stuck at 3:33 in office",
+    "topic": "niches/floor-four.md"
   }
 ]

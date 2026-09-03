@@ -27,6 +27,7 @@ export function parseArgs(argv: string[]) {
   };
 
   const payloadFile = flagValue("--payload");
+  const series = flagValue("--series");
   const topicFlag = flagValue("--topic");
   const niche = flagValue("--niche");
   const nicheFile = flagValue("--niche-file");
@@ -35,6 +36,11 @@ export function parseArgs(argv: string[]) {
 
   if (niche !== undefined && nicheFile !== undefined) {
     throw new Error("--niche and --niche-file cannot be used together. The niche file is the niche.");
+  }
+
+  // --series picks the payload, so naming one as well says two different things.
+  if (series !== undefined && payloadFile !== undefined) {
+    throw new Error("--series and --payload cannot be used together. The series chooses the payload.");
   }
 
   let sceneCount: number | undefined;
@@ -64,6 +70,7 @@ export function parseArgs(argv: string[]) {
 
   return {
     payloadFile,
+    series,
     topic: topicFlag ?? positional,
     niche,
     nicheFile,
