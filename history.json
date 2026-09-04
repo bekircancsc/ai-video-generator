@@ -40,5 +40,11 @@
     "slug": "please-do-not-press-four",
     "title": "Please Do Not Press Four",
     "topic": "series:floor-four-part-1.json"
+  },
+  {
+    "date": "2026-09-04",
+    "slug": "do-not-count-the-stairs",
+    "title": "Do Not Count The Stairs",
+    "topic": "series:floor-four-part-2.json"
   }
 ]
