@@ -1,0 +1,91 @@
+{
+  "title": "Identical To The Millimetre",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "bt2-hook",
+      "text": "IDENTICAL TO THE MILLIMETRE",
+      "subtext": "I put them on the light table.",
+      "narration": "I took our own drawings out of the site office and laid the two sets on top of each other on the light table. Every line agrees to the millimetre.",
+      "durationInFrames": 200,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "light table",
+        "overlaid plans",
+        "tracing"
+      ],
+      "imagePrompt": "Two architectural floor plans laid one over the other on a glowing light table, their ink lines coinciding exactly so the drawings read as one, warm amber light coming up through the glass from below, dust and eraser crumbs on the surface, no people, extreme detail, analog film grain"
+    },
+    {
+      "id": "bt2-mistake",
+      "text": "EVEN THE MISTAKE MATCHES",
+      "subtext": "A door drawn the wrong way.",
+      "narration": "There is a door on the second floor drawn swinging into the corridor instead of out of it. It is wrong on the new drawings too, in the same place.",
+      "durationInFrames": 220,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "door swing",
+        "drafting error",
+        "detail"
+      ],
+      "imagePrompt": "Extreme macro of an architectural plan detail showing a door and its quarter circle swing arc drawn opening the wrong way into a corridor, a faint pencil query mark beside it never erased, fine ink lines on linen, raking warm amber light, no people, extreme detail, analog grain"
+    },
+    {
+      "id": "bt2-traced",
+      "text": "OURS WERE TRACED",
+      "subtext": "The pencil is still under the ink.",
+      "narration": "Ours are not a new design. Under the ink there is pencil, and the pencil follows the older lines exactly. Somebody traced this building from the one before it.",
+      "durationInFrames": 240,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "pencil under ink",
+        "traced drawing",
+        "graphite"
+      ],
+      "imagePrompt": "Extreme macro of a drafted ink line on translucent paper with a faint graphite pencil line visible directly beneath it, graphite sheen catching the light at an angle, paper tooth in extreme detail, warm amber raking light, no people, deep analog film grain"
+    },
+    {
+      "id": "bt2-signed",
+      "text": "THE SAME INITIALS",
+      "subtext": "Seventy years apart.",
+      "narration": "Both title blocks are initialled by the draughtsman. The initials are the same three letters, seventy years apart, in the same hand.",
+      "durationInFrames": 250,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "title block",
+        "initials",
+        "handwriting"
+      ],
+      "imagePrompt": "Extreme close-up of two architectural title blocks photographed side by side, each with the same three handwritten initials in the signature box, one in faded brown ink and one in fresh black, the letter shapes matching stroke for stroke, warm amber light, extreme paper detail, no people, analog grain"
+    },
+    {
+      "id": "bt2-unnumbered",
+      "text": "THE BLANK SHEET IS IN BOTH",
+      "subtext": "Traced, like all the rest.",
+      "narration": "The sheet with no number is in our tube as well. It has been traced like all the others, which means somebody drew that floor twice on purpose.",
+      "durationInFrames": 250,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "unnumbered sheet",
+        "blank title block",
+        "traced"
+      ],
+      "imagePrompt": "Macro of an architectural drawing sheet whose title block number box has been ruled and left empty, faint pencil visible under the ink of the ruling itself, the surrounding stencilled text complete and correct, warm amber raking light, extreme detail, no people, analog film grain"
+    },
+    {
+      "id": "bt2-loop",
+      "text": "NOBODY DRAWS IT TWICE",
+      "subtext": "Somebody copied it.",
+      "narration": "Nobody designs the same building twice by accident, and nobody copies a mistake unless they are copying without looking. Somebody was told to reproduce it.",
+      "durationInFrames": 240,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "light table",
+        "plans",
+        "site office"
+      ],
+      "imagePrompt": "Wide shot of a dim site office at night with a light table glowing warm amber in the middle of the room, drawings stacked at its edges, drafting stools empty and pushed back, everything beyond the table in deep warm shadow, no people, unsettling stillness, heavy analog grain"
+    }
+  ]
+}

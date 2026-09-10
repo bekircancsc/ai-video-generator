@@ -1,0 +1,91 @@
+{
+  "title": "There Is No Before",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "bt5-hook",
+      "text": "WE NEVER MOVED IN",
+      "subtext": "There was nothing to move into.",
+      "narration": "I have stopped looking for the old building. We never moved out of it and we never moved into anything. There was nothing here to move into.",
+      "durationInFrames": 230,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "lobby",
+        "empty",
+        "night"
+      ],
+      "imagePrompt": "A wide empty office lobby at night, terrazzo floor and a bare reception counter, the revolving door dark at the far end, one amber fluorescent panel burning above the counter and the rest of the ceiling unlit, deserted, no people, analog camcorder aesthetic, heavy grain"
+    },
+    {
+      "id": "bt5-plaque",
+      "text": "TWO PLAQUES",
+      "subtext": "One screwed over the other.",
+      "narration": "There is an opening plaque in the lobby with our year on it. It is screwed flat over an older plaque. You can feel the edge of the one underneath through the brass.",
+      "durationInFrames": 250,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "brass plaque",
+        "layered",
+        "lobby wall"
+      ],
+      "imagePrompt": "Extreme close-up of a polished brass plaque on a stone lobby wall, four countersunk screws at its corners, a faint raised rectangular outline showing through the metal where an older plate sits behind it, warm amber light raking across the surface, extreme detail, no people, analog film grain"
+    },
+    {
+      "id": "bt5-under",
+      "text": "THE SAME WORDS",
+      "subtext": "A different building name.",
+      "narration": "I took the screws out. The plaque underneath has the same sentence on it, cut by the same hand, with a different building name and a year seventy years earlier.",
+      "durationInFrames": 270,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "older plaque",
+        "engraving",
+        "revealed"
+      ],
+      "imagePrompt": "Macro of an older tarnished engraved plate revealed on a stone wall, its serif lettering cut deep and filled with decades of grime, the outline of the newer plate that covered it visible as clean stone around its edge, warm amber light, extreme detail, no people, deep analog grain"
+    },
+    {
+      "id": "bt5-stairs",
+      "text": "I TOOK THE STAIRS",
+      "subtext": "Between three and five.",
+      "narration": "So I took the stairs instead of the lift, and I counted the landings on the way up. Between the third and the fifth there is a landing with a door on it.",
+      "durationInFrames": 290,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "stairwell",
+        "landing",
+        "unmarked door"
+      ],
+      "imagePrompt": "A concrete stairwell landing photographed from the flight below, a single unmarked steel door in the wall with no floor number stencilled beside it and no signage anywhere, painted handrail, one amber bulkhead light above the door, deserted, no people, high contrast, heavy analog grain"
+    },
+    {
+      "id": "bt5-worn",
+      "text": "THE STEP IS WORN HOLLOW",
+      "subtext": "Only the one outside that door.",
+      "narration": "The step outside that door is worn hollow in the middle. Every other step in the stairwell is square. Somebody uses this floor and it is not five of us.",
+      "durationInFrames": 290,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "worn step",
+        "hollow",
+        "concrete"
+      ],
+      "imagePrompt": "Extreme close-up of a concrete stair nosing worn into a smooth hollow depression in its centre, the aggregate exposed and polished by use, the steps above and below it sharp and square edged by comparison, raking warm amber light across the surface, extreme detail, no people, analog film grain"
+    },
+    {
+      "id": "bt5-loop",
+      "text": "THERE IS NO BEFORE",
+      "subtext": "There was a building here before.",
+      "narration": "There was a building on this plot before this one. There is no before. It has been the same building the whole time and it has been waiting for the drawings to catch up.",
+      "durationInFrames": 290,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "unmarked door",
+        "stairwell",
+        "waiting"
+      ],
+      "imagePrompt": "A single unmarked steel door at the end of a concrete stairwell landing, closed, no handle plate and no number, the amber bulkhead light above it flaring in the lens, the worn hollow of the step visible in the foreground, no people, unsettling stillness, deep analog grain, high contrast"
+    }
+  ]
+}

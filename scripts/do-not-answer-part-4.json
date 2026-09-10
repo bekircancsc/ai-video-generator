@@ -1,0 +1,91 @@
+{
+  "title": "Someone Is Holding The Button",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "da4-hook",
+      "text": "A TANNOY NEEDS A HAND",
+      "subtext": "Somebody is holding the button.",
+      "narration": "A tannoy does not speak on its own. Somewhere in this building somebody is holding the button down at four in the morning.",
+      "durationInFrames": 220,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "paging console",
+        "basement",
+        "press to talk"
+      ],
+      "imagePrompt": "A grey steel paging console on a bench in a basement plant room, a heavy press to talk key at the front of it, rotary zone selector beside, cables running off the back into darkness, warm amber worklight from one side, no people, analog photograph, heavy grain"
+    },
+    {
+      "id": "da4-room",
+      "text": "THE MIC ROOM IS SEALED",
+      "subtext": "Painted shut. Not locked.",
+      "narration": "The room the console lives in has been painted shut, not locked. The paint across the frame is unbroken and it is four coats deep.",
+      "durationInFrames": 240,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "painted shut",
+        "sealed door",
+        "basement"
+      ],
+      "imagePrompt": "Macro photograph of a door frame where thick institutional paint has been applied straight across the gap between door and frame, sealing it, the surface unbroken and slightly sagged where it dried, warm amber light raking across the texture, extreme detail, no people, analog grain"
+    },
+    {
+      "id": "da4-dead",
+      "text": "IT IS NOT PLUGGED IN",
+      "subtext": "The lead is coiled on the bench.",
+      "narration": "I got in through the ceiling. The console is not plugged into anything. Its lead is coiled up on the bench beside it, and it is coiled neatly.",
+      "durationInFrames": 260,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "coiled lead",
+        "unplugged",
+        "bench"
+      ],
+      "imagePrompt": "Close-up of a heavy braided electrical lead coiled into a neat tight loop on a workbench beside a grey steel console, the plug end resting on top of the coil, dust settled evenly over all of it, warm amber worklight, no people, extreme detail, analog film grain"
+    },
+    {
+      "id": "da4-worn",
+      "text": "THE KEY IS WORN THROUGH",
+      "subtext": "Down to the brass underneath.",
+      "narration": "The press to talk key is worn through the black paint to the brass underneath. Nothing wears like that in a room nobody can get into.",
+      "durationInFrames": 270,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "worn key",
+        "brass",
+        "press to talk"
+      ],
+      "imagePrompt": "Extreme macro of a press to talk key on an old paging console, the black paint worn completely away in the centre of the key down to bright brass in the exact shape of a thumb, the paint intact everywhere around it, raking warm amber light, extreme detail, no people, deep analog grain"
+    },
+    {
+      "id": "da4-lamp",
+      "text": "THE CONSOLE HAS ONE TOO",
+      "subtext": "The same lamp. Also lit.",
+      "narration": "There is a lamp on the corner of the console. It is the same lamp as the one on the bracket upstairs. It is also lit.",
+      "durationInFrames": 270,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "indicator lamp",
+        "console",
+        "lit"
+      ],
+      "imagePrompt": "Extreme macro of a domed indicator lamp set into the corner of a grey steel console panel, glowing steady warm amber, engraved lettering beside it worn illegible, the rest of the panel and the room behind in deep warm shadow, no people, high contrast, deep analog film grain"
+    },
+    {
+      "id": "da4-loop",
+      "text": "THE KEY IS WARM",
+      "subtext": "I put my thumb where the brass is.",
+      "narration": "I put my thumb into the worn place on the key, because it was the shape of a thumb and I wanted to know whose. The key is warm.",
+      "durationInFrames": 270,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "thumb",
+        "console key",
+        "warm metal"
+      ],
+      "imagePrompt": "Close-up of a bare thumb pressed into the worn brass centre of a console key, the hand entering from the bottom of frame in a work coat sleeve with no face or body visible, warm amber worklight, dust and scratches on the panel around it, analog film grain, high contrast"
+    }
+  ]
+}

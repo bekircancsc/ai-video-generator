@@ -1,0 +1,91 @@
+{
+  "title": "That Is My Voice",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "da3-hook",
+      "text": "THAT IS MY VOICE",
+      "subtext": "Saying a name that is not mine.",
+      "narration": "I played the tape back on the bench machine at half speed. That is my voice on it, saying a name that is not mine.",
+      "durationInFrames": 210,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "tape machine",
+        "playback",
+        "workbench"
+      ],
+      "imagePrompt": "A heavy reel to reel tape machine on a cluttered workbench in a dim plant room, one reel turning, patch cables coiled beside it, amber inspection lamp clamped overhead, no people, analog photograph, heavy grain, shallow depth of field"
+    },
+    {
+      "id": "da3-slow",
+      "text": "I SLOWED IT DOWN",
+      "subtext": "There are more words underneath.",
+      "narration": "At half speed there are more words underneath the first ones. It is not one voice saying a name. It is one voice reading a list.",
+      "durationInFrames": 230,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "tape reels",
+        "half speed",
+        "layered audio"
+      ],
+      "imagePrompt": "Macro of a reel to reel tape passing across a tape head, the oxide surface catching warm amber light, head and guides worn shiny from decades of use, the reel behind out of focus, extreme detail, no people, analog film grain"
+    },
+    {
+      "id": "da3-list",
+      "text": "IT IS A ROLL CALL",
+      "subtext": "Names, in order, with pauses.",
+      "narration": "It is a roll call. Names in order, with a pause left after each one, the way you pause for somebody to answer.",
+      "durationInFrames": 250,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "roll call",
+        "typed list",
+        "pause"
+      ],
+      "imagePrompt": "Close-up of a typed carbon copy roll call sheet held flat on a workbench, a column of surnames with a hand-ruled tick box beside each one and every box empty, the carbon ink smudged, raking warm amber light, no people, extreme paper detail, analog grain"
+    },
+    {
+      "id": "da3-mine",
+      "text": "IT REACHES MY NAME",
+      "subtext": "And then it waits.",
+      "narration": "It works down the list and it reaches my name. Then the pause after mine runs on for the rest of the tape.",
+      "durationInFrames": 260,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "tape end",
+        "long pause",
+        "waiting"
+      ],
+      "imagePrompt": "Extreme close-up of the loose end of a magnetic tape run off its reel and hanging still, the empty spool behind it, a tape counter stopped on a number, warm amber lamp light, dust suspended in the beam, no people, high contrast, deep analog grain"
+    },
+    {
+      "id": "da3-lamp",
+      "text": "THE LAMP WENT OUT ONCE",
+      "subtext": "For exactly that pause.",
+      "narration": "The lamp on the bracket went out once while I was listening. It came back on when the tape ran out. It was dark for exactly that pause.",
+      "durationInFrames": 260,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "indicator lamp",
+        "dark",
+        "bracket"
+      ],
+      "imagePrompt": "Extreme macro of a small domed indicator lamp on a painted metal bracket, completely dark and dull, the filament visible as a cold grey hair inside the glass, faint warm amber light reaching it from somewhere off frame, no people, high contrast, deep analog grain"
+    },
+    {
+      "id": "da3-loop",
+      "text": "NOT A RECORDING OF ME",
+      "subtext": "A recording of me answering.",
+      "narration": "It is not a recording of me. Every name on that list is read in the voice of whoever it belongs to. It is a recording of us answering.",
+      "durationInFrames": 250,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "tape box",
+        "labels",
+        "archive"
+      ],
+      "imagePrompt": "A shelf of identical grey cardboard tape boxes in a dim store room, each with a handwritten label showing only a date, one box pulled slightly out of the row, warm amber light from a single bulb, dust on the shelf edge, no people, analog photograph, heavy grain"
+    }
+  ]
+}

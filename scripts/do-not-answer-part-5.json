@@ -1,0 +1,91 @@
+{
+  "title": "I Answered",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "da5-hook",
+      "text": "I ANSWERED",
+      "subtext": "I said, this is me.",
+      "narration": "At four this morning it said my name and I answered it. I stood under the grille and I said, this is me.",
+      "durationInFrames": 230,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "speaker grille",
+        "answering",
+        "corridor"
+      ],
+      "imagePrompt": "Looking steeply up at a tannoy speaker grille high on a corridor wall from directly beneath it, the ceiling and speaker filling the frame, warm amber fluorescent light glaring off the perforated metal, no people in frame, analog film grain, high contrast"
+    },
+    {
+      "id": "da5-quiet",
+      "text": "IT STOPPED",
+      "subtext": "First silence in five weeks.",
+      "narration": "It stopped. It has not paged anybody since. That is the first quiet four in the morning this building has had in five weeks.",
+      "durationInFrames": 250,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "empty corridor",
+        "silence",
+        "night"
+      ],
+      "imagePrompt": "A long empty institutional corridor at night lit by one distant amber panel, the tannoy speaker on the wall reduced to a small dark shape, everything still, warm shadows filling the foreground, deserted, no people, analog camcorder aesthetic, heavy grain"
+    },
+    {
+      "id": "da5-tape",
+      "text": "THE TAPE FROM LAST NIGHT",
+      "subtext": "Forty seconds of my own voice.",
+      "narration": "The recorder was still taped to the bracket. Last night it caught forty seconds of my own voice, working down a list of names, leaving a pause after each one.",
+      "durationInFrames": 270,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "recorder",
+        "tape",
+        "roll call"
+      ],
+      "imagePrompt": "Close-up of a battered handheld cassette recorder still taped to a painted bracket, its record lamp dark, the tape wound fully to one side, a thin layer of dust on the buttons, warm amber corridor light, no people, extreme detail, analog film grain"
+    },
+    {
+      "id": "da5-lamp",
+      "text": "THE LAMP IS OUT",
+      "subtext": "For the first time.",
+      "narration": "The lamp on the bracket is out. It is cold. I have never once seen it dark before, and I have looked at it every night since April.",
+      "durationInFrames": 290,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "indicator lamp",
+        "dark",
+        "cold"
+      ],
+      "imagePrompt": "Extreme macro of a small domed indicator lamp on a painted metal bracket, entirely dark, the glass dulled with dust and the filament inside visible as a cold grey thread, warm amber light from the corridor falling across it without lighting it, no people, high contrast, deep analog grain"
+    },
+    {
+      "id": "da5-other",
+      "text": "IT PAGES SOMEBODY ELSE NOW",
+      "subtext": "She asked me if I ever heard it.",
+      "narration": "The new one on nights asked me this week whether the tannoy had ever paged me by name. I told her the system was cut out in twenty eleven.",
+      "durationInFrames": 290,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "night worker",
+        "corridor",
+        "handover"
+      ],
+      "imagePrompt": "A figure in a grey work coat standing at the far end of a dim corridor beneath a tannoy speaker, photographed from a great distance and from behind so no facial detail is possible, the entire frame lit only by warm amber fluorescent light, strong golden amber colour grade across every surface, warm brown shadows, no grey or blue or desaturated tones anywhere, well exposed with readable midtones, analog grain"
+    },
+    {
+      "id": "da5-loop",
+      "text": "DO NOT ANSWER THE PAGE",
+      "subtext": "I know what answering does.",
+      "narration": "I did not tell her the rest of it. If it ever says your name, do not answer the page. Somebody has to be left to be called.",
+      "durationInFrames": 290,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "speaker grille",
+        "warning",
+        "dark lamp"
+      ],
+      "imagePrompt": "Extreme close-up of a dusty tannoy speaker grille filling the frame with the small indicator lamp beside it completely dark, the perforated metal absolutely still, faint warm amber light from far down the corridor, no people, analog film grain, high contrast"
+    }
+  ]
+}

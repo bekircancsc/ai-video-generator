@@ -1,0 +1,91 @@
+{
+  "title": "The System Was Decommissioned",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "da1-hook",
+      "text": "IT PAGED ME BY NAME",
+      "subtext": "That system was cut out in 2011.",
+      "narration": "The tannoy paged me by name at four this morning. That system was cut out of this building in twenty eleven.",
+      "durationInFrames": 190,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "tannoy speaker",
+        "corridor",
+        "public address"
+      ],
+      "imagePrompt": "Extreme close-up of an old cream-painted tannoy speaker grille mounted high on an institutional corridor wall, decades of dust in the perforations, chipped paint at the bracket, sickly amber fluorescent light, no people, analog film grain, shallow depth of field"
+    },
+    {
+      "id": "da1-dead",
+      "text": "NO WIRE BEHIND IT",
+      "subtext": "Cut and capped, years ago.",
+      "narration": "I took the panel off underneath it. The wire behind the speaker is cut and capped, and the cap has gone brittle with age.",
+      "durationInFrames": 200,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "cut wire",
+        "wall panel",
+        "capped cable"
+      ],
+      "imagePrompt": "Macro photograph inside an opened wall access panel, a severed electrical cable with a yellowed brittle plastic cap crimped over its end, plaster dust and cobwebs around it, warm amber worklight raking in from one side, extreme detail, no people, analog grain"
+    },
+    {
+      "id": "da1-lamp",
+      "text": "THE LAMP IS STILL LIT",
+      "subtext": "It has no power to be lit by.",
+      "narration": "There is a small lamp on the bracket beside the grille. It is lit. It has nothing left to be lit by.",
+      "durationInFrames": 220,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "indicator lamp",
+        "still lit",
+        "no power"
+      ],
+      "imagePrompt": "Extreme macro of a tiny domed indicator lamp on a painted metal bracket, glowing steady warm amber from within, the paint around it blistered from decades of heat, the dark corridor behind it completely unlit, no people, high contrast, deep analog film grain"
+    },
+    {
+      "id": "da1-again",
+      "text": "IT PAGED ME AGAIN",
+      "subtext": "Four minutes past four.",
+      "narration": "It paged me again four minutes later. The same voice. It did not sound like it was reading.",
+      "durationInFrames": 230,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "night corridor",
+        "speaker",
+        "four in the morning"
+      ],
+      "imagePrompt": "A long dark institutional corridor at four in the morning seen from floor level, a single tannoy speaker visible high on the wall halfway down catching amber light from a failing panel, everything else in warm shadow, deserted, no people, analog camcorder aesthetic, heavy grain"
+    },
+    {
+      "id": "da1-others",
+      "text": "NOBODY ELSE HEARD IT",
+      "subtext": "One of them stood under it.",
+      "narration": "The other two on nights heard nothing at all. One of them was standing directly underneath it when it happened.",
+      "durationInFrames": 250,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "worker below speaker",
+        "corridor",
+        "unaware"
+      ],
+      "imagePrompt": "A man in a grey work coat standing still in a corridor directly beneath a wall-mounted tannoy speaker, photographed from behind and below so no face is visible, head not raised, the entire frame lit only by warm amber fluorescent light, strong golden amber colour grade across every surface, warm brown shadows, no grey or blue or desaturated tones anywhere, well exposed with readable midtones, analog grain"
+    },
+    {
+      "id": "da1-loop",
+      "text": "DO NOT ANSWER THE PAGE",
+      "subtext": "It says my name, then it says that.",
+      "narration": "Every night since, at four exactly, it says my name. Then it says, do not answer the page.",
+      "durationInFrames": 260,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "speaker grille",
+        "warning",
+        "night"
+      ],
+      "imagePrompt": "Extreme close-up of the same dusty tannoy speaker grille filling the frame, the indicator lamp beside it burning warm amber, faint vibration blur across the perforated metal as if the cone behind it is moving, dark corridor beyond, no people, analog film grain, high contrast"
+    }
+  ]
+}

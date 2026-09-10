@@ -1,0 +1,91 @@
+{
+  "title": "There Is No Demolition Record",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "bt3-hook",
+      "text": "IT WAS NEVER TAKEN DOWN",
+      "subtext": "There is no demolition record.",
+      "narration": "I went through the council records for this address. There is a permit to build the old building. There is no permit to take it down.",
+      "durationInFrames": 210,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "council records",
+        "permit",
+        "archive box"
+      ],
+      "imagePrompt": "An open cardboard archive box on a reading room table filled with buff paper folders, one folder lifted out and open, rubber stamps and reference numbers on the covers, warm amber reading lamp light, no people, extreme detail, analog photograph, grain"
+    },
+    {
+      "id": "bt3-nothing",
+      "text": "NOTHING AT ALL",
+      "subtext": "No closure. No skip. No notice.",
+      "narration": "No road closure, no skip licence, no notice to the neighbours, no scaffold permit. A building of that size cannot come down without leaving forty pieces of paper.",
+      "durationInFrames": 230,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "empty file",
+        "missing paperwork",
+        "records"
+      ],
+      "imagePrompt": "Macro photograph of an open buff paper folder lying flat and completely empty, its treasury tag still threaded through the punched holes with nothing on it, the folder cover annotated in faded ink, warm amber lamp light, extreme paper detail, no people, analog grain"
+    },
+    {
+      "id": "bt3-dates",
+      "text": "THE DATES OVERLAP",
+      "subtext": "Ours was approved first.",
+      "narration": "The permit for this building was approved four years before the last recorded inspection of the one it replaced. For four years the plot has two buildings on it on paper.",
+      "durationInFrames": 250,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "date stamp",
+        "overlapping dates",
+        "permit"
+      ],
+      "imagePrompt": "Extreme close-up of two rubber date stamps struck on official documents held side by side, the ink slightly smudged on both, the years clearly different, official crest partly visible at the edge of frame, raking warm amber light, extreme detail, no people, analog film grain"
+    },
+    {
+      "id": "bt3-meter",
+      "text": "ONE CONTINUOUS ACCOUNT",
+      "subtext": "Since nineteen fifty-three.",
+      "narration": "The electricity account for this address has never been closed and reopened. It runs continuously from nineteen fifty-three to this month, through a demolition that has no record.",
+      "durationInFrames": 260,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "utility ledger",
+        "meter readings",
+        "continuous"
+      ],
+      "imagePrompt": "Close-up of a bound utility ledger open across two pages, a dense column of handwritten meter readings running unbroken down the page and continuing over the fold, no gap and no ruled line anywhere in the sequence, warm amber lamp light, extreme detail, no people, analog grain"
+    },
+    {
+      "id": "bt3-floor",
+      "text": "FIVE FLOORS BILLED. SIX METERED.",
+      "subtext": "One circuit has no floor.",
+      "narration": "The account is itemised by floor. It bills five. It meters six. The extra circuit is listed without a floor beside it, the way the sheet is numbered without a number.",
+      "durationInFrames": 260,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "itemised bill",
+        "extra circuit",
+        "no floor"
+      ],
+      "imagePrompt": "Macro of a printed itemised utility statement, a column of floor labels down the left and one final row whose label cell has been left blank while its reading is filled in, faint impression of a typewriter strike, warm amber raking light, extreme paper detail, no people, analog film grain"
+    },
+    {
+      "id": "bt3-loop",
+      "text": "THE PAPERWORK MOVED ON",
+      "subtext": "The building did not.",
+      "narration": "The old building did not come down. The paperwork moved on and the building stayed where it was, and something has been paying its bill the whole time.",
+      "durationInFrames": 250,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "meter cupboard",
+        "electricity",
+        "basement"
+      ],
+      "imagePrompt": "A wall of old electricity meters in a basement cupboard, glass dials and spinning discs, six meters where five have hand-written floor labels and one label holder is empty, warm amber bulb light, dust and flaking whitewash on the brick behind, no people, extreme detail, heavy analog grain"
+    }
+  ]
+}

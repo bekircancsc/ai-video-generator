@@ -1,0 +1,91 @@
+{
+  "title": "The Old Staff Register",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "bt4-hook",
+      "text": "MY NAME IS IN THE OLD BOOK",
+      "subtext": "Signed in, nineteen sixty-one.",
+      "narration": "There is a staff register in the archive box from the old building. My name is in it, signed in, on a Tuesday in nineteen sixty-one.",
+      "durationInFrames": 220,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "staff register",
+        "signature",
+        "1961"
+      ],
+      "imagePrompt": "A heavy cloth bound staff register open on a table, ruled columns of dates and signatures in fountain pen, the page foxed brown at the edges, warm amber reading lamp light falling across the paper, no people, extreme detail, analog photograph, heavy grain"
+    },
+    {
+      "id": "bt4-hand",
+      "text": "IT IS MY HANDWRITING",
+      "subtext": "The same loop on the same letter.",
+      "narration": "It is not somebody with my name. It is my handwriting. The same broken loop on the same letter that I have never been able to write properly.",
+      "durationInFrames": 240,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "handwriting",
+        "signature detail",
+        "ink"
+      ],
+      "imagePrompt": "Extreme macro of a fountain pen signature on aged ruled paper, one letter showing a distinctive broken loop where the nib lifted, ink bled slightly into the paper fibres, warm amber raking light picking out the surface texture, extreme detail, no people, analog grain"
+    },
+    {
+      "id": "bt4-others",
+      "text": "THE OTHERS ARE IN IT TOO",
+      "subtext": "Same initials. Same jobs.",
+      "narration": "Everybody on nights is in that book. Same initials, same trades written in the column beside them, in an order I recognise from the roster on the wall.",
+      "durationInFrames": 260,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "register column",
+        "trades",
+        "familiar names"
+      ],
+      "imagePrompt": "Close-up of a ruled register page showing a column of surnames and beside each a handwritten trade such as fitter or electrician, the entries running down the page in an even hand, faded ink, warm amber lamp light, extreme paper detail, no people, analog film grain"
+    },
+    {
+      "id": "bt4-biro",
+      "text": "THE INK IS THIS YEAR'S",
+      "subtext": "Ballpoint. On a 1961 page.",
+      "narration": "The signatures are fountain pen down the whole book except ours. Ours are ballpoint, and ballpoint does not bleed into paper that has been sitting for sixty years.",
+      "durationInFrames": 270,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "ballpoint",
+        "wrong ink",
+        "aged paper"
+      ],
+      "imagePrompt": "Extreme macro comparing two inks on the same aged ruled page, one a soft feathered fountain pen line sunk into the fibres and the other a hard glossy ballpoint line sitting on top of the surface with a slight ridge of ink, raking warm amber light, extreme detail, no people, analog grain"
+    },
+    {
+      "id": "bt4-entry",
+      "text": "ONE ENTRY HAS NO NAME",
+      "subtext": "Only a floor, and it is the blank one.",
+      "narration": "The last entry on every page has no name in the name column. It has a floor written beside it instead, and the floor it names is the one with no number.",
+      "durationInFrames": 270,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "blank name",
+        "floor column",
+        "last entry"
+      ],
+      "imagePrompt": "Macro of the bottom row of a ruled register page where the name cell has been left deliberately empty while the cell beside it carries a handwritten entry, the ruling crossing the blank cell uninterrupted, warm amber lamp light, extreme paper detail, no people, deep analog film grain"
+    },
+    {
+      "id": "bt4-loop",
+      "text": "IT IS THE SAME SHIFT",
+      "subtext": "It never ended. It was reprinted.",
+      "narration": "These are not our grandfathers. It is the same shift, written down twice in the same hands, and the second time in a pen that had not been invented yet.",
+      "durationInFrames": 270,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "register",
+        "archive box",
+        "closed book"
+      ],
+      "imagePrompt": "A cloth bound register closed on an archive table with a cardboard box lid resting beside it, a reference label gummed to the cover, one corner of a page protruding where the book will no longer shut flat, warm amber lamp light falling off into darkness, no people, analog photograph, heavy grain"
+    }
+  ]
+}

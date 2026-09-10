@@ -79,6 +79,8 @@ jobs:
           SERIES_QUEUE: |
             scripts/floor-four
             scripts/night-shift
+            scripts/do-not-answer
+            scripts/before-this-one
         run: |
           # The button publishes one named arc; the schedule plays the queue.
           arcs="${SERIES_OVERRIDE:-$SERIES_QUEUE}"

@@ -1,0 +1,91 @@
+{
+  "title": "There Was A Building Here Before",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "bt1-hook",
+      "text": "A BUILDING WAS HERE BEFORE",
+      "subtext": "The drawings are in the basement.",
+      "narration": "There was a building on this plot before this one. Its drawings are still in the basement archive, in a tube with our address on it.",
+      "durationInFrames": 190,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "drawing tube",
+        "basement archive",
+        "plans"
+      ],
+      "imagePrompt": "A row of dusty cardboard drawing tubes standing upright in a wooden rack in a dim basement archive, faded handwritten labels tied to them with string, one tube pulled slightly forward, warm amber bulb light, cobwebs at the rack joints, no people, analog photograph, heavy grain"
+    },
+    {
+      "id": "bt1-open",
+      "text": "NINETEEN FIFTY-THREE",
+      "subtext": "Linen backed. Still soft.",
+      "narration": "The drawings are dated nineteen fifty-three. They are linen backed and they unroll soft, which means they have been unrolled a great many times.",
+      "durationInFrames": 200,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "linen drawing",
+        "unrolled plan",
+        "1953"
+      ],
+      "imagePrompt": "An old linen backed architectural floor plan unrolled across a wide table, ink lines and stencilled lettering, soft creases and worn edges where it has been handled for decades, a title block in the corner, warm amber lamp raking across the surface, no people, extreme detail, analog film grain"
+    },
+    {
+      "id": "bt1-same",
+      "text": "IT IS THIS BUILDING",
+      "subtext": "Room for room. Door for door.",
+      "narration": "It is this building. Room for room, door for door, the same dogleg in the corridor outside the staff room that everybody complains about.",
+      "durationInFrames": 220,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "floor plan",
+        "corridor dogleg",
+        "identical"
+      ],
+      "imagePrompt": "Macro detail of an architectural floor plan showing a corridor with an awkward dogleg kink halfway along it, room outlines and door swings drawn in fine ink, dimension lines and figures, warm amber light across the linen, extreme detail, no people, analog grain"
+    },
+    {
+      "id": "bt1-sheets",
+      "text": "SIX SHEETS. FIVE FLOORS.",
+      "subtext": "One sheet has no number.",
+      "narration": "There are six sheets in the tube and this building has five floors. The sheets are numbered along the bottom. One of them is not.",
+      "durationInFrames": 230,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "numbered sheets",
+        "missing number",
+        "title block"
+      ],
+      "imagePrompt": "Extreme macro of the bottom corner of an architectural drawing sheet where the sheet number should be stencilled in the title block, the box ruled and completely empty, the stencilled lettering around it crisp and deliberate, warm amber raking light, paper and linen texture in extreme detail, no people, analog grain"
+    },
+    {
+      "id": "bt1-between",
+      "text": "IT SITS BETWEEN THREE AND FIVE",
+      "subtext": "In the order they were rolled.",
+      "narration": "In the order they were rolled it sits between the third floor and the fifth. Whoever put them away knew where it went.",
+      "durationInFrames": 250,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "stacked drawings",
+        "between sheets",
+        "order"
+      ],
+      "imagePrompt": "Close-up of the cut edges of several architectural drawings stacked and rolled together seen end on, one sheet slightly proud of the others in the middle of the roll, the linen edges frayed, warm amber bulb light from above, dust in the air, no people, shallow depth of field, analog film grain"
+    },
+    {
+      "id": "bt1-loop",
+      "text": "TWO BUILDINGS",
+      "subtext": "One set of drawings.",
+      "narration": "Two buildings on this plot, seventy years apart. One set of drawings between them, and it has been unrolled a great many times.",
+      "durationInFrames": 260,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "archive",
+        "drawing tube",
+        "basement"
+      ],
+      "imagePrompt": "Wide shot of a dim basement archive room with wooden racks of drawing tubes receding into darkness, a single bare bulb throwing warm amber light over the nearest rack only, bare brick and pipework overhead, no people, unsettling stillness, heavy analog grain"
+    }
+  ]
+}

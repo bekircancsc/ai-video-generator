@@ -1,0 +1,91 @@
+{
+  "title": "The Call Log Is Empty",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "da2-hook",
+      "text": "THE LOG SHOWS NOTHING",
+      "subtext": "Four in the morning. Blank.",
+      "narration": "The paging system keeps a log of every announcement made in this building. Four in the morning, every night this month, blank.",
+      "durationInFrames": 200,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "call log",
+        "blank entry",
+        "log book"
+      ],
+      "imagePrompt": "Close-up of a lined paper log book open on a desk in a dim plant room, a column of handwritten times down one side and the four in the morning rows completely empty, biro indentations without ink visible in the paper, amber desk lamp light, no people, analog photograph, grain"
+    },
+    {
+      "id": "da2-record",
+      "text": "SO I RECORDED IT",
+      "subtext": "A recorder taped to the bracket.",
+      "narration": "So I taped a recorder to the bracket under the speaker and left it running from half past three.",
+      "durationInFrames": 220,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "dictaphone",
+        "taped recorder",
+        "bracket"
+      ],
+      "imagePrompt": "A small battered handheld cassette recorder taped with grey duct tape to a painted metal bracket beneath a corridor speaker, its record lamp glowing warm amber, tape counter mid-way, dust on the casing, no people, warm amber light, analog film grain, shallow depth of field"
+    },
+    {
+      "id": "da2-silence",
+      "text": "FORTY SECONDS OF ROOM",
+      "subtext": "No announcement on the tape.",
+      "narration": "The tape has forty seconds on it where the page should be. Forty seconds of an empty corridor. No announcement at all.",
+      "durationInFrames": 240,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "cassette tape",
+        "level meter",
+        "silence"
+      ],
+      "imagePrompt": "Macro shot of cassette spools seen through the window of a recorder, tape running, the level meter needle resting flat at the bottom of its scale, amber backlight behind the meter, scratched plastic, extreme detail, no people, analog grain"
+    },
+    {
+      "id": "da2-end",
+      "text": "EXCEPT AT THE END",
+      "subtext": "One word, quieter than the room.",
+      "narration": "Except at the very end, after the forty seconds, quieter than the room itself. One word. It is a name, and it is not mine.",
+      "durationInFrames": 250,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "vu meter",
+        "single peak",
+        "audio"
+      ],
+      "imagePrompt": "Extreme close-up of an analog VU meter with the needle kicked hard to the right in a single peak, the rest of the scale dark, warm amber lamp behind the dial glass, dust and a hairline crack across the face, no people, high contrast, deep analog grain"
+    },
+    {
+      "id": "da2-lamp",
+      "text": "THE LAMP GOT BRIGHTER",
+      "subtext": "Nothing was switched on.",
+      "narration": "In the photographs I took before and after, the lamp on the bracket is brighter in the second one. Nothing was switched on between them.",
+      "durationInFrames": 250,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "indicator lamp",
+        "brighter",
+        "glow"
+      ],
+      "imagePrompt": "Extreme macro of a small domed indicator lamp on a painted bracket burning fiercely warm amber, the light spilling far enough to pick out the wall texture around it, corona and flare in the lens glass, everything beyond falling to black, no people, analog film grain"
+    },
+    {
+      "id": "da2-loop",
+      "text": "NOTHING IS CALLING OUT",
+      "subtext": "Something is calling in.",
+      "narration": "The log has nothing in it because nothing is being announced. Nothing is calling out of this building. Something is calling into it.",
+      "durationInFrames": 240,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "speaker",
+        "corridor",
+        "incoming"
+      ],
+      "imagePrompt": "Low wide shot of a dark deserted corridor with a tannoy speaker high on the wall, faint warm amber light appearing to come out of the speaker grille itself rather than from any fixture, floor and walls lit only by that glow, no people, unsettling stillness, heavy analog grain"
+    }
+  ]
+}
