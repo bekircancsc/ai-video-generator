@@ -17,7 +17,7 @@ on:
   workflow_dispatch:
     inputs:
       series:
-        description: Arc to publish the next unpublished part of
+        description: One arc to publish the next unpublished part of, instead of the queue
         default: scripts/floor-four
         required: true
       dry-run:
@@ -59,16 +59,43 @@ jobs:
           path: node_modules/.remotion
           key: remotion-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
 
-      # A scheduled run carries no inputs at all, so the arc has to fall back to
-      # a literal here. Without it the schedule renders `--series ""` and fails
-      # nightly, while the button next to it keeps working.
+      # A scheduled run carries no inputs at all, so the queue has to fall back
+      # to the literal below. Without it the schedule renders `--series ""` and
+      # fails nightly, while the button next to it keeps working.
+      #
+      # SERIES_QUEUE is the whole schedule, one arc per line, played in the
+      # order written. `--series` is repeatable and an arc with no parts written
+      # yet is skipped rather than refused, so the next arc can be named here
+      # before a word of it exists: starting it is then dropping
+      # `<name>-part-1.json` into `scripts/`, with nothing to change here. When
+      # the arc in front runs out the run moves to the one below it the same
+      # night, instead of failing until someone notices.
       - name: Render
         env:
           SCRIPT_PROVIDER: groq
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
           TTS_VOICE: daniel
-          SERIES: ${{ inputs.series || 'scripts/floor-four' }}
-        run: node run.mjs --series "$SERIES" --json > render.json
+          SERIES_OVERRIDE: ${{ inputs.series }}
+          SERIES_QUEUE: |
+            scripts/floor-four
+        run: |
+          # The button publishes one named arc; the schedule plays the queue.
+          arcs="${SERIES_OVERRIDE:-$SERIES_QUEUE}"
+          args=()
+
+          while IFS= read -r arc; do
+            # Blank lines are the block scalar's trailing newline and the
+            # indentation people leave behind, not arcs.
+            arc="$(echo "$arc" | tr -d '[:space:]')"
+            [ -n "$arc" ] && args+=(--series "$arc")
+          done <<< "$arcs"
+
+          if [ ${#args[@]} -eq 0 ]; then
+            echo "No arc queued: SERIES_QUEUE is empty." >&2
+            exit 1
+          fi
+
+          node run.mjs "${args[@]}" --json > render.json
 
       # Separately from the render, so a failed upload leaves the video to look
       # at rather than only a log saying it existed.
