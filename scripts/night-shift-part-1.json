@@ -1,0 +1,91 @@
+{
+  "title": "The Night Shift Roster",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "ns1-hook",
+      "text": "WE ARE ELEVEN",
+      "subtext": "The roster lists twelve.",
+      "narration": "There are eleven of us on nights. The roster lists twelve.",
+      "durationInFrames": 190,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "shift roster",
+        "staff room",
+        "night shift"
+      ],
+      "imagePrompt": "Extreme close-up of a printed weekly shift roster taped to a beige breakroom wall, a single column of typed surnames with one more name below the others, curling tape at the corners, sickly amber fluorescent light, no people, analog film grain, shallow depth of field"
+    },
+    {
+      "id": "ns1-count",
+      "text": "I COUNTED THE COATS",
+      "subtext": "Eleven coats. Twelve hooks.",
+      "narration": "I counted the names twice. Then I counted the coats on the hooks. Eleven coats. Twelve hooks.",
+      "durationInFrames": 200,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "work coats",
+        "wall hooks",
+        "empty hook"
+      ],
+      "imagePrompt": "A row of grey work coats hanging on steel wall hooks in a dim staff changing room, one hook at the end of the row bare, worn linoleum floor below, amber fluorescent light from a single ceiling panel, deserted, no people, analog photograph, heavy grain"
+    },
+    {
+      "id": "ns1-name",
+      "text": "THE NAME IS NOT NEW",
+      "subtext": "It is on every sheet.",
+      "narration": "The name is not new. I pulled last month's sheets out of the recycling. It is on every one of them.",
+      "durationInFrames": 220,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "old rosters",
+        "paper stack",
+        "desk lamp"
+      ],
+      "imagePrompt": "A stack of creased photocopied shift rosters fanned out across a breakroom table under a low desk lamp, staple holes and coffee rings on the paper, the same column of typed names repeating down the pile, warm amber lamplight falling off into darkness at the edges, no people, analog film grain"
+    },
+    {
+      "id": "ns1-erased",
+      "text": "ONE ROW SITS LOWER",
+      "subtext": "Something was taken out.",
+      "narration": "On every sheet the row above that name sits lower than the rest. Like a line was taken out and the page closed over it.",
+      "durationInFrames": 230,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "erased row",
+        "misaligned print",
+        "toner ghost"
+      ],
+      "imagePrompt": "Macro photograph of a printed office table on cheap paper, the rows evenly spaced except one baseline that sits visibly lower than the others, a faint grey toner ghost of deleted text in the gap above it, fibres of the paper visible, raking amber light across the surface, no people, extreme detail, analog grain"
+    },
+    {
+      "id": "ns1-ask",
+      "text": "NOBODY ASKED WHO",
+      "subtext": "They asked which shift.",
+      "narration": "I read the name out in the staff room. Nobody asked who it was. Two of them asked which shift he was on.",
+      "durationInFrames": 250,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "staff room",
+        "seated workers",
+        "night break"
+      ],
+      "imagePrompt": "A dim industrial staff room seen from the doorway, three workers in coats seated around a formica table all facing away from camera so no face is visible, vending machine glow at the back wall, the entire frame lit only by warm amber fluorescent light, strong golden amber colour grade across every surface, warm brown shadows, no grey or blue or desaturated tones anywhere, well exposed with readable midtones, analog grain"
+    },
+    {
+      "id": "ns1-loop",
+      "text": "NOBODY CHANGED THE NUMBER",
+      "subtext": "Twelve go up. Eleven clock out.",
+      "narration": "Twelve names go up every Monday. Eleven of us clock out on Friday. Nobody has ever changed the number.",
+      "durationInFrames": 260,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "time clock",
+        "punch cards",
+        "yellowed card"
+      ],
+      "imagePrompt": "Close-up of a wall-mounted mechanical time clock with a rack of twelve punch card slots beside it, eleven cards worn soft and grey from handling, the twelfth card yellowed and stiff and never touched, amber glow from the clock face, dim factory corridor behind, no people, analog film grain, high contrast"
+    }
+  ]
+}

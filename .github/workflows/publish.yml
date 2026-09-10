@@ -78,6 +78,7 @@ jobs:
           SERIES_OVERRIDE: ${{ inputs.series }}
           SERIES_QUEUE: |
             scripts/floor-four
+            scripts/night-shift
         run: |
           # The button publishes one named arc; the schedule plays the queue.
           arcs="${SERIES_OVERRIDE:-$SERIES_QUEUE}"
