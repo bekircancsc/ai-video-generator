@@ -59,6 +59,34 @@ export async function readRunResult(file: string): Promise<RunResult> {
 }
 
 /**
+ * How short the queue has to get before the announcement mentions it.
+ *
+ * Two nights, so the warning arrives with a weekend's notice rather than on
+ * the evening it matters.
+ */
+export const LOW_QUEUE_NIGHTS = 2;
+
+/**
+ * The state of the queue, when it is worth a line and not otherwise.
+ *
+ * A healthy queue says nothing: a warning that arrives every night is one
+ * nobody reads on the night it counts. Nought is worded rather than counted,
+ * because "0 nights left" reads like a statistic and this is the only case
+ * where tomorrow actually publishes nothing.
+ */
+function queueNote(remaining: number | undefined): string | undefined {
+  if (remaining === undefined || remaining > LOW_QUEUE_NIGHTS) {
+    return undefined;
+  }
+
+  if (remaining <= 0) {
+    return "That was the last part queued - nothing goes out tomorrow until another is written.";
+  }
+
+  return `${remaining} night${remaining === 1 ? "" : "s"} left in the queue.`;
+}
+
+/**
  * The message the finished upload announces itself with.
  *
  * It states the deadline rather than asking for an action, because the video
@@ -76,7 +104,9 @@ export function announcement(result: RunResult, videoId: string, publishAt?: str
       })} Istanbul time. Delete it before then if it came out wrong.`
     : "Private. Review it before publishing.";
 
-  return [`Ready: ${result.title}`, watchUrl(videoId), `${result.durationSeconds}s. ${when}`].join("\n");
+  return [`Ready: ${result.title}`, watchUrl(videoId), `${result.durationSeconds}s. ${when}`, queueNote(result.queueRemaining)]
+    .filter(Boolean)
+    .join("\n");
 }
 
 export async function publish(result: RunResult, publishAt?: string): Promise<string> {

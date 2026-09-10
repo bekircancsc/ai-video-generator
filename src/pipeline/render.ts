@@ -14,7 +14,7 @@ import { removeCover, renderCover } from "./cover";
 import { normaliseLoudness } from "./loudness";
 import { buildResult, type RunFailure } from "../services/result";
 import { appendHistory, readHistory, recentTitles } from "../services/history";
-import { exhaustedQueueMessage, loadArcs, nextInQueue, seriesTopic } from "../services/series";
+import { exhaustedQueueMessage, loadArcs, nextInQueue, seriesTopic, unpublishedCount } from "../services/series";
 import { stageOutputs } from "../services/stage";
 import { saveDraft } from "../services/draft";
 import type { VideoPayload } from "../types/video";
@@ -165,6 +165,11 @@ if (isDirectRun) {
     // in, because that record is the only thing that moves the arc forward.
     let historyTopic: string | undefined = payloadFile ? undefined : topic || nicheFile || "";
 
+    // How far ahead the schedule is written, once tonight is spent. Measured
+    // before the render so the arithmetic is done while the queue is loaded,
+    // and carried on the result so the publisher can say it out loud.
+    let queueRemaining: number | undefined;
+
     if (series.length > 0) {
       const arcs = await loadArcs(series);
       const next = nextInQueue(arcs, history);
@@ -177,7 +182,10 @@ if (isDirectRun) {
 
       payloadFile = episode.file;
       historyTopic = seriesTopic(episode.file);
+      queueRemaining = unpublishedCount(arcs, history) - 1;
+
       console.log(`Series ${arc.prefix}: part ${episode.number} of ${arc.episodes.length}`);
+      console.log(`Queue: ${queueRemaining} part(s) left after this one.`);
     }
 
     // A payload file names its own video; the avoid list only shapes a
@@ -218,6 +226,10 @@ if (isDirectRun) {
       coverLocation: result.coverLocation,
       rootDir,
     });
+
+    if (queueRemaining !== undefined) {
+      summary.queueRemaining = queueRemaining;
+    }
 
     if (stageDir) {
       const staged = await stageOutputs(path.resolve(process.cwd(), stageDir), {

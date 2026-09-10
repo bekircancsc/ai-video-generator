@@ -12,6 +12,7 @@ import {
   nextInQueue,
   publishedEpisodes,
   seriesTopic,
+  unpublishedCount,
 } from "./series";
 
 async function arcOf(...names: string[]) {
@@ -167,4 +168,34 @@ test("arcs are read relative to the given working directory", async () => {
 
   assert.equal(arcs[0].episodes.length, 1);
   assert.equal(arcs[0].prefix, "one");
+});
+
+test("the queue depth counts what is left across every arc", async () => {
+  const directory = await arcOf("one-part-1.json", "one-part-2.json", "two-part-1.json");
+  const arcs = await loadArcs([path.join(directory, "one"), path.join(directory, "two")]);
+
+  assert.equal(unpublishedCount(arcs, []), 3);
+  assert.equal(unpublishedCount(arcs, [entry(seriesTopic("one-part-1.json"))]), 2);
+});
+
+test("the queue depth ignores an arc that is named but unwritten", async () => {
+  const directory = await arcOf("one-part-1.json");
+  const arcs = await loadArcs([path.join(directory, "one"), path.join(directory, "unwritten")]);
+
+  assert.equal(unpublishedCount(arcs, []), 1);
+});
+
+test("the queue depth of a spent queue is zero rather than negative", async () => {
+  const directory = await arcOf("one-part-1.json");
+  const arcs = await loadArcs([path.join(directory, "one")]);
+
+  assert.equal(unpublishedCount(arcs, [entry(seriesTopic("one-part-1.json"))]), 0);
+});
+
+test("a part published out of order is not counted twice", async () => {
+  const directory = await arcOf("one-part-1.json", "one-part-2.json", "one-part-3.json");
+  const arcs = await loadArcs([path.join(directory, "one")]);
+
+  // Part 3 went out early; 1 and 2 are still owed.
+  assert.equal(unpublishedCount(arcs, [entry(seriesTopic("one-part-3.json"))]), 2);
 });

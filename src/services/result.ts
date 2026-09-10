@@ -26,6 +26,12 @@ export type RunResult = {
    */
   stagedMp4?: string;
   stagedCover?: string;
+  /**
+   * Instalments the queue still owes after this one. Present only on a
+   * `--series` run, because nothing else has a queue to run out. Set by the
+   * render rather than `buildResult`, which knows the payload and not the arc.
+   */
+  queueRemaining?: number;
 };
 
 /** What a `--json` run prints when a stage aborted the render. */

@@ -81,3 +81,37 @@ test("a scheduled announcement gives the deadline in local time, not the raw tim
   assert.ok(!text.includes("18:00:00.000Z"));
   assert.match(text, /Delete it before then/);
 });
+
+test("a low queue is called out in the announcement", () => {
+  const text = announcement({ ...success, queueRemaining: 2 }, "abc123", "2026-09-04T18:00:00.000Z");
+
+  assert.match(text, /2 nights left/);
+});
+
+test("the last queued part says nothing goes out tomorrow", () => {
+  const text = announcement({ ...success, queueRemaining: 0 }, "abc123");
+
+  // The number on its own reads as fine. "0 nights left" is not a warning.
+  assert.match(text, /nothing goes out tomorrow/i);
+  assert.ok(!text.includes("0 nights"));
+});
+
+test("one night left is not pluralised", () => {
+  assert.match(announcement({ ...success, queueRemaining: 1 }, "abc123"), /1 night left/);
+  assert.ok(!announcement({ ...success, queueRemaining: 1 }, "abc123").includes("1 nights"));
+});
+
+test("a healthy queue is not mentioned at all", () => {
+  const text = announcement({ ...success, queueRemaining: 9 }, "abc123");
+
+  assert.ok(!/night/i.test(text));
+  assert.ok(!/queue/i.test(text));
+});
+
+test("a run outside a series says nothing about a queue", () => {
+  // A --payload or --niche run has no queue to be low.
+  const text = announcement(success, "abc123");
+
+  assert.ok(!/night/i.test(text));
+  assert.ok(!/queue/i.test(text));
+});

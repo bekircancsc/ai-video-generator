@@ -126,6 +126,24 @@ export function nextInQueue(
 }
 
 /**
+ * How many instalments the whole queue still owes.
+ *
+ * Counted the same way `nextInQueue` picks, so the two can never disagree: an
+ * episode already in the history is spent wherever it sits in its arc, and an
+ * arc named but not yet written owes nothing. This is how far ahead the
+ * schedule is written, which is the one number worth warning about — a finite
+ * arc behind a daily cron runs out on a date nobody has in mind.
+ */
+export function unpublishedCount(arcs: QueuedArc[], entries: HistoryEntry[]): number {
+  const published = publishedEpisodes(entries);
+
+  return arcs.reduce(
+    (total, arc) => total + arc.episodes.filter((episode) => !published.has(path.basename(episode.file))).length,
+    0,
+  );
+}
+
+/**
  * What to say when the queue has nothing left.
  *
  * Each arc is named with its own count, because "write the next part" and "the
