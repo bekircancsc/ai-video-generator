@@ -42,3 +42,21 @@ test("rejects a voice outside the supported list", () => {
     process.env.TTS_VOICE = previousVoice;
   }
 });
+
+test("a spent daily quota is named rather than reported as a status code", () => {
+  const error = describeTtsError(
+    429,
+    JSON.stringify({ error: { code: "rate_limit_exceeded", message: "Rate limit reached for model playai-tts on tokens per day (TPD)" } }),
+  );
+
+  assert.match(error.message, /quota/i);
+  assert.match(error.message, /resets/i);
+});
+
+test("a quota failure does not read as something to fix", () => {
+  // Nothing is misconfigured when the free tier runs out, and a message that
+  // sends someone to check the key wastes the evening.
+  const error = describeTtsError(429, "rate_limit_exceeded");
+
+  assert.ok(!/LLM_API_KEY/.test(error.message));
+});

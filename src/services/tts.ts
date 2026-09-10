@@ -41,6 +41,15 @@ export function describeTtsError(status: number, body: string): Error {
     return new Error(`Speech synthesis authentication failed (${status}). Check LLM_API_KEY.`);
   }
 
+  // Before the 401 sibling below in spirit but after it in code: a spent free
+  // tier is not a misconfiguration, and a message that sends someone to check
+  // the key costs them the evening. It resets without anyone doing anything.
+  if (status === 429 || /rate_limit_exceeded|tokens per day/i.test(body)) {
+    return new Error(
+      "The daily speech quota is spent. It resets on its own; nothing here needs changing.",
+    );
+  }
+
   if (/model_terms_required/.test(body)) {
     return new Error(`The speech model needs its terms accepted once at ${TERMS_URL}`);
   }

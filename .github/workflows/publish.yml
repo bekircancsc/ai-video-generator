@@ -127,6 +127,20 @@ jobs:
       # The arc's position lives in history.json, so a run that does not commit
       # it publishes the same episode again tomorrow. A dry run deliberately
       # does not: it consumed nothing.
+      # The only thing that speaks when the render does not. The Publish step
+      # carries the Telegram message, and a failed render skips it, which is
+      # exactly how two nights went missing without anyone being told. Runs on
+      # any failure: a spent speech quota, an empty queue, a refused upload.
+      #
+      # It cannot help if `npm ci` is what failed, because tsx would not be
+      # installed to run it. Everything after that point is covered.
+      - name: Say why nothing was published
+        if: failure()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: node --import tsx src/pipeline/alert.ts --result render.json
+
       - name: Record the episode
         if: ${{ !inputs.dry-run }}
         run: |
