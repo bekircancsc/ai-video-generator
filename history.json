@@ -64,5 +64,11 @@
     "slug": "i-pressed-four",
     "title": "I Pressed Four",
     "topic": "series:floor-four-part-5.json"
+  },
+  {
+    "date": "2026-09-10",
+    "slug": "the-night-shift-roster",
+    "title": "The Night Shift Roster",
+    "topic": "series:night-shift-part-1.json"
   }
 ]
