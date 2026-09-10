@@ -1,0 +1,91 @@
+{
+  "title": "Twelve Men In The Photograph",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "ns3-hook",
+      "text": "TWELVE MEN IN THE PHOTO",
+      "subtext": "The caption lists eleven.",
+      "narration": "There is a framed photograph in the corridor outside the staff room. Twelve men stand in it. The caption underneath lists eleven.",
+      "durationInFrames": 210,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "framed photograph",
+        "corridor wall",
+        "staff portrait"
+      ],
+      "imagePrompt": "A dusty glass-framed group photograph of factory night staff hanging slightly crooked on a beige corridor wall, rows of men in work coats too small in frame for any face to read, a brass caption plate screwed beneath it, amber corridor lighting, reflection of a fluorescent panel across the glass, no people in the corridor, analog photograph, grain"
+    },
+    {
+      "id": "ns3-count",
+      "text": "I COUNTED THEM AGAIN",
+      "subtext": "The last one stands apart.",
+      "narration": "I counted them three times against the glass with my finger. Eleven stand in the two rows. The twelfth stands apart, at the edge, half out of the frame.",
+      "durationInFrames": 230,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "group photo",
+        "figure at edge",
+        "out of frame"
+      ],
+      "imagePrompt": "Detail of an old black and white group photograph behind glass, two neat rows of men in work coats, and at the extreme right edge one more figure standing apart and turned away, blurred as if he moved during the exposure, no facial detail at all, warm amber light falling across the glass, dust and scratches on the print, deep analog grain"
+    },
+    {
+      "id": "ns3-plate",
+      "text": "ONE NAME WAS LIFTED OFF",
+      "subtext": "Two screw holes and a shadow.",
+      "narration": "One name has been lifted off the brass plate. There are two screw holes where it was, and the line beneath sits lower than the rest.",
+      "durationInFrames": 250,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "brass plate",
+        "removed name",
+        "screw holes"
+      ],
+      "imagePrompt": "Macro photograph of a tarnished engraved brass name plate, a column of surnames, one entry cleanly removed leaving bare unpolished metal and two small screw holes, the engraved line below it visibly out of alignment with the others, raking amber light picking out every scratch in the brass, extreme detail, no people, analog grain"
+    },
+    {
+      "id": "ns3-date",
+      "text": "NINETEEN SIXTY-EIGHT",
+      "subtext": "He is wearing this year's coat.",
+      "narration": "The plate is dated nineteen sixty-eight. Every coat in the photograph buttons on the left. The twelfth man's buttons on the right, the way ours do now.",
+      "durationInFrames": 260,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "dated plate",
+        "work coat",
+        "wrong decade"
+      ],
+      "imagePrompt": "Extreme close-up of the same old photograph, cropped to one figure's chest and shoulder in a work coat, the buttoning and collar cut noticeably more modern than the garments beside it, no face in frame, silver halide texture and heavy grain, warm amber light across the print surface, shallow depth of field"
+    },
+    {
+      "id": "ns3-glass",
+      "text": "I TOOK IT OFF THE WALL",
+      "subtext": "Nothing had faded behind it.",
+      "narration": "I lifted the frame off its hook to read the back. The wall behind it was clean paint. Nothing had faded there. It has not been hanging long.",
+      "durationInFrames": 260,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "bare hook",
+        "clean paint",
+        "removed frame"
+      ],
+      "imagePrompt": "A bare picture hook on a beige corridor wall with the paint around it perfectly even and unfaded, no rectangle of discolouration where a frame hung, amber fluorescent light from above, institutional corridor receding into darkness, no people, analog photograph, grain"
+    },
+    {
+      "id": "ns3-loop",
+      "text": "ALL TWELVE IN ONE ROOM",
+      "subtext": "Only in the photograph.",
+      "narration": "It is the only place all twelve of us have ever been in one room. Somebody hung it there this month, so that I would count.",
+      "durationInFrames": 250,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "corridor",
+        "photograph",
+        "night light"
+      ],
+      "imagePrompt": "Wide shot of a long dim institutional corridor at night with a single framed photograph on the wall halfway down, lit by one amber fluorescent panel directly above it while the rest of the corridor falls into darkness, empty, no people, analog camcorder aesthetic, heavy grain, unsettling stillness"
+    }
+  ]
+}

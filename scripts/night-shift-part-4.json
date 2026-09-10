@@ -1,0 +1,91 @@
+{
+  "title": "He Used My Name",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "ns4-hook",
+      "text": "HE USED MY NAME",
+      "subtext": "I never told it to him.",
+      "narration": "He was standing by the time clock when I came off the floor. He used my name. I have never told it to him.",
+      "durationInFrames": 220,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "time clock",
+        "standing figure",
+        "corridor end"
+      ],
+      "imagePrompt": "The far end of a dim factory corridor seen from a distance, a still dark human silhouette standing beside a wall-mounted time clock with its back turned, no facial detail at all, one amber fluorescent panel overhead and darkness beyond, deep analog grain, unsettling stillness, no other people"
+    },
+    {
+      "id": "ns4-shift",
+      "text": "ARE YOU FINISHING",
+      "subtext": "He asked it like he knew the answer.",
+      "narration": "He asked if I was finishing tonight. Not going home. Finishing. He asked it the way you ask something you already know.",
+      "durationInFrames": 240,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "figure from behind",
+        "work coat",
+        "night corridor"
+      ],
+      "imagePrompt": "A man in a grey work coat photographed from behind at close range in a narrow corridor, shoulders and the back of his head filling the lower frame, head slightly turned but no face visible, the entire frame lit only by warm amber fluorescent light, strong golden amber colour grade across every surface, warm brown shadows, no grey or blue or desaturated tones anywhere, well exposed with readable midtones, analog grain"
+    },
+    {
+      "id": "ns4-knows",
+      "text": "HE KNEW THE HOOK",
+      "subtext": "Third from the end. Mine.",
+      "narration": "He knew my locker. He knew which hook my coat goes on, third from the end. He knew I do Mondays and Thursdays and swap the rest.",
+      "durationInFrames": 260,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "locker",
+        "coat hook",
+        "staff room"
+      ],
+      "imagePrompt": "A bank of dented steel staff lockers in a dim changing room, one locker door standing very slightly ajar, a numbered card in its holder worn illegible, coat hooks on the wall beside it, amber fluorescent light, no people, analog photograph, heavy grain, shallow depth of field"
+    },
+    {
+      "id": "ns4-sheet",
+      "text": "HE HANDED ME A SHEET",
+      "subtext": "Folded once, along the gap.",
+      "narration": "He took a roster sheet out of his coat and handed it to me. It had been folded once, along the line above his own name. The row there is blank, and it sits lower than the rest.",
+      "durationInFrames": 270,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "folded roster",
+        "blank row",
+        "crease"
+      ],
+      "imagePrompt": "Macro photograph of a folded photocopied roster sheet held open, a hard crease running horizontally through the table of names, the row along the crease empty and its baseline visibly lower than the rows around it, paper fibres and toner texture in extreme detail, raking warm amber light, no faces, no hands in frame, analog grain"
+    },
+    {
+      "id": "ns4-covering",
+      "text": "I HAVE BEEN COVERING",
+      "subtext": "I asked since when.",
+      "narration": "He said he had been covering for me. I asked since when. He said, since the beginning, and put his hand flat on the clock.",
+      "durationInFrames": 270,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "hand on clock",
+        "time clock",
+        "punch cards"
+      ],
+      "imagePrompt": "Close-up of a mechanical wall time clock with a bare hand laid flat against its metal casing, the arm disappearing out of frame in a work coat sleeve, no face and no body visible, twelve punch card slots beside it, warm amber light, worn paint and scratched brass, analog film grain, high contrast"
+    },
+    {
+      "id": "ns4-loop",
+      "text": "HE DID NOT CLOCK OUT",
+      "subtext": "His card was already stamped.",
+      "narration": "I watched him walk to the staff door and not open it. When I checked the rack his card was already stamped for the whole week ahead.",
+      "durationInFrames": 270,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "punch card",
+        "stamped ahead",
+        "card rack"
+      ],
+      "imagePrompt": "Extreme close-up of a single yellowed punch card pulled halfway from a wall rack, its column of time stamps printed in ink far down the card into dates that have not happened, the cards on either side worn soft and grey, amber glow from a clock face out of focus behind, no people, analog film grain"
+    }
+  ]
+}

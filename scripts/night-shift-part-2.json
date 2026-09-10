@@ -1,0 +1,91 @@
+{
+  "title": "He Has No Badge Number",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "ns2-hook",
+      "text": "HE HAS NO BADGE NUMBER",
+      "subtext": "The system has never heard of him.",
+      "narration": "I typed the twelfth name into the access system. It has never heard of him. No badge, no number, no start date.",
+      "durationInFrames": 200,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "access system",
+        "empty search",
+        "terminal"
+      ],
+      "imagePrompt": "Close-up of an ageing CRT security terminal in a dark guard office, a database search field filled in and the results panel below it completely empty, amber phosphor text on a black screen, dust on the bezel, scan lines and analog film grain, no people, shallow depth of field"
+    },
+    {
+      "id": "ns2-doors",
+      "text": "TWELVE ENTRIES A NIGHT",
+      "subtext": "Eleven badges exist.",
+      "narration": "So I pulled the door log instead. Every night this month it records twelve entries at the staff door. Eleven badges exist.",
+      "durationInFrames": 220,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "door log",
+        "printout",
+        "badge reader"
+      ],
+      "imagePrompt": "A long continuous dot-matrix printout of timestamped door entries spilling off a desk onto the floor of a dim guard office, perforated edges, the same times repeating night after night, amber desk lamp raking across the paper, no people, analog photograph, heavy grain"
+    },
+    {
+      "id": "ns2-gap",
+      "text": "ONE NUMBER IS MISSING",
+      "subtext": "The list closes over the gap.",
+      "narration": "The badge numbers run in order. One is missing from the middle, and the list closes over the gap without leaving a space.",
+      "durationInFrames": 240,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "id sequence",
+        "missing number",
+        "database"
+      ],
+      "imagePrompt": "Macro shot of a monitor displaying a numbered column of employee ID records, the sequence running in order with one value absent and the rows tightened up so no blank line remains, amber monochrome display, moire and scan lines, curvature of the glass visible at the edge, no people, extreme detail, grain"
+    },
+    {
+      "id": "ns2-officer",
+      "text": "THE ONE WHO LOCKS UP",
+      "subtext": "He said it like a job title.",
+      "narration": "I asked the officer on the desk who the twelfth is. He did not look up from the monitor. He said, that is the one who locks up.",
+      "durationInFrames": 250,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "guard desk",
+        "security officer",
+        "night desk"
+      ],
+      "imagePrompt": "A security guard in a dark uniform seated at a night reception desk photographed from behind and to the side so no face is visible, banks of small monitors casting light up onto the ceiling, the entire frame lit only by warm amber light, strong golden amber colour grade across every surface, warm brown shadows, no grey or blue or desaturated tones anywhere, well exposed with readable midtones, analog grain"
+    },
+    {
+      "id": "ns2-nobody",
+      "text": "NOBODY LOCKS UP",
+      "subtext": "It is always already locked.",
+      "narration": "Nobody locks up. There is no key on the board for the staff door and there never has been. It is always already locked when we leave.",
+      "durationInFrames": 250,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "key board",
+        "empty hook",
+        "staff door"
+      ],
+      "imagePrompt": "A wall-mounted wooden key cabinet in a dim corridor, rows of labelled hooks holding brass keys, one hook labelled in faded typewriter script with nothing hanging from it, amber emergency lighting, institutional paint, deserted, no people, analog film grain, high contrast"
+    },
+    {
+      "id": "ns2-loop",
+      "text": "HE IS ALREADY INSIDE",
+      "subtext": "He does not need a badge.",
+      "narration": "The log shows his entry every night at ten past eleven. The reader has no record of a card. He does not need one. He is already inside.",
+      "durationInFrames": 240,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "badge reader",
+        "amber light",
+        "no card"
+      ],
+      "imagePrompt": "Extreme close-up of a wall-mounted badge reader beside a heavy staff door, its indicator lamp lit warm amber as if a card had just been accepted, no hand and no card anywhere in frame, scuffed metal door behind, dim corridor, analog film grain, shallow depth of field"
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "title": "My Name Is On It Twice",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "ns5-hook",
+      "text": "MY NAME IS ON IT TWICE",
+      "subtext": "Eleven rows apart.",
+      "narration": "The new roster went up on Monday. My name is on it twice, eleven rows apart.",
+      "durationInFrames": 230,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "new roster",
+        "duplicate name",
+        "breakroom wall"
+      ],
+      "imagePrompt": "Extreme close-up of a freshly printed shift roster taped to a breakroom wall, a column of typed surnames with the same entry appearing twice at opposite ends of the list, crisp toner and clean paper, sickly amber fluorescent light, no people, analog film grain, shallow depth of field"
+    },
+    {
+      "id": "ns5-gone",
+      "text": "HIS NAME IS GONE",
+      "subtext": "Mine is where it was.",
+      "narration": "The twelfth name is not there any more. Mine is printed where his was, at the bottom, under the fold.",
+      "durationInFrames": 250,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "replaced name",
+        "bottom of list",
+        "roster fold"
+      ],
+      "imagePrompt": "Macro photograph of the lower portion of a printed roster, the final row of the table carrying a surname printed in slightly heavier toner than the rows above it, a soft horizontal fold running just beneath, paper fibres visible, raking warm amber light, no people, extreme detail, analog grain"
+    },
+    {
+      "id": "ns5-row",
+      "text": "THE ROW SITS LEVEL NOW",
+      "subtext": "Nothing was taken out.",
+      "narration": "Every row on this sheet sits level. Nothing has been taken out of it. Whatever the line above his name used to be, it is closed.",
+      "durationInFrames": 270,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "level rows",
+        "clean table",
+        "printed sheet"
+      ],
+      "imagePrompt": "Macro photograph of a printed office table on cheap paper with every row of the grid perfectly and evenly aligned, no misalignment and no toner ghost anywhere, mechanically clean and ordinary, warm amber light raking across the surface, extreme detail, no people, analog grain"
+    },
+    {
+      "id": "ns5-coats",
+      "text": "TWELVE COATS. TWELVE HOOKS.",
+      "subtext": "Eleven of us in the room.",
+      "narration": "There are twelve coats on the hooks tonight. Twelve hooks, twelve coats, and eleven of us standing in the room looking at them.",
+      "durationInFrames": 290,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "twelve coats",
+        "full hooks",
+        "changing room"
+      ],
+      "imagePrompt": "A row of identical grey work coats hanging on steel wall hooks in a dim staff changing room with every hook occupied and none left bare, worn linoleum below, the entire frame lit only by warm amber fluorescent light, strong golden amber colour grade across every surface, warm brown shadows, no grey or blue or desaturated tones anywhere, well exposed with readable midtones, no people, analog grain"
+    },
+    {
+      "id": "ns5-clock",
+      "text": "I LOCKED UP",
+      "subtext": "I do not remember deciding to.",
+      "narration": "I stayed behind and I locked the staff door. There is still no key on the board. I do not remember deciding to do it.",
+      "durationInFrames": 290,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "staff door",
+        "locked",
+        "empty corridor"
+      ],
+      "imagePrompt": "A heavy scuffed metal staff door closed at the end of a dark corridor, its badge reader lamp dark, no handle turned and nobody near it, one failing amber fluorescent panel far overhead, deserted institutional corridor, no people, analog camcorder aesthetic, heavy grain, high contrast"
+    },
+    {
+      "id": "ns5-loop",
+      "text": "THE ROSTER LISTS TWELVE",
+      "subtext": "There are eleven of us on nights.",
+      "narration": "There are eleven of us on nights. The roster lists twelve. Nobody has ever changed the number, and now I know why.",
+      "durationInFrames": 290,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "roster",
+        "staff room",
+        "night shift"
+      ],
+      "imagePrompt": "Extreme close-up of a printed weekly shift roster taped to a beige breakroom wall, the column of typed surnames running down it, curling tape at the corners, identical to the first sheet but the paper now aged and softened, sickly amber fluorescent light, no people, analog film grain, shallow depth of field"
+    }
+  ]
+}
