@@ -100,5 +100,11 @@
     "slug": "the-system-was-decommissioned",
     "title": "The System Was Decommissioned",
     "topic": "series:do-not-answer-part-1.json"
+  },
+  {
+    "date": "2026-09-16",
+    "slug": "the-call-log-is-empty",
+    "title": "The Call Log Is Empty",
+    "topic": "series:do-not-answer-part-2.json"
   }
 ]
