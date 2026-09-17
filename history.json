@@ -106,5 +106,11 @@
     "slug": "the-call-log-is-empty",
     "title": "The Call Log Is Empty",
     "topic": "series:do-not-answer-part-2.json"
+  },
+  {
+    "date": "2026-09-17",
+    "slug": "that-is-my-voice",
+    "title": "That Is My Voice",
+    "topic": "series:do-not-answer-part-3.json"
   }
 ]
