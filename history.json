@@ -112,5 +112,11 @@
     "slug": "that-is-my-voice",
     "title": "That Is My Voice",
     "topic": "series:do-not-answer-part-3.json"
+  },
+  {
+    "date": "2026-09-18",
+    "slug": "someone-is-holding-the-button",
+    "title": "Someone Is Holding The Button",
+    "topic": "series:do-not-answer-part-4.json"
   }
 ]
