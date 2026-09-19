@@ -118,5 +118,11 @@
     "slug": "someone-is-holding-the-button",
     "title": "Someone Is Holding The Button",
     "topic": "series:do-not-answer-part-4.json"
+  },
+  {
+    "date": "2026-09-19",
+    "slug": "i-answered",
+    "title": "I Answered",
+    "topic": "series:do-not-answer-part-5.json"
   }
 ]
