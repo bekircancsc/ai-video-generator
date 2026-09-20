@@ -124,5 +124,11 @@
     "slug": "i-answered",
     "title": "I Answered",
     "topic": "series:do-not-answer-part-5.json"
+  },
+  {
+    "date": "2026-09-20",
+    "slug": "there-was-a-building-here-before",
+    "title": "There Was A Building Here Before",
+    "topic": "series:before-this-one-part-1.json"
   }
 ]
