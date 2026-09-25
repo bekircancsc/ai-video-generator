@@ -58,6 +58,13 @@ test("the disclosure is set at insert time, not left to a second call", () => {
   assert.equal(buildUploadMetadata(listing).status.containsSyntheticMedia, true);
 });
 
+test("the video is declared English, so the feed tests it on English speakers", () => {
+  const { snippet } = buildUploadMetadata(listing);
+
+  assert.equal(snippet.defaultLanguage, "en");
+  assert.equal(snippet.defaultAudioLanguage, "en");
+});
+
 test("uploads are private and not made for kids unless told otherwise", () => {
   const { status } = buildUploadMetadata(listing);
 

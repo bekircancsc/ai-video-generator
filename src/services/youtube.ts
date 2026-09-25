@@ -7,6 +7,13 @@ const THUMBNAIL_URL = "https://www.googleapis.com/upload/youtube/v3/thumbnails/s
 /** People & Blogs. The same category the n8n workflow used. */
 export const DEFAULT_CATEGORY_ID = "24";
 
+/**
+ * The language every video is narrated in. Undeclared, YouTube guessed from
+ * the uploader and seeded the feed with Turkish viewers, who swiped past
+ * English narration and watched 22% of it on average.
+ */
+export const VIDEO_LANGUAGE = "en";
+
 /** YouTube's own limits. Exceeding any of them fails the upload outright. */
 export const TITLE_LIMIT = 100;
 export const DESCRIPTION_LIMIT = 5000;
@@ -56,6 +63,8 @@ export type UploadMetadata = {
     description: string;
     tags: string[];
     categoryId: string;
+    defaultLanguage: string;
+    defaultAudioLanguage: string;
   };
   status: {
     privacyStatus: string;
@@ -195,6 +204,8 @@ export function buildUploadMetadata({
       description: clamp(description, DESCRIPTION_LIMIT),
       tags: kept,
       categoryId,
+      defaultLanguage: VIDEO_LANGUAGE,
+      defaultAudioLanguage: VIDEO_LANGUAGE,
     },
     status: {
       privacyStatus,

@@ -1,10 +1,23 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import path from "node:path";
-import { buildResult, videoDurationSeconds } from "./result";
-import type { VideoPayload } from "../types/video";
+import { buildResult, HASHTAGS, openingLine, videoDurationSeconds } from "./result";
+import type { VideoPayload, VideoScene } from "../types/video";
 
 const rootDir = path.resolve("/repo");
+
+function scene(id: string, narration: string): VideoScene {
+  return {
+    id,
+    text: "",
+    subtext: "",
+    narration,
+    durationInFrames: 90,
+    themeColor: "#a8903c",
+    keywords: [],
+    imagePrompt: "p",
+  };
+}
 
 function payload(overrides: Partial<VideoPayload> = {}): VideoPayload {
   return {
@@ -83,8 +96,29 @@ test("a payload without youtube metadata falls back to the payload itself", () =
   });
 
   assert.equal(result.title, "Please Do Not Press Four");
-  assert.equal(result.description, "The fire map goes three, then five. The lift stops there anyway.");
+  assert.equal(result.description, `The fire map goes three, then five.\n\n${HASHTAGS.join(" ")}`);
   assert.deepEqual(result.tags, ["office", "horror", "lift"]);
+});
+
+test("the fallback description never gives away the ending", () => {
+  const result = buildResult({
+    payload: payload(),
+    videoLocation: path.join(rootDir, "out", "x.mp4"),
+    rootDir,
+  });
+
+  assert.doesNotMatch(result.description, /lift stops there anyway/);
+});
+
+test("the opening line is the first sentence, even when a scene carries several", () => {
+  assert.equal(
+    openingLine(payload({ scenes: [scene("a", "There are eleven of us. The roster lists twelve.")] })),
+    "There are eleven of us.",
+  );
+});
+
+test("an opening scene with no narration falls back to its on-screen text", () => {
+  assert.equal(openingLine(payload({ scenes: [{ ...scene("a", ""), text: "IT WAS NEVER TAKEN DOWN" }] })), "IT WAS NEVER TAKEN DOWN");
 });
 
 test("the duration accounts for the transition overlap", () => {

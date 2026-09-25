@@ -1,5 +1,6 @@
 import React from "react";
 import { AbsoluteFill, interpolate, Sequence, useCurrentFrame, useVideoConfig } from "remotion";
+import { HookTitle } from "./components/HookTitle";
 import { MusicBed } from "./components/MusicBed";
 import { Scene } from "./components/Scene";
 import { sceneStartFrames, timelineFrames, transitionFrames } from "./services/timing";
@@ -48,8 +49,8 @@ export const VideoRoot: React.FC<VideoRootProps> = ({ video }) => {
   const spans = speechSpans(video.scenes, starts, fps);
 
   return (
-    // The one place the video's typeface is set: `Scene` and
-    // `Captions` inherit it rather than each naming a family of its own.
+    // The one place the video's typeface is set: `Scene`, `Captions` and
+    // `HookTitle` inherit it rather than each naming a family of its own.
     <AbsoluteFill style={{ fontFamily: FONT_FAMILY }}>
       {video.musicSrc ? (
         <MusicBed src={video.musicSrc} spans={spans} totalFrames={totalFrames} />
@@ -60,6 +61,9 @@ export const VideoRoot: React.FC<VideoRootProps> = ({ video }) => {
           <DissolvingScene scene={scene} fadeInFrames={index === 0 ? 0 : overlap} />
         </Sequence>
       ))}
+      {/* Painted last so it sits over the opening scene; it clears itself after HOOK_SECONDS. */}
+      <HookTitle text={video.scenes[0].text} />
+
     </AbsoluteFill>
   );
 };

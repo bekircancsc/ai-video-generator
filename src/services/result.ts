@@ -51,6 +51,27 @@ function uniqueKeywords(payload: VideoPayload) {
 }
 
 /**
+ * Closes every fallback description. The first three show above the title in
+ * the Shorts player, so the genre comes first and `#shorts` last.
+ */
+export const HASHTAGS = ["#horror", "#analoghorror", "#scarystories", "#shorts"];
+
+/**
+ * The video's first sentence, which is its hook.
+ *
+ * Only the first: the description used to be the whole narration, which put
+ * the ending in writing under a video people had not finished yet. Falls back
+ * to the opening scene's on-screen text when that scene is silent.
+ */
+export function openingLine(payload: VideoPayload): string {
+  const first = payload.scenes[0];
+  const narration = first?.narration.trim() ?? "";
+  const sentence = narration.match(/^.*?[.!?]["')\]]*(?=\s|$)/)?.[0] ?? narration;
+
+  return sentence || first?.text.trim() || payload.title;
+}
+
+/**
  * How long the finished video runs.
  *
  * Not the sum of the scene durations: consecutive scenes overlap by the
@@ -69,8 +90,8 @@ export function videoDurationSeconds(payload: VideoPayload): number {
  *
  * The three fallbacks matter: a hand-written payload carries no `youtube`
  * block, and it must still be uploadable. Title falls back to the payload
- * title, description to the narration read end to end — which is, after all,
- * exactly what the video says — and tags to the scene keywords.
+ * title, description to the opening line and the hashtags, and tags to the
+ * scene keywords.
  */
 export function buildResult({
   payload,
@@ -83,18 +104,13 @@ export function buildResult({
   coverLocation?: string;
   rootDir: string;
 }): RunResult {
-  const narration = payload.scenes
-    .map((scene) => scene.narration.trim())
-    .filter(Boolean)
-    .join(" ");
-
   return {
     ok: true,
     mp4: relativePath(rootDir, videoLocation),
     ...(coverLocation ? { cover: relativePath(rootDir, coverLocation) } : {}),
     slug: path.basename(videoLocation, path.extname(videoLocation)),
     title: payload.youtube?.title || payload.title,
-    description: payload.youtube?.description || narration,
+    description: payload.youtube?.description || `${openingLine(payload)}\n\n${HASHTAGS.join(" ")}`,
     tags: payload.youtube?.tags?.length ? payload.youtube.tags : uniqueKeywords(payload),
     durationSeconds: videoDurationSeconds(payload),
   };

@@ -9,6 +9,13 @@
 /** Silence before the first word, so speech never starts on frame zero. */
 export const LEAD_IN_SECONDS = 0.25;
 
+/**
+ * How long the opening scene's `text` stays on screen as the hook. Shorts
+ * viewers decide in about this long whether to swipe, and on frame zero the
+ * voice has not started yet, so the words have to be on the picture already.
+ */
+export const HOOK_SECONDS = 2;
+
 /** Silence after the last word, so the cut does not clip the final syllable. */
 export const TAIL_SECONDS = 0.5;
 

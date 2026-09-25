@@ -37,7 +37,7 @@ const IMAGE_ZOOM_GROWTH = 0.08;
 
 /**
  * How hard the picture is pushed down so white text stays readable on it.
- * Heavier at the top and bottom, where the keyword badge and the captions sit.
+ * Heavier at the top and bottom, where the hook title and the captions sit.
  */
 const IMAGE_SCRIM =
   "linear-gradient(to bottom, rgba(2, 4, 9, 0.6) 0%, rgba(2, 4, 9, 0.22) 34%, " +

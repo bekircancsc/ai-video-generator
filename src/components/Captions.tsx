@@ -32,19 +32,23 @@ export const Captions: React.FC<CaptionsProps> = ({ words, themeColor }) => {
   }
 
   return (
+    // Above the bottom quarter, where the Shorts player lays the title, the
+    // channel name and the audio line over the video, and clear of the button
+    // column down the right edge. At 18% from the bottom and 44px the captions
+    // sat underneath that overlay.
     <div
       style={{
         position: "absolute",
         left: 0,
         right: 0,
-        bottom: "18%",
+        bottom: "30%",
         display: "flex",
         flexWrap: "wrap",
         justifyContent: "center",
         alignItems: "center",
-        gap: "6px 14px",
-        padding: "0 60px",
-        maxWidth: 820,
+        gap: "4px 18px",
+        padding: "0 130px",
+        maxWidth: 1080,
         margin: "0 auto",
       }}
     >
@@ -55,12 +59,13 @@ export const Captions: React.FC<CaptionsProps> = ({ words, themeColor }) => {
           <span
             key={`${word.start}-${index}`}
             style={{
-              fontSize: 44,
+              fontSize: 68,
               fontWeight: 800,
+              lineHeight: 1.1,
               letterSpacing: "-0.01em",
               textTransform: "uppercase",
               color: isActive ? themeColor : "#ffffff",
-              textShadow: "0 4px 18px rgba(2, 4, 9, 0.85)",
+              textShadow: "0 4px 18px rgba(2, 4, 9, 0.9), 0 0 3px rgba(2, 4, 9, 0.9)",
             }}
           >
             {word.word}
