@@ -1,0 +1,63 @@
+{
+  "title": "He Is Only There When I Look Away",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "cs3-hook",
+      "text": "HE'S ONLY THERE WHEN I LOOK AWAY",
+      "subtext": "The recording has him. The live feed doesn't.",
+      "narration": "There is a man on camera six who is only there when nobody is watching the monitor.",
+      "durationInFrames": 205,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "camera six",
+        "corridor",
+        "figure"
+      ],
+      "imagePrompt": "A dim office corridor at night with a man in a dark coat standing halfway down it, small in the frame, face lost in shadow, no face visible, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs3-tea",
+      "text": "I STAND UP. HE'S THERE.",
+      "subtext": "I sit down. He isn't.",
+      "narration": "The recording has him. The live feed never does. Every time I stand up to make tea, he is in the corridor. Every time I sit down, he isn't.",
+      "durationInFrames": 334,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "live feed",
+        "recording",
+        "kettle"
+      ],
+      "imagePrompt": "A kettle and a mug on a filing cabinet in a cramped security office at night, the glow of monitors reflected in the kettle, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs3-phone",
+      "text": "SO I FILMED THE MONITOR",
+      "subtext": "Ten minutes. Nobody in the chair.",
+      "narration": "Tonight I left my phone filming the monitor, and I walked away for ten minutes.",
+      "durationInFrames": 184,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "phone",
+        "filming",
+        "monitor"
+      ],
+      "imagePrompt": "A mobile phone propped against a coffee mug on a security desk, its camera pointed at a glowing CCTV monitor showing a corridor, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs3-chair",
+      "text": "HE WAS WATCHING MY CHAIR",
+      "subtext": "For the whole ten minutes.",
+      "narration": "On the phone he is in the corridor, facing the camera. For the whole ten minutes, he is watching my empty chair.",
+      "durationInFrames": 259,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "empty chair",
+        "watching",
+        "corridor"
+      ],
+      "imagePrompt": "A man in a dark coat standing in a corridor facing directly up at the camera, too far and too dark for any face to read, only a pale oval where it should be, no face visible, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    }
+  ]
+}

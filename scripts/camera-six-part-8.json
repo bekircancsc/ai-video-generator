@@ -1,0 +1,63 @@
+{
+  "title": "Nine Minutes On A Floor We Don't Have",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "cs8-hook",
+      "text": "HE CLIMBED TO A FLOOR WE DON'T HAVE",
+      "subtext": "Nine minutes on it.",
+      "narration": "The stairwell camera on three shows a man climbing past at two in the morning. The camera on five never sees him arrive.",
+      "durationInFrames": 269,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "stairwell",
+        "third floor",
+        "climbing"
+      ],
+      "imagePrompt": "A concrete stairwell at night with a painted number 3 on the wall, a man in a dark coat climbing the next flight, seen from behind, no face visible, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs8-between",
+      "text": "THERE IS NOTHING BETWEEN THREE AND FIVE",
+      "subtext": "No fourth floor.",
+      "narration": "Nine minutes later he comes back down past three. There is nothing between three and five. This building has no fourth floor.",
+      "durationInFrames": 259,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "no fourth floor",
+        "stairs",
+        "landing"
+      ],
+      "imagePrompt": "A stairwell landing between two flights of concrete stairs, the wall where a floor number should be painted over flat, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs8-coat",
+      "text": "HE CAME DOWN CARRYING A COAT",
+      "subtext": "Folded over his arm.",
+      "narration": "On the way down he is carrying something he did not have on the way up. A coat, folded over his arm.",
+      "durationInFrames": 259,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "folded coat",
+        "descending",
+        "stairwell"
+      ],
+      "imagePrompt": "A man descending concrete stairs with a second coat folded over his arm, his head turned away from the camera, no face visible, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs8-hook2",
+      "text": "MINE IS MISSING FROM THE HOOK",
+      "subtext": "Since Monday.",
+      "narration": "My coat has been missing from the hook since Monday.",
+      "durationInFrames": 130,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "coat hook",
+        "missing",
+        "staff room"
+      ],
+      "imagePrompt": "A row of coat hooks on a staff room wall at night, every hook holding a coat except one, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "title": "Eleven Minutes I Don't Remember",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "cs5-hook",
+      "text": "THE DOOR OPENED. NOT FROM IN HERE.",
+      "subtext": "Three in the morning.",
+      "narration": "On camera six, the security office door opened at three this morning. From in here, it never moved.",
+      "durationInFrames": 216,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "office door",
+        "open door",
+        "camera six"
+      ],
+      "imagePrompt": "A security office door standing wide open onto a dark corridor at night, light spilling out across the floor tiles, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs5-facing",
+      "text": "I WAS FACING IT",
+      "subtext": "Eleven minutes open.",
+      "narration": "I was facing it the whole time. The recording shows it swing in and stay open for eleven minutes.",
+      "durationInFrames": 227,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "eleven minutes",
+        "facing",
+        "recording"
+      ],
+      "imagePrompt": "A security desk facing a closed office door, a half-drunk mug of tea on the desk, monitors glowing on the side wall, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs5-inside",
+      "text": "THE INSIDE CAMERA SHOWS ME",
+      "subtext": "Not moving. For eleven minutes.",
+      "narration": "The camera inside this office shows the door shut. It also shows me at the desk, not moving at all, for eleven minutes.",
+      "durationInFrames": 269,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "inside camera",
+        "still",
+        "seated"
+      ],
+      "imagePrompt": "A night security officer sitting completely rigid at a desk facing a closed door, seen from behind and above, head bowed, no face visible, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs5-tea",
+      "text": "I REMEMBER THE TEA GOING COLD",
+      "subtext": "Nothing else.",
+      "narration": "I have been trying to remember those eleven minutes. All I remember is the tea going cold.",
+      "durationInFrames": 205,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "cold tea",
+        "memory",
+        "mug"
+      ],
+      "imagePrompt": "Close view of a mug of tea on a desk with a skin formed on its surface, lit by the flicker of a monitor wall, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    }
+  ]
+}

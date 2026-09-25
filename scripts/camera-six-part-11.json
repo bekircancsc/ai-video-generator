@@ -1,0 +1,63 @@
+{
+  "title": "The Footage Is Dated Tomorrow",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "cs11-hook",
+      "text": "THE FOOTAGE IS DATED TOMORROW",
+      "subtext": "Eight hours. Every camera.",
+      "narration": "The recorder has footage on it dated tomorrow night. Eight hours of it, from every camera.",
+      "durationInFrames": 194,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "recorder",
+        "tomorrow",
+        "footage"
+      ],
+      "imagePrompt": "A rack-mounted digital video recorder in a dark security office, its green activity lights blinking, cables hanging below, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs11-normal",
+      "text": "MOSTLY, NOTHING HAPPENS",
+      "subtext": "The cleaners come on time.",
+      "narration": "Most of it is empty corridors. The lights go off on their timers. The cleaners come at the right time.",
+      "durationInFrames": 237,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "empty corridors",
+        "timers",
+        "cleaners"
+      ],
+      "imagePrompt": "A long office corridor with half its ceiling lights switched off, a cleaning trolley parked against the wall, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs11-fire",
+      "text": "AT 2:14 I WALK TO THE FIRE DOOR",
+      "subtext": "Not toward the lift.",
+      "narration": "At two fourteen, camera six shows me leaving the office. This time I do not go toward the lift. I go to the fire door.",
+      "durationInFrames": 291,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "fire door",
+        "two fourteen",
+        "walking"
+      ],
+      "imagePrompt": "A man in a dark coat walking toward a fire door at the end of a tiled corridor, torch in hand, seen from behind, no face visible, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs11-alarm",
+      "text": "THE ALARM DOESN'T GO OFF",
+      "subtext": "I'm going to find out if it does.",
+      "narration": "The fire door is alarmed. On the recording, it does not go off. Tomorrow night I am going to find out.",
+      "durationInFrames": 248,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "alarm",
+        "push bar",
+        "fire exit"
+      ],
+      "imagePrompt": "A fire exit door with a red push bar and a wall-mounted alarm box beside it, a green exit sign glowing above, the whole scene in amber, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    }
+  ]
+}

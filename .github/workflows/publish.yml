@@ -81,6 +81,7 @@ jobs:
             scripts/night-shift
             scripts/do-not-answer
             scripts/before-this-one
+            scripts/camera-six
         run: |
           # The button publishes one named arc; the schedule plays the queue.
           arcs="${SERIES_OVERRIDE:-$SERIES_QUEUE}"

@@ -1,0 +1,63 @@
+{
+  "title": "This Time I'm The One Leaving",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "cs15-hook",
+      "text": "NOW I'M ON CAMERA SIX",
+      "subtext": "He's at my desk.",
+      "narration": "Tonight I am the one on camera six. I am standing in the corridor, and the man is at my desk, watching me on the monitor.",
+      "durationInFrames": 302,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "camera six",
+        "corridor",
+        "my desk"
+      ],
+      "imagePrompt": "Looking through the wire glass window of a security office door from the corridor, a man in a dark coat at the desk inside facing the monitors, seen from behind, no face visible, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs15-him",
+      "text": "MY COAT. MY TORCH. MY TEA.",
+      "subtext": "He favours his left leg.",
+      "narration": "I can see him through the glass. He has my coat, my torch, my tea. He favours his left leg when he stands.",
+      "durationInFrames": 269,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "coat",
+        "torch",
+        "left leg"
+      ],
+      "imagePrompt": "A man in a dark coat rising from a security desk, weight on one leg, a mug of tea in his hand, seen from behind through glass, no face visible, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs15-rule",
+      "text": "HE NEVER LOOKS UP",
+      "subtext": "That's the only rule.",
+      "narration": "He does not look up. He never looks up. That is the only rule, and he knows it better than I did.",
+      "durationInFrames": 259,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "never look up",
+        "rule",
+        "monitors"
+      ],
+      "imagePrompt": "A man seated at a wall of CCTV monitors with his head bowed toward the desk, the screens lighting his shoulders, seen from behind, no face visible, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs15-loop",
+      "text": "CAMERA SIX SHOWS ME LEAVING",
+      "subtext": "At two fourteen.",
+      "narration": "I am going toward the lift now. Whoever is at that desk, this is for you. Camera six shows me leaving at two fourteen.",
+      "durationInFrames": 280,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "leaving",
+        "lift",
+        "two fourteen"
+      ],
+      "imagePrompt": "A long empty office corridor at night outside a security office door, a single figure in a dark coat walking away toward a lift at the far end, seen from behind, no face visible, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    }
+  ]
+}

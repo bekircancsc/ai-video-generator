@@ -1,0 +1,63 @@
+{
+  "title": "He Signed In Under My Name",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "cs9-hook",
+      "text": "HE SIGNED IN UNDER MY NAME",
+      "subtext": "Reception locks at seven.",
+      "narration": "The reception camera shows a man signing the visitors' book at one in the morning. Reception locks at seven.",
+      "durationInFrames": 227,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "reception",
+        "visitors book",
+        "signing in"
+      ],
+      "imagePrompt": "An office reception desk at night, a man in a dark coat bent over an open visitors' book, pen in hand, seen from behind, no face visible, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs9-book",
+      "text": "VISITING: SECURITY",
+      "subtext": "Name: mine.",
+      "narration": "I went and read the book. The line is there, in fountain pen. Visiting, security. Name, mine.",
+      "durationInFrames": 205,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "fountain pen",
+        "ledger",
+        "name"
+      ],
+      "imagePrompt": "Close view of an open visitors' book on a reception desk, a fresh line of wet fountain pen ink at the bottom of the page, lettering unreadable, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs9-out",
+      "text": "HE NEVER SIGNED OUT",
+      "subtext": "Every other visitor did.",
+      "narration": "The time out column is empty. Every visitor this year has signed out except him.",
+      "durationInFrames": 184,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "time out",
+        "column",
+        "empty"
+      ],
+      "imagePrompt": "A ruled column of signatures in a visitors' book with the last box conspicuously empty, lit by a desk lamp, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs9-visiting",
+      "text": "HE'S STILL IN THE BUILDING",
+      "subtext": "Visiting me.",
+      "narration": "According to the book, he is still in the building. According to the book, he is visiting me.",
+      "durationInFrames": 216,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "still inside",
+        "visitor",
+        "security office"
+      ],
+      "imagePrompt": "A dark office corridor leading from reception to a lit security office door at the far end, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    }
+  ]
+}

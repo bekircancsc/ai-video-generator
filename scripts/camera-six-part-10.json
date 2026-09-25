@@ -1,0 +1,63 @@
+{
+  "title": "We Only Have Fifteen Cameras",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "cs10-hook",
+      "text": "WE HAVE 15 CAMERAS. 16 ARE ON.",
+      "subtext": "The sixteenth has no number.",
+      "narration": "There are fifteen cameras in this building. Tonight the monitor wall has sixteen screens lit.",
+      "durationInFrames": 184,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "monitor wall",
+        "sixteen screens",
+        "cameras"
+      ],
+      "imagePrompt": "A wall of CCTV monitors in a dark security office, every screen glowing, the one in the bottom corner brighter than the rest, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs10-room",
+      "text": "IT SHOWS A SMALL ROOM",
+      "subtext": "A desk and a wall of screens.",
+      "narration": "The sixteenth is not in the system. It has no number. It shows a small room with a desk and a wall of screens.",
+      "durationInFrames": 280,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "small room",
+        "desk",
+        "screens"
+      ],
+      "imagePrompt": "A small security office seen on a grainy monitor, a desk and a wall of screens, filmed from high in a corner, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs10-this",
+      "text": "IT'S THIS ROOM",
+      "subtext": "Filmed from where there's no camera.",
+      "narration": "It is this room. It is filmed from the corner above the door, where there is no camera.",
+      "durationInFrames": 216,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "corner",
+        "above the door",
+        "this room"
+      ],
+      "imagePrompt": "The empty upper corner of a small office above a door, plain painted plaster, no camera mounted, lit by monitor glow, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs10-up",
+      "text": "ON SCREEN, SOMEONE LOOKS UP TOO",
+      "subtext": "In my chair.",
+      "narration": "I looked up. There is nothing in the corner. On screen sixteen, somebody in my chair is looking up at it too.",
+      "durationInFrames": 259,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "looking up",
+        "my chair",
+        "screen sixteen"
+      ],
+      "imagePrompt": "A man in a dark coat sitting in a security office chair tilting his head back to look up at the ceiling corner, his face in deep shadow, no face visible, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    }
+  ]
+}

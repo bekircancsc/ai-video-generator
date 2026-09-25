@@ -1,0 +1,63 @@
+{
+  "title": "He Left Me A Handover Note",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "cs13-hook",
+      "text": "I WORK ALONE. HE LEFT A NOTE.",
+      "subtext": "A handover note.",
+      "narration": "Somebody left a handover note on the security desk tonight. I have been the only one on nights for nine years.",
+      "durationInFrames": 248,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "handover note",
+        "security desk",
+        "alone"
+      ],
+      "imagePrompt": "A single handwritten note lying squared up on an empty security desk under a lamp, a torch placed neatly beside it, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs13-list",
+      "text": "EVERYTHING ON IT IS TRUE",
+      "subtext": "Lift chained. One box unopened.",
+      "narration": "It is a proper note. Cameras checked. Lift chained. One delivery for the office, not opened. The car wants fuel.",
+      "durationInFrames": 237,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "checklist",
+        "lift chained",
+        "delivery"
+      ],
+      "imagePrompt": "Close view of a lined handover sheet with a column of ticked boxes, handwriting too small to read, a biro across it, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs13-signed",
+      "text": "SIGNED BY THE NIGHT OFFICER",
+      "subtext": "That's me.",
+      "narration": "Everything on it happened this week. It is signed off by the night officer.",
+      "durationInFrames": 173,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "signature",
+        "night officer",
+        "signed off"
+      ],
+      "imagePrompt": "The bottom of a handwritten note with a looping signature in black ink, a dried tea ring beside it on the desk, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs13-rule",
+      "text": "DON'T LOOK AT CAMERA SIX",
+      "subtext": "Not until you've sat down.",
+      "narration": "At the bottom it says, handing over to you at two fourteen. Do not look at camera six until you have sat down.",
+      "durationInFrames": 269,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "instruction",
+        "camera six",
+        "sit down"
+      ],
+      "imagePrompt": "An empty office chair pulled out from a security desk, facing a wall of monitors, one screen in the middle glowing brighter, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    }
+  ]
+}

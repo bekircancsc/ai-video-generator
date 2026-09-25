@@ -1,0 +1,63 @@
+{
+  "title": "One Tile Closer Every Night",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "cs4-hook",
+      "text": "HE IS CLOSER EVERY NIGHT",
+      "subtext": "One floor tile at a time.",
+      "narration": "The man on camera six is one floor tile closer to the lens every night.",
+      "durationInFrames": 184,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "floor tiles",
+        "camera six",
+        "closer"
+      ],
+      "imagePrompt": "A corridor of worn square floor tiles leading to a fire door, a man in a dark coat standing on the tiles partway down, seen from behind, no face visible, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs4-count",
+      "text": "I COUNTED THE TILES BACK",
+      "subtext": "He started at the fire door.",
+      "narration": "I lined up every night this month and counted the tiles back. On the first of the month he was standing at the fire door.",
+      "durationInFrames": 291,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "counting",
+        "fire door",
+        "month"
+      ],
+      "imagePrompt": "A far fire door with a small wired glass window at the end of a long tiled corridor, a pale shape standing just in front of it, no face visible, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs4-under",
+      "text": "TONIGHT HE'S UNDER THE CAMERA",
+      "subtext": "His head fills the bottom of the frame.",
+      "narration": "Tonight he is right under the camera. The top of his head fills the bottom of the frame.",
+      "durationInFrames": 216,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "under the camera",
+        "top of head",
+        "close"
+      ],
+      "imagePrompt": "Looking straight down from a ceiling camera at the top of a man's head and the shoulders of a dark wet coat, filling the bottom of the frame, no face visible, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs4-door",
+      "text": "NO MORE TILES. ONLY THE DOOR.",
+      "subtext": "The office door.",
+      "narration": "There are no tiles left between him and the lens. After tonight there is only the office door.",
+      "durationInFrames": 216,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "office door",
+        "security office",
+        "threshold"
+      ],
+      "imagePrompt": "A plain security office door with a small wire glass window, seen from inside the room, the corridor beyond dark, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    }
+  ]
+}

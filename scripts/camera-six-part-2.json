@@ -1,0 +1,63 @@
+{
+  "title": "The Lift Was Chained Off All Night",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "cs2-hook",
+      "text": "THE LIFT MOVED. I CHAINED IT.",
+      "subtext": "Forty minutes of footage.",
+      "narration": "The lift camera recorded forty minutes of footage last night. The lift was chained off all night. I put the chain on myself.",
+      "durationInFrames": 269,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "lift camera",
+        "chained lift",
+        "footage"
+      ],
+      "imagePrompt": "The inside of an old office lift car, brushed steel walls, the doors closed, a heavy chain looped across the inside of the doors, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs2-floors",
+      "text": "IT WENT UP. ONE FLOOR AT A TIME.",
+      "subtext": "You can see the light change.",
+      "narration": "The footage shows the car moving. You can see the light through the door gap change, one floor at a time.",
+      "durationInFrames": 248,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "lift",
+        "floor light",
+        "door gap"
+      ],
+      "imagePrompt": "A thin line of light spilling through the gap between closed lift doors onto a steel floor, the light a different colour from the car's own ceiling panel, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs2-man",
+      "text": "HE NEVER PRESSES ANYTHING",
+      "subtext": "Back to the lens.",
+      "narration": "A man stands in the back corner with his back to the lens. He never presses a button. The lift goes where he wants.",
+      "durationInFrames": 280,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "back corner",
+        "passenger",
+        "lift buttons"
+      ],
+      "imagePrompt": "A tall man in a long dark coat standing in the back corner of an office lift facing the wall, completely still, seen from behind, no face visible, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs2-chain",
+      "text": "THE PADLOCK WAS ON THE INSIDE",
+      "subtext": "The chain was still on.",
+      "narration": "This morning the chain was still across the doors. The padlock was on the inside.",
+      "durationInFrames": 184,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "padlock",
+        "chain",
+        "lift doors"
+      ],
+      "imagePrompt": "Close view of a brass padlock hanging from a chain across the inside of closed steel lift doors, scuffed steel, a faint wet footprint on the floor beside it, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    }
+  ]
+}

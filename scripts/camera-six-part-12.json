@@ -1,0 +1,63 @@
+{
+  "title": "Behind The Fire Door",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "cs12-hook",
+      "text": "THE FIRE DOOR LEADS BACK HERE",
+      "subtext": "No alarm.",
+      "narration": "I opened the alarmed fire door at two fourteen tonight. Nothing went off.",
+      "durationInFrames": 162,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "fire door",
+        "no alarm",
+        "two fourteen"
+      ],
+      "imagePrompt": "A fire door pushed open onto darkness, the push bar depressed, a torch beam reaching into the gap, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs12-corridor",
+      "text": "SAME CARPET. SAME LIGHTS.",
+      "subtext": "Same office door at the end.",
+      "narration": "Behind it there should be the back stairs. There is a corridor. Same carpet, same lights, same security office at the end of it.",
+      "durationInFrames": 280,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "corridor",
+        "same carpet",
+        "security office"
+      ],
+      "imagePrompt": "A corridor identical to the one before it, the same worn carpet and ceiling lights, a lit security office door at the far end, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs12-desk",
+      "text": "SOMEONE IS AT THE DESK",
+      "subtext": "Back to me. Watching the screens.",
+      "narration": "The office door is open. Somebody is at the desk with his back to me, watching the monitor wall.",
+      "durationInFrames": 227,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "desk",
+        "monitor wall",
+        "back turned"
+      ],
+      "imagePrompt": "Through an open office doorway, a man in a dark coat sitting at a security desk facing a wall of glowing monitors, seen from behind, no face visible, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs12-screen",
+      "text": "I'M ON HIS SCREEN",
+      "subtext": "Looking at the back of my own head.",
+      "narration": "On his screen is camera six. On camera six I am standing in a doorway, looking at the back of my own head.",
+      "durationInFrames": 269,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "camera six",
+        "doorway",
+        "own head"
+      ],
+      "imagePrompt": "A grainy CCTV monitor showing a figure standing in an office doorway with a torch, the monitor itself filling the frame, no face visible, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    }
+  ]
+}

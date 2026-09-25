@@ -1,0 +1,63 @@
+{
+  "title": "A Delivery Nobody Could Have Made",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "cs7-hook",
+      "text": "A DELIVERY, SIGNED BY ME",
+      "subtext": "Three in the morning.",
+      "narration": "The loading bay camera shows a delivery at three this morning. We take no deliveries at night, and the shutter was locked.",
+      "durationInFrames": 259,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "loading bay",
+        "delivery",
+        "shutter"
+      ],
+      "imagePrompt": "An empty concrete loading bay at night with a roller shutter half raised onto pure darkness outside, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs7-box",
+      "text": "ONE BOX. OUT OF THE DARK.",
+      "subtext": "No van. Nobody outside.",
+      "narration": "The shutter goes up on its own. No van. A man in a long coat carries one box in from the dark and sets it down.",
+      "durationInFrames": 302,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "box",
+        "long coat",
+        "dark"
+      ],
+      "imagePrompt": "A man in a long dark coat bending to set a cardboard box down on a loading bay floor, the open shutter behind him black, seen from behind, no face visible, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs7-name",
+      "text": "IT'S ADDRESSED TO ME",
+      "subtext": "Security office.",
+      "narration": "The box is still there. It is addressed to the security office, to me by name.",
+      "durationInFrames": 194,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "parcel",
+        "address label",
+        "security office"
+      ],
+      "imagePrompt": "A single cardboard box sitting alone in the middle of a concrete loading bay floor under one working ceiling light, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs7-signed",
+      "text": "IT'S SIGNED FOR IN MY HAND",
+      "subtext": "I have not opened it.",
+      "narration": "The delivery note is signed for, in my handwriting. I have not opened the box.",
+      "durationInFrames": 184,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "delivery note",
+        "signature",
+        "clipboard"
+      ],
+      "imagePrompt": "A clipboard with a carbon delivery note lying on a sealed cardboard box, a biro beside it, lit by a torch, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    }
+  ]
+}

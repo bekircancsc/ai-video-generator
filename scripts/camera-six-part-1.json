@@ -1,0 +1,63 @@
+{
+  "title": "Camera Six Shows Me Leaving",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "cs1-hook",
+      "text": "IT SHOWS ME LEAVING. I'M STILL HERE.",
+      "subtext": "Camera six, two fourteen.",
+      "narration": "Camera six shows me leaving the security office at two fourteen. At two fourteen I was sitting here, watching camera six.",
+      "durationInFrames": 248,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "security monitor",
+        "corridor camera",
+        "night shift"
+      ],
+      "imagePrompt": "A long empty office corridor at night outside a security office door, a single figure in a dark coat walking away toward a lift at the far end, seen from behind, no face visible, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs1-rewind",
+      "text": "SAME COAT. SAME TORCH.",
+      "subtext": "Same limp on the left leg.",
+      "narration": "I rewound it. Same coat, same torch. He favours his left leg, the way I do. He goes out of shot toward the lift.",
+      "durationInFrames": 280,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "rewind",
+        "torch",
+        "coat"
+      ],
+      "imagePrompt": "A man in a dark coat holding a lit torch at his side, frozen mid-step in a dim corridor, blurred by motion, seen from behind, no face visible, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs1-log",
+      "text": "HE NEVER CAME BACK",
+      "subtext": "The door log agrees.",
+      "narration": "Nobody comes back in. The door log agrees with the camera. It says I left, and it says I have not come back.",
+      "durationInFrames": 269,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "door log",
+        "access record",
+        "printout"
+      ],
+      "imagePrompt": "A dot matrix access log printout lying on a cluttered security desk beside a cold mug of tea, lit only by the glow of a monitor wall, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs1-loop",
+      "text": "I HAVEN'T CHECKED SINCE",
+      "subtext": "I am still at the desk.",
+      "narration": "I am still at the desk. I have not looked at it again. Camera six shows me leaving at two fourteen.",
+      "durationInFrames": 248,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "security desk",
+        "monitor wall",
+        "empty chair"
+      ],
+      "imagePrompt": "A small security office at night, a wall of sixteen glowing monitors above a desk, an office chair turned toward the screens, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    }
+  ]
+}

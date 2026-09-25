@@ -1,0 +1,63 @@
+{
+  "title": "My Car Left Without Me",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "cs6-hook",
+      "text": "MY CAR LEFT. I DIDN'T.",
+      "subtext": "My keys were on this desk.",
+      "narration": "The car park camera shows my car leaving at four this morning. My keys have been on this desk since I came in.",
+      "durationInFrames": 269,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "car park",
+        "my car",
+        "keys"
+      ],
+      "imagePrompt": "An underground office car park at night, a single saloon car pulling out of its bay with its headlights on, the driver hidden by glare on the windscreen, no face visible, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs6-back",
+      "text": "IT CAME BACK AT FIVE PAST FIVE",
+      "subtext": "Parked crooked, the way I park.",
+      "narration": "It comes back at five past five and parks in the same bay, a little crooked, the way I park.",
+      "durationInFrames": 237,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "parking bay",
+        "crooked",
+        "headlights"
+      ],
+      "imagePrompt": "A saloon car parked slightly crooked across the lines of a bay in an empty underground car park, headlights just switched off, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs6-rain",
+      "text": "THE BONNET WAS WARM",
+      "subtext": "There was rain on the windscreen.",
+      "narration": "I went down with a torch. The bonnet was warm. There was rain on the windscreen, and it has not rained tonight.",
+      "durationInFrames": 259,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "torch",
+        "windscreen",
+        "rain"
+      ],
+      "imagePrompt": "A torch beam across the rain-beaded windscreen of a parked car in a dry concrete car park, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs6-seat",
+      "text": "SOMEONE MOVED MY SEAT BACK",
+      "subtext": "Set for somebody taller.",
+      "narration": "The driver's seat has been moved back two notches. I have not moved that seat in nine years.",
+      "durationInFrames": 216,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "driver's seat",
+        "moved",
+        "taller"
+      ],
+      "imagePrompt": "Looking through a car window at an empty driver's seat pushed far back from the wheel, a torch beam on the seat runner, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    }
+  ]
+}

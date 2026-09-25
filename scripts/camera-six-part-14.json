@@ -1,0 +1,63 @@
+{
+  "title": "He Turned Around On Camera Six",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "cs14-hook",
+      "text": "HE TURNED AROUND",
+      "subtext": "After a month with his back to me.",
+      "narration": "Tonight the man on camera six turned around. After a month with his back to the lens, he looked up at it.",
+      "durationInFrames": 259,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "turned around",
+        "camera six",
+        "looking up"
+      ],
+      "imagePrompt": "A man in a dark coat in a dim corridor turning toward a ceiling camera, his face blown out into a white smear of lens flare, no face visible, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs14-flare",
+      "text": "THE LENS FLARES WHERE HIS FACE IS",
+      "subtext": "Like a torch into the glass.",
+      "narration": "His face is not there. The lens flares where it should be, the way it does when somebody shines a torch into it.",
+      "durationInFrames": 269,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "lens flare",
+        "torch",
+        "glass"
+      ],
+      "imagePrompt": "A bright circular lens flare burning out the middle of a grainy CCTV frame of a corridor, a dark coated shape around it, no face visible, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs14-torch",
+      "text": "I HAVE THE ONLY TORCH",
+      "subtext": "He's holding it.",
+      "narration": "I carry a torch. It is the only one in the building. On the recording, he is holding it up.",
+      "durationInFrames": 237,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "torch",
+        "only one",
+        "holding"
+      ],
+      "imagePrompt": "A heavy black security torch lying switched off on a desk beside a CCTV monitor showing a bright flare, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "cs14-brighter",
+      "text": "I SWITCHED MINE ON. HIS GOT BRIGHTER.",
+      "subtext": "On camera six.",
+      "narration": "I have just switched mine on to check it. On camera six, the flare got brighter.",
+      "durationInFrames": 194,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "switched on",
+        "brighter",
+        "camera six"
+      ],
+      "imagePrompt": "A torch beam in a dark security office pointed at nothing, a CCTV monitor beside it showing a corridor flare flooding white, no people, seen from a high corner security camera, wide-angle lens distortion, soft low-resolution video texture, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    }
+  ]
+}
