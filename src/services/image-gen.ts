@@ -40,7 +40,21 @@ export type ImageConfig = {
   apiKey?: string;
   width: number;
   height: number;
+  /** How long to wait before each retry of a refused request. Empty means one attempt. */
+  retryDelaysMs?: number[];
 };
+
+/**
+ * Since 2026-09-28 pollinations serves an unauthenticated caller about one
+ * image every two to three minutes and answers anything sooner with an empty
+ * 402. Asked back to back, every scene after the first fell back to the drawn
+ * background, on every nightly video. Waiting it out costs a few minutes of a
+ * runner; not waiting cost the pictures.
+ */
+const POLLINATIONS_RETRY_DELAYS_MS = [45_000, 90_000, 120_000];
+
+/** Statuses that mean "not now" rather than "never": worth waiting for. */
+const RETRYABLE_STATUSES = new Set([402, 429, 500, 502, 503, 504]);
 
 export function resolveImageConfig(env: NodeJS.ProcessEnv = process.env): ImageConfig {
   const provider = (env.IMAGE_PROVIDER || defaultImageProvider).toLowerCase();
@@ -53,7 +67,10 @@ export function resolveImageConfig(env: NodeJS.ProcessEnv = process.env): ImageC
     return {
       provider: "pollinations",
       model: env.IMAGE_MODEL || defaultPollinationsModel,
+      // Optional. A free pollinations account's token lifts the anonymous rate limit.
+      apiKey: env.IMAGE_API_KEY || undefined,
       ...POLLINATIONS_SIZE,
+      retryDelaysMs: POLLINATIONS_RETRY_DELAYS_MS,
     };
   }
 
@@ -109,13 +126,42 @@ async function generateWithPollinations(prompt: string, seed: number, config: Im
     nologo: "true",
   });
 
-  const response = await fetchWithTimeout(`${POLLINATIONS_URL}/${encodeURIComponent(prompt)}?${query}`);
+  const url = `${POLLINATIONS_URL}/${encodeURIComponent(prompt)}?${query}`;
+  // The token goes in a header, never the URL, so it stays out of logs.
+  const init = config.apiKey ? { headers: { Authorization: `Bearer ${config.apiKey}` } } : undefined;
+  const delays = config.retryDelaysMs ?? [];
 
-  if (!response.ok) {
-    throw describeImageError("pollinations", response.status, await response.text());
+  for (let attempt = 0; ; attempt++) {
+    let refusal: Error;
+
+    try {
+      const response = await fetchWithTimeout(url, init);
+
+      if (response.ok) {
+        return Buffer.from(await response.arrayBuffer());
+      }
+
+      refusal = describeImageError("pollinations", response.status, await response.text());
+
+      if (!RETRYABLE_STATUSES.has(response.status)) {
+        throw refusal;
+      }
+    } catch (error) {
+      // A timed-out request is retried like a refusal; anything else is final.
+      if (!(error instanceof Error) || error.name !== "AbortError") {
+        throw error;
+      }
+
+      refusal = error;
+    }
+
+    if (attempt >= delays.length) {
+      throw refusal;
+    }
+
+    console.log(`[imagery] pollinations refused (${refusal.message}), retrying in ${delays[attempt] / 1000}s`);
+    await new Promise((resolve) => setTimeout(resolve, delays[attempt]));
   }
-
-  return Buffer.from(await response.arrayBuffer());
 }
 
 async function generateWithTogether(prompt: string, seed: number, config: ImageConfig): Promise<Buffer> {

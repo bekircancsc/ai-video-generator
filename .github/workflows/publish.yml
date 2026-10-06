@@ -75,6 +75,9 @@ jobs:
           SCRIPT_PROVIDER: groq
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
           TTS_VOICE: daniel
+          # Optional free pollinations token. Without it the images come from
+          # the anonymous tier: one every few minutes, on a weaker model.
+          IMAGE_API_KEY: ${{ secrets.POLLINATIONS_TOKEN }}
           SERIES_OVERRIDE: ${{ inputs.series }}
           SERIES_QUEUE: |
             scripts/floor-four

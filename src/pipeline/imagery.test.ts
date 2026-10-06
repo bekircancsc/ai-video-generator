@@ -62,8 +62,9 @@ test("the none provider leaves every scene untouched and makes no request", asyn
 });
 
 test("a provider failure falls back instead of throwing", async () => {
+  // A 400 rather than a 500: pollinations waits minutes for a 500 to clear.
   const original = globalThis.fetch;
-  globalThis.fetch = (async () => new Response("boom", { status: 500 })) as typeof globalThis.fetch;
+  globalThis.fetch = (async () => new Response("bad prompt", { status: 400 })) as typeof globalThis.fetch;
 
   try {
     process.env.IMAGE_PROVIDER = "pollinations";

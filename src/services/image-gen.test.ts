@@ -104,13 +104,85 @@ test("an unsigned 32-bit seed is folded into the range providers accept", async 
   );
 });
 
+/** The default config, minus the minutes of waiting a test cannot afford. */
+const noWait = (delays: number[] = []) => ({ ...resolveImageConfig({}), retryDelaysMs: delays });
+
 test("a failed request throws a provider-specific error", async () => {
   await withFetch(
     (async () => new Response("boom", { status: 500 })) as typeof globalThis.fetch,
     async () => {
-      await assert.rejects(() => generateImage("x", 1, resolveImageConfig({})), /pollinations/);
+      await assert.rejects(() => generateImage("x", 1, noWait()), /pollinations/);
     }
   );
+});
+
+test("pollinations waits out a 402 and asks again", async () => {
+  const statuses = [402, 402, 200];
+  let calls = 0;
+
+  await withFetch(
+    (async () => {
+      const status = statuses[calls++];
+      return status === 200 ? new Response(new Uint8Array([9]), { status }) : new Response("{}", { status });
+    }) as typeof globalThis.fetch,
+    async () => {
+      const bytes = await generateImage("x", 1, noWait([0, 0, 0]));
+      assert.deepEqual([...bytes], [9]);
+      assert.equal(calls, 3);
+    }
+  );
+});
+
+test("pollinations gives up once the waits run out", async () => {
+  let calls = 0;
+
+  await withFetch(
+    (async () => {
+      calls++;
+      return new Response("{}", { status: 402 });
+    }) as typeof globalThis.fetch,
+    async () => {
+      await assert.rejects(() => generateImage("x", 1, noWait([0, 0])), /402/);
+      assert.equal(calls, 3);
+    }
+  );
+});
+
+test("a refusal that will not change is not retried", async () => {
+  let calls = 0;
+
+  await withFetch(
+    (async () => {
+      calls++;
+      return new Response("bad prompt", { status: 400 });
+    }) as typeof globalThis.fetch,
+    async () => {
+      await assert.rejects(() => generateImage("x", 1, noWait([0, 0])), /400/);
+      assert.equal(calls, 1);
+    }
+  );
+});
+
+test("a pollinations token travels in a header, not the URL", async () => {
+  let url = "";
+  let auth: string | null = null;
+
+  await withFetch(
+    (async (input: any, init?: RequestInit) => {
+      url = String(input);
+      auth = new Headers(init?.headers).get("authorization");
+      return new Response(new Uint8Array([1]), { status: 200 });
+    }) as typeof globalThis.fetch,
+    async () => {
+      await generateImage("x", 1, { ...resolveImageConfig({ IMAGE_API_KEY: "tok" }), retryDelaysMs: [] });
+      assert.equal(auth, "Bearer tok");
+      assert.doesNotMatch(url, /tok/);
+    }
+  );
+});
+
+test("the default config waits for pollinations rather than giving up at once", () => {
+  assert.ok((resolveImageConfig({}).retryDelaysMs ?? []).length > 0);
 });
 
 test("an empty body is an error, not an empty image", async () => {
