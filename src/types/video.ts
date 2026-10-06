@@ -55,6 +55,9 @@ export const videoPayloadSchema = z.object({
   // scene that has one, which is the opening scene whenever its image
   // generated. Set it when a later scene carries the better thumbnail.
   coverSceneId: z.string().optional(),
+  // The arc's name, which titles its playlist. Read from part 1 only; an arc
+  // without it gets its prefix title-cased ("camera-six" -> "Camera Six").
+  seriesTitle: z.string().optional(),
 });
 
 export type VideoScene = z.infer<typeof videoSceneSchema>;

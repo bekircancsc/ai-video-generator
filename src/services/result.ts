@@ -1,6 +1,7 @@
 import path from "node:path";
 import type { VideoPayload } from "../types/video";
 import { timelineFrames, transitionFrames } from "./timing";
+import type { SeriesPlaylist } from "./playlist";
 
 /**
  * What a `--json` run prints on success.
@@ -32,6 +33,8 @@ export type RunResult = {
    * render rather than `buildResult`, which knows the payload and not the arc.
    */
   queueRemaining?: number;
+  /** The arc this part belongs to, for its playlist. Present only on a `--series` run. */
+  series?: SeriesPlaylist;
 };
 
 /** What a `--json` run prints when a stage aborted the render. */

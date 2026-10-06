@@ -12,6 +12,7 @@ import {
   watchUrl,
 } from "../services/youtube";
 import { sendMessage } from "../services/telegram";
+import { syncSeriesPlaylist } from "../services/playlist";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -138,6 +139,21 @@ export async function publish(result: RunResult, publishAt?: string): Promise<st
       console.log("Cover set.");
     } catch (error) {
       console.warn(`[cover] ${error instanceof Error ? error.message : String(error)}`);
+    }
+  }
+
+  // Tolerated on failure like the cover: the next night's run adds whatever
+  // this one missed, because the playlist is rebuilt from the uploads by title.
+  if (result.series) {
+    try {
+      const { added, created } = await syncSeriesPlaylist({
+        token,
+        series: result.series,
+        justUploaded: { title: result.title, videoId },
+      });
+      console.log(`Playlist "${result.series.title}": ${created ? "created, " : ""}${added} added.`);
+    } catch (error) {
+      console.warn(`[playlist] ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 

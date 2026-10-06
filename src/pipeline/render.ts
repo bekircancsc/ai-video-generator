@@ -16,6 +16,7 @@ import { buildResult, type RunFailure } from "../services/result";
 import { appendHistory, readHistory, recentTitles } from "../services/history";
 import { exhaustedQueueMessage, loadArcs, nextInQueue, seriesTopic, unpublishedCount } from "../services/series";
 import { stageOutputs } from "../services/stage";
+import { titleFromPrefix, type SeriesPlaylist } from "../services/playlist";
 import { saveDraft } from "../services/draft";
 import type { VideoPayload } from "../types/video";
 import type { ScriptBrief } from "../services/script-schema";
@@ -169,6 +170,7 @@ if (isDirectRun) {
     // before the render so the arithmetic is done while the queue is loaded,
     // and carried on the result so the publisher can say it out loud.
     let queueRemaining: number | undefined;
+    let seriesPlaylist: SeriesPlaylist | undefined;
 
     if (series.length > 0) {
       const arcs = await loadArcs(series);
@@ -183,6 +185,14 @@ if (isDirectRun) {
       payloadFile = episode.file;
       historyTopic = seriesTopic(episode.file);
       queueRemaining = unpublishedCount(arcs, history) - 1;
+
+      // Every part's title, so the publisher can fill the arc's playlist in
+      // order, including parts that went out before it had one.
+      const parts = await Promise.all(arc.episodes.map((part) => loadPayloadFile(part.file)));
+      seriesPlaylist = {
+        title: parts[0]?.seriesTitle || titleFromPrefix(arc.prefix),
+        partTitles: parts.map((part) => part.youtube?.title || part.title),
+      };
 
       console.log(`Series ${arc.prefix}: part ${episode.number} of ${arc.episodes.length}`);
       console.log(`Queue: ${queueRemaining} part(s) left after this one.`);
@@ -229,6 +239,10 @@ if (isDirectRun) {
 
     if (queueRemaining !== undefined) {
       summary.queueRemaining = queueRemaining;
+    }
+
+    if (seriesPlaylist) {
+      summary.series = seriesPlaylist;
     }
 
     if (stageDir) {
