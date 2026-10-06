@@ -1,0 +1,63 @@
+{
+  "title": "There's A New Shelf In The Cage",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "lp11-hook",
+      "text": "THERE'S A NEW SHELF",
+      "subtext": "It wasn't there yesterday.",
+      "narration": "There is a shelf in the lost property cage that was not there yesterday. It is empty.",
+      "durationInFrames": 205,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "new shelf",
+        "empty",
+        "cage"
+      ],
+      "imagePrompt": "A single empty steel shelf in the middle of a wire mesh cage full of crowded shelves of tagged belongings, the empty one bare and clean, no people, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "lp11-fact",
+      "text": "IT'S AS LONG AS I AM TALL",
+      "subtext": "I measured it.",
+      "narration": "It is longer than the others. I lay down beside it on the floor to measure it. It is exactly as long as I am tall.",
+      "durationInFrames": 302,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "measure",
+        "lying down",
+        "floor"
+      ],
+      "imagePrompt": "A person in a grey cardigan lying on a concrete floor beside a low steel shelf, seen from above, arms by their sides, face turned away and in shadow, no face visible, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "lp11-detail",
+      "text": "THERE'S A TAG ON IT",
+      "subtext": "Reserved.",
+      "narration": "There is a tag tied to the end of it, in my handwriting. Reserved. Nothing else.",
+      "durationInFrames": 194,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "tag",
+        "reserved",
+        "handwriting"
+      ],
+      "imagePrompt": "A brown luggage tag tied with string to the end of a bare steel shelf, swinging slightly, lit by a single bulb, no people, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "lp11-loop",
+      "text": "THE LOG HAS A NUMBER FOR IT",
+      "subtext": "Four hundred and fifty.",
+      "narration": "The log has a number for it. Item four hundred and fifty. The description is blank. They are leaving it to me.",
+      "durationInFrames": 259,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "item number",
+        "blank",
+        "log"
+      ],
+      "imagePrompt": "A ledger open at a new page with one numbered row and the rest of the line left blank, a fountain pen beside it, no people, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "title": "The Page With No Number",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "lp4-hook",
+      "text": "THERE'S A PAGE I NEVER TURNED",
+      "subtext": "Between forty-three and forty-five.",
+      "narration": "There is a page in the lost property log I have never turned. It sits between page forty-three and page forty-five, and it has no number.",
+      "durationInFrames": 302,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "page",
+        "ledger",
+        "no number"
+      ],
+      "imagePrompt": "A thick old ledger opened in the middle, one page standing upright between the others, edges yellowed, lit by a desk lamp, no people, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "lp4-fact",
+      "text": "IT GOES BACK THIRTY YEARS",
+      "subtext": "Every line is something of mine.",
+      "narration": "The entries on it go back thirty years. Every line is something I lost.",
+      "durationInFrames": 173,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "thirty years",
+        "old entries",
+        "faded ink"
+      ],
+      "imagePrompt": "Close-up of a ledger page of faded handwritten rows in several shades of ink, brown with age, too small to read, no people, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "lp4-detail",
+      "text": "MY SCHOOL BLAZER. 1991.",
+      "subtext": "I lost it on a trip.",
+      "narration": "My school blazer. A bicycle bell. The house key I lost in 1991, the week we moved.",
+      "durationInFrames": 205,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "school blazer",
+        "bicycle bell",
+        "house key"
+      ],
+      "imagePrompt": "A child's dark school blazer folded on a steel shelf beside an old bicycle bell and a single brass house key, each tied to a brown luggage tag, no people, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "lp4-loop",
+      "text": "CLAIMED BY: EMPTY",
+      "subtext": "Every line of it.",
+      "narration": "The claimed by column is empty all the way down. Nothing on that page has ever been collected. They are all on the shelves behind me.",
+      "durationInFrames": 302,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "claimed by",
+        "empty column",
+        "shelves"
+      ],
+      "imagePrompt": "Rows of steel shelves stretching back into darkness inside a wire mesh cage, crowded with old tagged belongings, no people, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    }
+  ]
+}

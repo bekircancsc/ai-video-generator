@@ -1,0 +1,63 @@
+{
+  "title": "Every Entry Is In My Handwriting",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "lp3-hook",
+      "text": "EVERY ENTRY IS MINE",
+      "subtext": "I wrote none of them.",
+      "narration": "Every entry in the lost property log this week is in my handwriting. I did not write any of them.",
+      "durationInFrames": 238,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "handwriting",
+        "log",
+        "entries"
+      ],
+      "imagePrompt": "Close-up of ledger pages filled with handwriting in faded ink, too small to read, one page edge curling under lamplight, no people, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "lp3-fact",
+      "text": "THEY'RE THERE IN THE MORNING",
+      "subtext": "On the counter. Already tagged.",
+      "narration": "I lock up at six. In the morning there are things on the counter, already tagged, already written in.",
+      "durationInFrames": 227,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "morning",
+        "counter",
+        "tagged items"
+      ],
+      "imagePrompt": "A wooden counter in a dim basement office with a scarf, a single glove and a set of keys lying on it, each tied to a brown luggage tag, no people, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "lp3-detail",
+      "text": "HANDED IN BY: NIGHT STAFF",
+      "subtext": "There is no night staff.",
+      "narration": "The handed in by column says the same every time. Night staff. Nobody works in this building at night.",
+      "durationInFrames": 227,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "column",
+        "night staff",
+        "empty building"
+      ],
+      "imagePrompt": "An empty office building stairwell at night, emergency lighting, a basement door at the bottom of the stairs standing half open, no people, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "lp3-loop",
+      "text": "IT'S NEATER THAN MINE",
+      "subtext": "The way I wrote when I started.",
+      "narration": "It is my handwriting, but neater. The way I wrote when I started here, nine years ago.",
+      "durationInFrames": 205,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "neat handwriting",
+        "nine years",
+        "pen"
+      ],
+      "imagePrompt": "An old fountain pen and a brass nib tin on a worn desk blotter covered in faint ink marks, lit by a single bulb, no people, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    }
+  ]
+}

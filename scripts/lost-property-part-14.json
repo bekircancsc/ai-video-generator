@@ -1,0 +1,63 @@
+{
+  "title": "The Last Entry Is Me",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "lp14-hook",
+      "text": "TONIGHT'S LAST ENTRY IS ME",
+      "subtext": "Item four hundred and fifty.",
+      "narration": "The last entry in the lost property log tonight is me. Item four hundred and fifty.",
+      "durationInFrames": 194,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "last entry",
+        "item 450",
+        "me"
+      ],
+      "imagePrompt": "A thick ledger open on the last written page under a desk lamp, a single brown luggage tag lying across it, no people, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "lp14-fact",
+      "text": "ONE CLERK. GREY CARDIGAN.",
+      "subtext": "Found: fourth floor.",
+      "narration": "One clerk, grey cardigan, reading glasses. Found on the fourth floor. Handed in by night staff.",
+      "durationInFrames": 194,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "description",
+        "grey cardigan",
+        "fourth floor"
+      ],
+      "imagePrompt": "A grey cardigan folded neatly on a steel shelf, a pair of reading glasses on top of it, a brown luggage tag tied to one button, no people, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "lp14-detail",
+      "text": "CLAIMED BY: EMPTY",
+      "subtext": "Like everything else.",
+      "narration": "The claimed by column is empty, like everything else in here. Nobody is expected to collect me.",
+      "durationInFrames": 205,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "claimed by",
+        "empty",
+        "unclaimed"
+      ],
+      "imagePrompt": "A long empty ruled column on an old ledger page, the lamp throwing the shadow of a pen across it, no people, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "lp14-loop",
+      "text": "THE TAG IS ALREADY WRITTEN",
+      "subtext": "On the counter. Waiting.",
+      "narration": "The tag is on the counter, already written, with a loop of string through it. It is just big enough to go round a wrist.",
+      "durationInFrames": 292,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "tag",
+        "string loop",
+        "wrist"
+      ],
+      "imagePrompt": "A brown luggage tag on a wooden counter with a small loop of string tied through it, the loop just wide enough for a wrist, no people, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    }
+  ]
+}

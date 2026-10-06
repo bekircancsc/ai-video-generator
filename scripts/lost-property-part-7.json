@@ -1,0 +1,63 @@
+{
+  "title": "He Rang About His Name Badge",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "lp7-hook",
+      "text": "HE LOST HIS BADGE. IT HAS MY NAME.",
+      "subtext": "He read it to me.",
+      "narration": "A man phoned the lost property office to ask if anyone had handed in his name badge. He read me the name on it. It was mine.",
+      "durationInFrames": 313,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "phone call",
+        "name badge",
+        "my name"
+      ],
+      "imagePrompt": "An old beige desk telephone with a coiled cord on a cluttered desk under a lamp, the receiver lifted off its cradle, no people, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "lp7-fact",
+      "text": "I HAVE MY BADGE ON",
+      "subtext": "I looked down to check.",
+      "narration": "I am wearing my badge. I looked down to check while he was talking.",
+      "durationInFrames": 173,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "badge",
+        "lanyard",
+        "cardigan"
+      ],
+      "imagePrompt": "A plastic staff badge clipped to a grey cardigan, the photo on it blurred, seen from above as if looking down at one's own chest, no face visible, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "lp7-detail",
+      "text": "HE KNEW WHICH SHELF",
+      "subtext": "Third shelf. Behind the umbrellas.",
+      "narration": "He asked me to look on the third shelf, behind the umbrellas. There was a badge there. Same name. Same photo.",
+      "durationInFrames": 248,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "third shelf",
+        "umbrellas",
+        "same badge"
+      ],
+      "imagePrompt": "Behind a row of tagged black umbrellas on a steel shelf, a small plastic staff badge lying face down, lit through wire mesh, no people, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "lp7-loop",
+      "text": "HE SAID HE'D COLLECT IT",
+      "subtext": "He didn't give a time.",
+      "narration": "I asked when he would collect it. He said he works nights. Then he said thank you, in my voice, and put the phone down.",
+      "durationInFrames": 292,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "collect",
+        "nights",
+        "dial tone"
+      ],
+      "imagePrompt": "A telephone receiver hanging off the edge of a desk on its coiled cord, swinging slightly, the room dark around it, no people, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    }
+  ]
+}

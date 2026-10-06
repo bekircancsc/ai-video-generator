@@ -1,0 +1,63 @@
+{
+  "title": "Logged Before I Lost Them",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "lp2-hook",
+      "text": "LOGGED AT TEN. LOST AT SIX.",
+      "subtext": "My reading glasses.",
+      "narration": "My reading glasses were handed in at ten this morning. I lost them on the bus at six tonight.",
+      "durationInFrames": 227,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "reading glasses",
+        "bus",
+        "evening"
+      ],
+      "imagePrompt": "A pair of folded reading glasses on the empty back seat of a night bus, the window beside them dark and streaked, no people, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "lp2-fact",
+      "text": "THE LOG SAYS TEN",
+      "subtext": "In my handwriting.",
+      "narration": "I keep the lost property log for this building. The entry is in my handwriting. Glasses, tortoiseshell. Handed in, ten in the morning.",
+      "durationInFrames": 270,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "log book",
+        "entry",
+        "handwriting"
+      ],
+      "imagePrompt": "A heavy ledger open on a desk, columns of faded handwritten entries too small to read, a fountain pen lying across the page, no people, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "lp2-detail",
+      "text": "I WAS WEARING THEM AT TEN",
+      "subtext": "Reading that same log.",
+      "narration": "At ten this morning I was wearing them. I was reading that same log through them.",
+      "durationInFrames": 194,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "glasses",
+        "reading",
+        "desk lamp"
+      ],
+      "imagePrompt": "A person in a grey cardigan bent over a ledger at a desk under a lamp, seen from behind over the shoulder, no face visible, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "lp2-loop",
+      "text": "THEY'RE ON THE SHELF NOW",
+      "subtext": "Tagged. Waiting.",
+      "narration": "They are on the shelf now with a tag on them. I have not taken them back. I want to see who comes.",
+      "durationInFrames": 270,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "shelf",
+        "tag",
+        "waiting"
+      ],
+      "imagePrompt": "A pair of reading glasses on a steel shelf in a wire mesh cage, a brown luggage tag tied to one arm on string, no people, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    }
+  ]
+}

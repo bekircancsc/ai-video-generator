@@ -1,0 +1,63 @@
+{
+  "title": "I'm On The Shelf Now",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "lp15-hook",
+      "text": "THIS MORNING I'M ON THE SHELF",
+      "subtext": "Item four hundred and fifty.",
+      "narration": "This morning I am on the shelf in the lost property cage. The new one. There is a tag around my wrist.",
+      "durationInFrames": 259,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "on the shelf",
+        "tag on wrist",
+        "cage"
+      ],
+      "imagePrompt": "Inside a wire mesh cage, a figure lying on a long steel shelf in a grey cardigan, a brown luggage tag tied around one wrist, face turned to the wall, no face visible, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "lp15-fact",
+      "text": "SOMEONE'S AT MY COUNTER",
+      "subtext": "In my cardigan.",
+      "narration": "Somebody has opened the office. He is wearing my cardigan and my glasses, and he hangs his keys on my belt clip.",
+      "durationInFrames": 259,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "counter",
+        "cardigan",
+        "keys"
+      ],
+      "imagePrompt": "A person in a grey cardigan standing behind a wooden counter seen from inside a wire mesh cage, back to the camera, lit by a single bulb, no face visible, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "lp15-detail",
+      "text": "HE NEVER LOOKS AT THE SHELVES",
+      "subtext": "He just writes.",
+      "narration": "He does not look at the shelves. He opens the log and writes, in my handwriting, neater than mine.",
+      "durationInFrames": 227,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "writing",
+        "log",
+        "neat handwriting"
+      ],
+      "imagePrompt": "A hand writing in a thick ledger with a fountain pen, a grey cardigan sleeve at the wrist, the rest of the person out of frame, no face visible, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "lp15-loop",
+      "text": "SOMEBODY HANDED IN MY WALLET",
+      "subtext": "It's in my pocket.",
+      "narration": "There is something on the counter for him already. He is patting his pocket. Somebody handed in my wallet today.",
+      "durationInFrames": 238,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "wallet",
+        "counter",
+        "pocket"
+      ],
+      "imagePrompt": "A worn brown leather wallet lying on a scratched wooden counter with a brown luggage tag tied to it on string, a brass counter bell beside it, no people, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    }
+  ]
+}

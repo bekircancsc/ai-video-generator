@@ -1,0 +1,63 @@
+{
+  "title": "Everything Was Found On Four",
+  "fps": 30,
+  "aspectRatio": "9:16",
+  "scenes": [
+    {
+      "id": "lp8-hook",
+      "text": "EVERYTHING WAS FOUND ON FOUR",
+      "subtext": "Every item this month.",
+      "narration": "Every item handed in to lost property this month was found on the fourth floor. This building does not have a fourth floor.",
+      "durationInFrames": 270,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "fourth floor",
+        "every item",
+        "tags"
+      ],
+      "imagePrompt": "Dozens of brown luggage tags hanging on strings from the shelves of a wire mesh lost property cage, all turned the same way, no people, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "lp8-fact",
+      "text": "THE LIFT SKIPS FROM THREE TO FIVE",
+      "subtext": "No button for it.",
+      "narration": "I went up to look. The lift panel goes three, then five. The stairs go from three to five without a landing.",
+      "durationInFrames": 259,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "lift panel",
+        "three to five",
+        "stairs"
+      ],
+      "imagePrompt": "An old brass lift button panel in a dim lift car, round buttons glowing amber, seen at an angle with the numbers too soft to read, no people, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "lp8-detail",
+      "text": "BUILDING SERVICES LAUGHED",
+      "subtext": "Then they stopped.",
+      "narration": "I asked building services which floor that means. They laughed. Then they asked who had written the tags.",
+      "durationInFrames": 216,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "building services",
+        "question",
+        "office"
+      ],
+      "imagePrompt": "A dim back office with a cluttered desk and a clipboard of maintenance sheets, an empty swivel chair turned away, no people, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    },
+    {
+      "id": "lp8-loop",
+      "text": "I SAID I HAD",
+      "subtext": "That's what the log says.",
+      "narration": "I said I had. That is what the log says. I just do not remember going there.",
+      "durationInFrames": 205,
+      "themeColor": "#a8903c",
+      "keywords": [
+        "log",
+        "remember",
+        "handwriting"
+      ],
+      "imagePrompt": "A person in a grey cardigan standing alone at the bottom of a stairwell, looking up into the dark, seen from behind, no face visible, photographed on grainy 35mm film under a single bare tungsten bulb, the whole frame colour-graded warm amber like sodium light with no grey or blue cast, heavy analog grain"
+    }
+  ]
+}
