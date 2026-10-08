@@ -1,0 +1,46 @@
+# Fills the playlists of finished arcs, which the nightly publish never visits
+# again. Uploads nothing and renders nothing; repeating it adds nothing twice.
+
+name: Sync arc playlists
+
+on:
+  workflow_dispatch:
+    inputs:
+      series:
+        description: Arcs to sync, separated by spaces
+        default: scripts/floor-four scripts/night-shift scripts/do-not-answer scripts/before-this-one
+        required: true
+
+# The same group as the publish, so a sync and a nightly run never insert into
+# one playlist at once.
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Sync
+        env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          SERIES: ${{ inputs.series }}
+        run: |
+          args=()
+          for arc in $SERIES; do args+=(--series "$arc"); done
+          node --import tsx src/pipeline/sync-playlists.ts "${args[@]}"

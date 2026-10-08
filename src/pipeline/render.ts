@@ -16,7 +16,7 @@ import { buildResult, type RunFailure } from "../services/result";
 import { appendHistory, readHistory, recentTitles } from "../services/history";
 import { exhaustedQueueMessage, loadArcs, nextInQueue, seriesTopic, unpublishedCount } from "../services/series";
 import { stageOutputs } from "../services/stage";
-import { titleFromPrefix, type SeriesPlaylist } from "../services/playlist";
+import { arcPlaylist, type SeriesPlaylist } from "../services/playlist";
 import { saveDraft } from "../services/draft";
 import type { VideoPayload } from "../types/video";
 import type { ScriptBrief } from "../services/script-schema";
@@ -188,11 +188,7 @@ if (isDirectRun) {
 
       // Every part's title, so the publisher can fill the arc's playlist in
       // order, including parts that went out before it had one.
-      const parts = await Promise.all(arc.episodes.map((part) => loadPayloadFile(part.file)));
-      seriesPlaylist = {
-        title: parts[0]?.seriesTitle || titleFromPrefix(arc.prefix),
-        partTitles: parts.map((part) => part.youtube?.title || part.title),
-      };
+      seriesPlaylist = await arcPlaylist(arc);
 
       console.log(`Series ${arc.prefix}: part ${episode.number} of ${arc.episodes.length}`);
       console.log(`Queue: ${queueRemaining} part(s) left after this one.`);

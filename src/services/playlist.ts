@@ -1,3 +1,5 @@
+import { loadPayloadFile } from "./script-provider";
+import type { QueuedArc } from "./series";
 import { describeYouTubeError, VIDEO_LANGUAGE } from "./youtube";
 
 const API_URL = "https://www.googleapis.com/youtube/v3";
@@ -24,6 +26,16 @@ export function titleFromPrefix(prefix: string): string {
     .filter(Boolean)
     .map((word) => word[0].toUpperCase() + word.slice(1))
     .join(" ");
+}
+
+/** An arc's playlist title and every written part's title, read from its payloads. */
+export async function arcPlaylist(arc: QueuedArc): Promise<SeriesPlaylist> {
+  const parts = await Promise.all(arc.episodes.map((part) => loadPayloadFile(part.file)));
+
+  return {
+    title: parts[0]?.seriesTitle || titleFromPrefix(arc.prefix),
+    partTitles: parts.map((part) => part.youtube?.title || part.title),
+  };
 }
 
 /**
@@ -144,7 +156,8 @@ async function uploadsByTitle(token: string): Promise<Map<string, string>> {
  * Makes the arc's playlist hold every part uploaded so far, in order.
  *
  * `justUploaded` is passed in rather than looked up, because a video uploaded
- * seconds ago is not reliably in the uploads listing yet.
+ * seconds ago is not reliably in the uploads listing yet. A sync with nothing
+ * just uploaded, for an arc that has finished, leaves it out.
  */
 export async function syncSeriesPlaylist({
   token,
@@ -153,11 +166,14 @@ export async function syncSeriesPlaylist({
 }: {
   token: string;
   series: SeriesPlaylist;
-  justUploaded: { title: string; videoId: string };
+  justUploaded?: { title: string; videoId: string };
 }): Promise<{ playlistId: string; added: number; created: boolean }> {
   const { id: playlistId, created } = await findOrCreatePlaylist(token, series.title);
   const uploads = await uploadsByTitle(token);
-  uploads.set(justUploaded.title, justUploaded.videoId);
+
+  if (justUploaded) {
+    uploads.set(justUploaded.title, justUploaded.videoId);
+  }
 
   const existing = created
     ? new Set<string>()

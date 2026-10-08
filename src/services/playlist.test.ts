@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { plannedAdditions, syncSeriesPlaylist, titleFromPrefix } from "./playlist";
+import { arcPlaylist, plannedAdditions, syncSeriesPlaylist, titleFromPrefix } from "./playlist";
+import { loadArcs } from "./series";
 
 test("an arc with no title of its own is named after its prefix", () => {
   assert.equal(titleFromPrefix("scripts/camera-six"), "Camera Six");
@@ -146,4 +147,12 @@ test("pages are followed to the end", async () => {
       assert.equal(result.playlistId, "PL");
     },
   );
+});
+
+test("an arc's playlist is read from its own payloads, in part order", async () => {
+  const [arc] = await loadArcs(["scripts/floor-four"]);
+  const series = await arcPlaylist(arc);
+
+  assert.equal(series.title, "Please Do Not Press Four");
+  assert.equal(series.partTitles.length, 5);
 });
