@@ -116,6 +116,20 @@ async function fetchWithTimeout(url: string, init?: RequestInit): Promise<Respon
   }
 }
 
+/**
+ * Pollinations answers 200 with a weaker model than the one asked for when it
+ * does not accept the caller, and says so only in headers. That swap went
+ * unnoticed for a week, so it is logged; a request served as asked says nothing.
+ */
+export function warnIfModelSwapped(response: Response, requested: string): void {
+  const served = response.headers.get("x-model-used");
+
+  if (served && served !== requested) {
+    const auth = response.headers.get("x-auth-status") ?? "unknown";
+    console.warn(`[imagery] pollinations served ${served} instead of ${requested} (auth: ${auth})`);
+  }
+}
+
 async function generateWithPollinations(prompt: string, seed: number, config: ImageConfig): Promise<Buffer> {
   const query = new URLSearchParams({
     width: String(config.width),
@@ -138,6 +152,7 @@ async function generateWithPollinations(prompt: string, seed: number, config: Im
       const response = await fetchWithTimeout(url, init);
 
       if (response.ok) {
+        warnIfModelSwapped(response, config.model);
         return Buffer.from(await response.arrayBuffer());
       }
 

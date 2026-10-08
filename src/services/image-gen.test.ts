@@ -6,6 +6,7 @@ import {
   describeImageError,
   generateImage,
   resolveImageConfig,
+  warnIfModelSwapped,
 } from "./image-gen";
 
 test("defaults to the keyless provider", () => {
@@ -199,4 +200,18 @@ test("generating with the none provider is a programming error", async () => {
     () => generateImage("x", 1, resolveImageConfig({ IMAGE_PROVIDER: "none" })),
     /none/
   );
+});
+
+test("a model swap is logged, a request served as asked is not", (t) => {
+  const warn = t.mock.method(console, "warn", () => {});
+  const served = (model: string) =>
+    new Response(null, { headers: { "x-model-used": model, "x-auth-status": "unauthenticated" } });
+
+  warnIfModelSwapped(served("flux"), "flux");
+  warnIfModelSwapped(new Response(null), "flux");
+  assert.equal(warn.mock.callCount(), 0);
+
+  warnIfModelSwapped(served("sana"), "flux");
+  assert.equal(warn.mock.callCount(), 1);
+  assert.match(String(warn.mock.calls[0].arguments[0]), /served sana instead of flux \(auth: unauthenticated\)/);
 });
