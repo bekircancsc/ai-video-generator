@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { arcPlaylist, plannedAdditions, syncSeriesPlaylist, titleFromPrefix } from "./playlist";
+import { arcPlaylist, plannedAdditions, PLAYLIST_RETRY_DELAYS_MS, syncSeriesPlaylist, titleFromPrefix } from "./playlist";
 import { loadArcs } from "./series";
 
 test("an arc with no title of its own is named after its prefix", () => {
@@ -155,4 +155,64 @@ test("an arc's playlist is read from its own payloads, in part order", async () 
 
   assert.equal(series.title, "Please Do Not Press Four");
   assert.equal(series.partTitles.length, 5);
+});
+
+async function withStatuses(statusFor: (method: string, resource: string, attempt: number) => number, run: (inserts: () => number) => Promise<void>) {
+  const original = globalThis.fetch;
+  const delays = PLAYLIST_RETRY_DELAYS_MS.splice(0, Infinity, 0, 0);
+  let inserts = 0;
+
+  globalThis.fetch = (async (input: any, init?: RequestInit) => {
+    const method = init?.method ?? "GET";
+    const resource = new URL(String(input)).pathname.split("/").pop() ?? "";
+    const insert = resource === "playlistItems" && method === "POST";
+    const status = insert ? statusFor(method, resource, inserts++) : 200;
+
+    if (status !== 200) return new Response('{"error":{"status":"ABORTED"}}', { status });
+    if (resource === "playlists" && method === "GET") return new Response(JSON.stringify({ items: [] }));
+    if (resource === "playlists") return new Response(JSON.stringify({ id: "new" }));
+    if (resource === "channels") return new Response(JSON.stringify({ items: [{ contentDetails: { relatedPlaylists: { uploads: "UU" } } }] }));
+    if (resource === "playlistItems" && method === "GET") return new Response(JSON.stringify(uploadsPage));
+    return new Response("{}");
+  }) as typeof globalThis.fetch;
+
+  try {
+    await run(() => inserts);
+  } finally {
+    globalThis.fetch = original;
+    PLAYLIST_RETRY_DELAYS_MS.splice(0, Infinity, ...delays);
+  }
+}
+
+const twoParts = { title: "Arc", partTitles: ["Part One", "Part Two"] };
+
+test("an aborted insert is sent again rather than failing the sync", async () => {
+  await withStatuses(
+    (_method, _resource, attempt) => (attempt === 1 ? 409 : 200),
+    async (inserts) => {
+      const { added } = await syncSeriesPlaylist({ token: "t", series: twoParts });
+      assert.equal(added, 2);
+      assert.equal(inserts(), 3);
+    },
+  );
+});
+
+test("an insert that keeps aborting gives up after the retries", async () => {
+  await withStatuses(
+    () => 409,
+    async (inserts) => {
+      await assert.rejects(() => syncSeriesPlaylist({ token: "t", series: twoParts }), /409/);
+      assert.equal(inserts(), PLAYLIST_RETRY_DELAYS_MS.length + 1);
+    },
+  );
+});
+
+test("a refused insert is not retried", async () => {
+  await withStatuses(
+    () => 403,
+    async (inserts) => {
+      await assert.rejects(() => syncSeriesPlaylist({ token: "t", series: twoParts }));
+      assert.equal(inserts(), 1);
+    },
+  );
 });

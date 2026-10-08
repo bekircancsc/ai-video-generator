@@ -66,21 +66,38 @@ export function plannedAdditions(
 
 type Page<T> = { items?: T[]; nextPageToken?: string };
 
+/**
+ * Inserts into one playlist in quick succession are sometimes answered 409
+ * "The operation was aborted" (SERVICE_UNAVAILABLE): nothing was written, and
+ * the same request a few seconds later goes through. Only that answer and a
+ * 503 are retried, so a request that may have landed is never sent twice.
+ */
+export const PLAYLIST_RETRY_DELAYS_MS = [3_000, 10_000];
+const RETRYABLE_STATUSES = new Set([409, 503]);
+
 async function call<T>(token: string, method: "GET" | "POST", resource: string, params: Record<string, string>, body?: unknown): Promise<T> {
-  const response = await fetch(`${API_URL}/${resource}?${new URLSearchParams(params)}`, {
-    method,
-    headers: {
-      authorization: `Bearer ${token}`,
-      ...(body === undefined ? {} : { "content-type": "application/json" }),
-    },
-    body: body === undefined ? undefined : JSON.stringify(body),
-  });
+  for (let attempt = 0; ; attempt++) {
+    const response = await fetch(`${API_URL}/${resource}?${new URLSearchParams(params)}`, {
+      method,
+      headers: {
+        authorization: `Bearer ${token}`,
+        ...(body === undefined ? {} : { "content-type": "application/json" }),
+      },
+      body: body === undefined ? undefined : JSON.stringify(body),
+    });
 
-  if (!response.ok) {
-    throw describeYouTubeError(response.status, await response.text());
+    if (response.ok) {
+      return (await response.json()) as T;
+    }
+
+    const text = await response.text();
+
+    if (!RETRYABLE_STATUSES.has(response.status) || attempt >= PLAYLIST_RETRY_DELAYS_MS.length) {
+      throw describeYouTubeError(response.status, text);
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, PLAYLIST_RETRY_DELAYS_MS[attempt]));
   }
-
-  return (await response.json()) as T;
 }
 
 async function listAll<T>(token: string, resource: string, params: Record<string, string>): Promise<T[]> {
