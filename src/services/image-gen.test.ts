@@ -182,6 +182,24 @@ test("a pollinations token travels in a header, not the URL", async () => {
   );
 });
 
+test("a token-holding request asks for a URL the anonymous cache has not seen", async () => {
+  const urls: string[] = [];
+
+  await withFetch(
+    (async (input: any) => {
+      urls.push(String(input));
+      return new Response(new Uint8Array([1]), { status: 200 });
+    }) as typeof globalThis.fetch,
+    async () => {
+      await generateImage("x", 1, { ...resolveImageConfig({}), retryDelaysMs: [] });
+      await generateImage("x", 1, { ...resolveImageConfig({ IMAGE_API_KEY: "tok" }), retryDelaysMs: [] });
+    }
+  );
+
+  assert.doesNotMatch(urls[0], /private/);
+  assert.match(urls[1], /private=true/);
+});
+
 test("the default config waits for pollinations rather than giving up at once", () => {
   assert.ok((resolveImageConfig({}).retryDelaysMs ?? []).length > 0);
 });
@@ -202,7 +220,7 @@ test("generating with the none provider is a programming error", async () => {
   );
 });
 
-test("a model swap is logged, a request served as asked is not", (t) => {
+test("a model swap or a cache hit is logged, a request served as asked is not", (t) => {
   const warn = t.mock.method(console, "warn", () => {});
   const served = (model: string) =>
     new Response(null, { headers: { "x-model-used": model, "x-auth-status": "unauthenticated" } });
@@ -214,4 +232,8 @@ test("a model swap is logged, a request served as asked is not", (t) => {
   warnIfModelSwapped(served("sana"), "flux");
   assert.equal(warn.mock.callCount(), 1);
   assert.match(String(warn.mock.calls[0].arguments[0]), /served sana instead of flux \(auth: unauthenticated\)/);
+
+  warnIfModelSwapped(new Response(null, { headers: { "x-cache": "HIT" } }), "flux");
+  assert.equal(warn.mock.callCount(), 2);
+  assert.match(String(warn.mock.calls[1].arguments[0]), /cached/);
 });

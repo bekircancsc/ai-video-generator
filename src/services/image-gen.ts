@@ -120,8 +120,15 @@ async function fetchWithTimeout(url: string, init?: RequestInit): Promise<Respon
  * Pollinations answers 200 with a weaker model than the one asked for when it
  * does not accept the caller, and says so only in headers. That swap went
  * unnoticed for a week, so it is logged; a request served as asked says nothing.
+ * A cache hit carries no model header at all, so it is logged too, or silence
+ * would mean either.
  */
 export function warnIfModelSwapped(response: Response, requested: string): void {
+  if (response.headers.get("x-cache")?.toUpperCase() === "HIT") {
+    console.warn(`[imagery] pollinations returned a cached picture; the model that drew it is unknown`);
+    return;
+  }
+
   const served = response.headers.get("x-model-used");
 
   if (served && served !== requested) {
@@ -138,6 +145,11 @@ async function generateWithPollinations(prompt: string, seed: number, config: Im
     // The seed comes from the scene id, so a rerun without a cache draws the same picture.
     seed: String(seed),
     nologo: "true",
+    // The CDN in front of pollinations caches by exact URL and ignores the
+    // token, so without this a token-holding run is handed whatever an
+    // anonymous request for the same scene got earlier — sana's picture. The
+    // extra parameter gives authenticated requests URLs of their own.
+    ...(config.apiKey ? { private: "true" } : {}),
   });
 
   const url = `${POLLINATIONS_URL}/${encodeURIComponent(prompt)}?${query}`;
