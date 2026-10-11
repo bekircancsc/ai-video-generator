@@ -250,5 +250,11 @@
     "slug": "somebody-handed-in-my-wallet",
     "title": "Somebody Handed In My Wallet",
     "topic": "series:lost-property-part-1.json"
+  },
+  {
+    "date": "2026-10-11",
+    "slug": "logged-before-i-lost-them",
+    "title": "Logged Before I Lost Them",
+    "topic": "series:lost-property-part-2.json"
   }
 ]
