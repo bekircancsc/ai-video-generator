@@ -256,5 +256,11 @@
     "slug": "logged-before-i-lost-them",
     "title": "Logged Before I Lost Them",
     "topic": "series:lost-property-part-2.json"
+  },
+  {
+    "date": "2026-10-12",
+    "slug": "every-entry-is-in-my-handwriting",
+    "title": "Every Entry Is In My Handwriting",
+    "topic": "series:lost-property-part-3.json"
   }
 ]
